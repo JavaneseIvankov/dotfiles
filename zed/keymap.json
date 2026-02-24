@@ -1,0 +1,84 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "shift shift": "file_finder::Toggle"
+    }
+  },
+  {
+    "bindings": {
+      // "ctrl-l": "workspace::ToggleRightDock",
+      "ctrl-t": "workspace::ToggleBottomDock",
+      "ctrl-q": "pane::CloseActiveItem",
+      "ctrl-w v": "pane::SplitVertical",
+      "ctrl-w d": "pane::SplitDown",
+
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w j": "workspace::ActivatePaneDown",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w l": "workspace::ActivatePaneRight"
+    }
+  },
+  {
+    "context": "Editor && vim_mode != normal && vim_mode != visual",
+    "bindings": {
+      "j k": ["workspace::SendKeystrokes", "escape"],
+      "ctrl-a": ["vim::EndOfLine", { "display_lines": false }],
+      "ctrl-i": ["workspace::SendKeystrokes", "ctrl-o I"]
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space i": ["workspace::SendKeystrokes", "I"],
+      "space a": ["workspace::SendKeystrokes", "A"],
+      "space m": "workspace::ToggleZoom",
+
+      "space f f": "file_finder::Toggle",
+      "space f i": "vim::Search",
+      "space f a": "workspace::NewSearch",
+      "space f o": "outline::Toggle",
+      "space f s": "project_symbols::Toggle",
+
+      "ctrl-b": "workspace::ToggleLeftDock",
+      "space r a": "editor::Rename",
+      "space w": "workspace::Save",
+      "space q": "pane::CloseActiveItem",
+      "space Q": "pane::CloseInactiveItems",
+
+      "g a": "agent::ToggleFocus",
+      "=": "editor::AutoIndent",
+      "H": "editor::Hover",
+      "K": "pane::ActivateNextItem",
+      "J": "pane::ActivatePreviousItem",
+      "g f": "vim::NextMethodStart",
+      "g F": "vim::PreviousMethodStart",
+      "g e": "editor::GoToDiagnostic",
+      "g E": "editor::GoToPreviousDiagnostic"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "n": "vim::SelectNext",
+      "N": "vim::SelectPrevious",
+      "A": "editor::SelectAllMatches",
+      "e": "vim::SelectLargerSyntaxNode",
+      "E": "vim::SelectSmallerSyntaxNode"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-n": "workspace::NewTerminal",
+      "ctrl-t": "workspace::ToggleBottomDock"
+    }
+  }
+]

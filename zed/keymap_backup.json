@@ -1,0 +1,51 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "shift shift": "file_finder::Toggle"
+    }
+  },
+  {
+    "bindings": {
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-t": ["terminal_panel::ToggleFocus", { "working_directory": "" }]
+    }
+  },
+  {
+    "context": "Editor && vim_mode != normal && vim_mode != visual",
+    "bindings": {
+      "j k": ["workspace::SendKeystrokes", "escape"]
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "f f": "file_finder::Toggle",
+      "ctrl-b": "workspace::ToggleLeftDock",
+      "space r a": "editor::Rename",
+      "ctrl-q": "pane::CloseActiveItem",
+      "space q": "pane::CloseActiveItem",
+      "space Q": "pane::CloseInactiveItems",
+      "K": "pane::ActivateNextItem",
+      "J": "pane::ActivatePreviousItem"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "n": "vim::SelectNext",
+      "N": "vim::SelectPrevious",
+      "A": "editor::SelectAllMatches"
+    }
+  }
+]

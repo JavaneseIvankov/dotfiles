@@ -1,0 +1,32 @@
+return {
+	"williamboman/mason.nvim",
+	opts = {
+		ensure_installed = {
+			"html-lsp",
+			"json-lsp",
+			"lua-language-server",
+			"prettierd",
+			"prettier",
+			"typescript-language-server",
+			"pyright",
+			"flake8",
+			"black",
+			"mypy",
+			"debugpy",
+			"isort",
+			"pylint",
+			"clangd",
+			"textlab",
+			"jdtls",
+			"quick-lint-js",
+			"emmet-language-server",
+			"kotlin-language-server",
+			"gopls",
+			"marksman",
+		},
+		automatic_installation = true,
+		ui = {
+			border = "rounded",
+		},
+	},
+}

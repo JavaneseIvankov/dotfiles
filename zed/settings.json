@@ -1,0 +1,129 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+//
+// Zed Clean & Minimal Settings
+{
+  "agent": {
+    "default_profile": "ask",
+    "model_parameters": [],
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4.1"
+    },
+    "version": "2"
+  },
+  "icon_theme": "Bearded Icon Theme",
+  "base_keymap": "VSCode",
+
+  // Editor UI
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "ui_font_family": "Hack Nerd Font",
+
+  // "buffer_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_family": "MonaspiceAr Nerd Font",
+  "buffer_font_size": 16,
+  // "buffer_font_weight": 500,
+
+  // Disable tracking
+  "telemetry": {
+    "metrics": false,
+    "crash_reports": false
+  },
+
+  // Theme customization
+  "theme": {
+    "mode": "dark",
+    "light": "Gruvbox Dark Hard",
+    "dark": "Gruber Darker"
+  },
+
+  // Clean look
+  "editor": {
+    "highlight_active_line": false,
+    "scroll_past_end": false,
+    "render_whitespace": false
+  },
+
+  "indent_guides": {
+    "active_line_width": 2
+  },
+
+  "relative_line_numbers": true,
+  "line_indicator_format": "short",
+
+  "breadcrumbs": false, // hides file path bar
+  "minimap": {
+    "show": "never"
+  }, // disable minimap
+
+  // Optional: reduce distractions
+  "notifications": {
+    "show_toasts": false
+  },
+
+  // Control which items are shown/hidden in the title bar
+  "title_bar": {
+    "show_branch_icon": true, // Show/hide branch icon beside branch switcher
+    "show_branch_name": true, // Show/hide branch name
+    "show_project_items": true, // Show/hide project host and name
+    "show_onboarding_banner": false, // Show/hide onboarding banners
+    "show_user_picture": true, // Show/hide user avatar
+    "show_sign_in": false, // Show/hide sign-in button
+    "show_menus": false // Show/hide menus
+  },
+
+  "project_panel": {
+    "dock": "right",
+    "scrollbar": {
+      "show": "never"
+    },
+    "indent_guides": {
+      "show": "never"
+    }
+  },
+
+  // Optional: hide tab bar if only one file open
+  "tabs": {
+    "show_single_tab": false
+  },
+
+  "max_tabs": 3,
+
+  "tab_bar": {
+    "show": true,
+    "show_nav_history_buttons": false
+  },
+
+  "toolbar": {
+    "breadcrumbs": false,
+    "quick_actions": false
+  },
+
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+
+  "diagnostics": {
+    "button": true,
+    "include_warnings": true,
+    "inline": {
+      "enabled": true,
+      "update_debounce_ms": 150,
+      "padding": 4,
+      "min_column": 0,
+      "max_severity": "error"
+    },
+    "cargo": null
+  },
+
+  "file_finder": {
+    "skip_focus_for_active_in_search": true
+  }
+}

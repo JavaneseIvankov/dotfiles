@@ -1,0 +1,57 @@
+daemonize
+show-failed-attempts
+clock
+screenshot
+effect-blur=9x5
+effect-vignette=0.5:0.5
+
+# Base background with alpha (softened purple/blue hint)
+color=120f1fcc
+
+font="JetBrains Mono Nerd Font Mono"
+indicator
+indicator-radius=200
+indicator-thickness=20
+
+# Default ring (cooler complementary tones)
+line-color=1c1b1aff
+ring-color=4488ffff           # Bright sky blue
+inside-color=1c1b1aff
+key-hl-color=d45affff         # Bright magenta-purple
+separator-color=00000000
+text-color=d8dee9ff           # Light neutral (like nord theme)
+text-caps-lock-color=ffdd57ff # Warm yellow for caps
+
+# Verifying state (orange contrast)
+line-ver-color=1c1b1aff
+ring-ver-color=ff8600ff
+inside-ver-color=1c1b1aff
+text-ver-color=ffdfafff       # Soft cream text
+
+# Wrong password state (sharper red tone)
+ring-wrong-color=ff3c38ff     # Brighter red
+text-wrong-color=ff3c38ff
+inside-wrong-color=1c1b1aff
+
+# Clearing state (greener highlight)
+inside-clear-color=1c1b1aff
+text-clear-color=b8ffaaff     # Light greenish
+ring-clear-color=74dd5aff     # Brighter lime green
+line-ver-color=1c1b1aff
+
+# Backspace highlight
+line-wrong-color=1c1b1aff
+bs-hl-color=ff3c38ff          # Matches wrong-color red
+
+# Grace period settings
+grace=1
+grace-no-mouse
+grace-no-touch
+
+# Time and date display
+datestr=%a, %B %e
+timestr=%I:%M %p
+
+# Transition
+fade-in=0.2
+ignore-empty-password

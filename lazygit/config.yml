@@ -1,0 +1,19 @@
+customCommands:
+  - key: "<c-l>"
+    context: "files"
+    command: "lumen draft | tee >(wl-copy >/dev/null 2>&1 &)"
+    loadingText: "Generating message..."
+    output: popup
+  - key: "<c-k>"
+    context: "files"
+    command: "lumen draft -c {{.Form.Context | quote}} | tee >(wl-copy >/dev/null 2>&1 &)"
+    loadingText: "Generating message..."
+    prompts:
+      - type: "input"
+        title: "Context"
+        key: "Context"
+    output: popup
+git:
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
