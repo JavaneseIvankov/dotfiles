@@ -1,0 +1,87 @@
+* {
+    border: none;
+    border-radius: 0;
+    /* font-family: Roboto, Helvetica, Arial, sans-serif; */
+    font-family: JetBrainsMono Nerd Font;
+    font-size: 13px;
+    min-height: 0;
+}
+
+.module {
+  padding-left: 5px;
+  margin-bottom: 2px;
+  padding-right: 5px;
+  background-color: rgba(0, 0, 0,  0.5);
+  border-radius: 4px;
+}
+
+window#waybar {
+    background: rgba(0, 0, 0, 0.9);
+    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    color: white;
+}
+
+tooltip {
+  background: black;
+  border: 1px solid rgba(100, 114, 125, 0.5);
+  border-radius: 6px
+}
+tooltip label {
+  color: white;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background: transparent;
+    color: white;
+    border-bottom: 3px solid transparent;
+}
+
+#workspaces button.active {
+    border-bottom: 2px solid white;
+}
+
+#workspaces button.urgent {
+    border-bottom: 4px solid red;
+}
+
+
+#mode, #clock, #battery #connection {
+    /* padding: 0 10px; */
+}
+
+#mode {
+    background: #64727D;
+    border-bottom: 3px solid white;
+}
+
+#clock {
+    background-color: #64727D;
+}
+
+/* #battery { */
+/*     background-color: #ffffff; */
+/*     color: black; */
+/* } */
+
+#battery.charging {
+    color: white;
+    background-color: #26A65B;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+
+#battery.warning:not(.charging) {
+    background: #f53c3c;
+    color: white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}

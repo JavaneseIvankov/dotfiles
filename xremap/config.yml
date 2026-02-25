@@ -1,0 +1,9 @@
+modmap:
+  - remap:
+      LEFTALT: RIGHTSHIFT
+      CAPSLOCK: ESC
+      ESC: CAPSLOCK
+
+keymap:
+  - remap:
+      RIGHTSHIFT-SPACE: ENTER

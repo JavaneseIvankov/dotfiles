@@ -39,10 +39,10 @@ link "$HOME/dotfiles/lazygit" "$HOME/.config/lazygit"
 link "$HOME/dotfiles/zed" "$HOME/.config/zed"
 link "$HOME/dotfiles/scripts" "$HOME/scripts"
 link "$HOME/dotfiles/zsh/sheldon" "$HOME/.config/sheldon"
+link "$HOME/dotfiles/waybar" "$HOME/.config/waybar"
+link "$HOME/dotfiles/xremap" "$HOME/.config/xremap"
+link "$HOME/dotfiles/swaylock" "$HOME/.config/swaylock"
 link "$HOME/dotfiles/code/argv.json" "$HOME/.config/Code/argv.json"
 
 link "$HOME/dotfiles/zsh/.zshrc" "$HOME/.zshrc"
 link "$HOME/dotfiles/zsh/.zprofile" "$HOME/.zprofile"
-
-# Keyd config (requires sudo)
-link "$HOME/dotfiles/keyd/default.conf" "/etc/keyd/default.conf" "sudo"

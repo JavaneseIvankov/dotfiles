@@ -30,6 +30,12 @@ use = [
     "pure.zsh",
 ]
 
+[plugins.should-use]
+github = "MichaelAquilina/zsh-you-should-use"
+
+[plugins.syntax-highlight]
+github = "zsh-users/zsh-syntax-highlighting"
+
 # For example:
 #
 # [plugins.base16]
