@@ -33,8 +33,11 @@ use = [
 [plugins.should-use]
 github = "MichaelAquilina/zsh-you-should-use"
 
+[plugins.dot-up]
+github = "toku-sa-n/zsh-dot-up"
+
 [plugins.syntax-highlight]
-github = "zsh-users/zsh-syntax-highlighting"
+github = "zdharma-continuum/fast-syntax-highlighting"
 
 # For example:
 #

@@ -34,6 +34,7 @@ link() {
 
 # User-level configs
 link "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
+link "$HOME/dotfiles/fuzzel" "$HOME/.config/fuzzel"
 link "$HOME/dotfiles/hypr" "$HOME/.config/hypr"
 link "$HOME/dotfiles/lazygit" "$HOME/.config/lazygit"
 link "$HOME/dotfiles/zed" "$HOME/.config/zed"
@@ -42,6 +43,7 @@ link "$HOME/dotfiles/zsh/sheldon" "$HOME/.config/sheldon"
 link "$HOME/dotfiles/waybar" "$HOME/.config/waybar"
 link "$HOME/dotfiles/xremap" "$HOME/.config/xremap"
 link "$HOME/dotfiles/swaylock" "$HOME/.config/swaylock"
+link "$HOME/dotfiles/tmux" "$HOME/.config/tmux"
 link "$HOME/dotfiles/code/argv.json" "$HOME/.config/Code/argv.json"
 
 link "$HOME/dotfiles/zsh/.zshrc" "$HOME/.zshrc"

@@ -13,7 +13,11 @@ customCommands:
         title: "Context"
         key: "Context"
     output: popup
-git:
-  pagers:
-    - colorArg: always
-      pager: delta --dark --paging=never
+os:
+  customPagers:
+    - command: difftastic --color=always
+      colorArg: --color=always
+# git:
+#   pagers:
+#     - colorArg: always
+#       pager: delta --dark --paging=never
