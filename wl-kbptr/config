@@ -1,0 +1,56 @@
+# wl-kbptr can be configured with a configuration file.
+# The file location can be passed with the -c parameter.
+# Othewise the `$XDG_CONFIG_HOME/wl-kbptr/config` file will
+# be loaded if it exits. Below is the default configuration.
+
+[general]
+home_row_keys=
+modes=tile,bisect
+cancellation_status_code=0
+
+[mode_tile]
+label_color=#ebdbb2
+label_select_color=#fabd2f
+unselectable_bg_color=#00000055
+selectable_bg_color=#3c38369a
+selectable_border_color=#a89984aa
+label_font_family=sans-serif
+label_font_size=15 100% 100
+label_symbols=abcdefghijklmnopqrstuvwxyz
+
+[mode_floating]
+source=stdin
+label_color=#ebdbb2
+label_select_color=#fabd2f
+unselectable_bg_color=#00000055
+selectable_bg_color=#3c38369a
+selectable_border_color=#a89984aa
+label_font_family=sans-serif
+label_font_size=16 100% 100
+label_symbols=abcdefghijklmnopqrstuvwxyz
+
+[mode_bisect]
+label_color=#ebdbb2
+label_font_size=26
+label_font_family=sans-serif
+label_padding=18
+pointer_size=30
+pointer_color=#fe8019ff
+unselectable_bg_color=#00000055
+even_area_bg_color=#3c383655
+even_area_border_color=#a89984aa
+odd_area_bg_color=#50494555
+odd_area_border_color=#b8bb26aa
+history_border_color=#ebdbb288
+
+[mode_split]
+pointer_size=30
+pointer_color=#fe8019ff
+bg_color=#28282855
+area_bg_color=#3c383655
+vertical_color=#8ec07caa
+horizontal_color=#b8bb26aa
+history_border_color=#ebdbb288
+
+[mode_click]
+button=left

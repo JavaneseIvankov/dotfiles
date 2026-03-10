@@ -11,13 +11,10 @@ source $DOTFILES/zsh/history-settings.zsh
 source $DOTFILES/zsh/plugins-settings.zsh
 
 alias syndot='$DOTFILES/install.sh'
-alias zen-browser='flatpak run app.zen_browser.zen'
 alias n='nvim'
 alias nn='nvim .'
 alias lg='lazygit'
 alias lzd='lazydocker'
-alias zen-browser='flatpak run app.zen_browser.zen'
-alias c='clear'
 
 alias -g H='| head'
 alias -g L='| less'
@@ -27,3 +24,4 @@ alias -g W='| wc -l'
 alias -g J='| jq .'
 alias -g T="| tr -d '\n' "
 alias -g C="| wl-copy"
+

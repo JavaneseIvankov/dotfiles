@@ -37,7 +37,8 @@ display() {
   lines="$((count + 1))"
   [[ "$count" -gt 20 ]] && lines=20
 
-  sel="$(printf "%s" "$content" | fuzzel -a top --y-margin 40 --dmenu -p 'OPEN:' -l "$lines" 2>/dev/null)"
+  sel="$(printf "%s" "$content" | fuzzel -a top --y-margin 40 --dmenu -l "$lines" -p 'OPEN:'  2>/dev/null)"
+#   sel="$(printf "%s" "$content" | walker --dmenu 2>/dev/null)"
   sel="${sel%/}"  # Trim trailing slash from directories
 
   [[ -z "$sel" ]] && echo "" && return

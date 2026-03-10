@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Clipboard Manager
+Exec=/home/arundaya/scripts/cliphist-fuzzel-img.sh
+Type=Application
+Categories=Productivity;
+Terminal=false

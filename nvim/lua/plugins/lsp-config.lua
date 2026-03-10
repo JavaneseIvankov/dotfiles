@@ -35,16 +35,7 @@ return {
 		-- setup_server("ts_ls")
 		setup_server("vtsls")
 		setup_server("emmet_language_server")
-
-		setup_server("kotlin_language_server")
-
-		setup_server("gopls")
-
 		setup_server("lua_ls")
-
 		setup_server("marksman")
-
-		setup_server("hls")
-		setup_server("haskell_language_server")
 	end,
 }
