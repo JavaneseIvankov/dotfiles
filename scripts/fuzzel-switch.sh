@@ -59,7 +59,7 @@ switch_cdp() {
 
     curl -s "http://localhost:9222/json/activate/$tab_id" > /dev/null || true
 
-    sleep 0.1
+   #  sleep 0.1
 
     result="$(niri msg --json windows \
         | jq -r --arg title "$selected" \
@@ -75,10 +75,23 @@ TAB_PREFIX="${TAB_PREFIX:-[.t]  }"
 declare -A action_for
 list=""
 
+is_excluded_app_id() {
+   appId="$1"
+   case "$appId" in
+       "brave-browser")
+           return 0
+           ;;
+       *)
+           return 1
+           ;;
+   esac
+}
+
 # Niri windows
 parsed="$(niri msg --json windows | jq -r '.[] | "\(.id)\t\(.app_id)\t\(.title)"')"
 while IFS=$'\t' read -r id app_id title; do
     [ -z "$id" ] && continue
+    is_excluded_app_id "$app_id" && continue
     base_display="${aliases[$id]:-$title}"
     display_text="$base_display ($app_id)"
     icon="$(get_desktop_name "$app_id")"
@@ -102,7 +115,8 @@ if [ -n "$tabs" ]; then
     while IFS=$'\t' read -r title tabid; do
         [ -z "$title" ] && continue
         display_text="${TAB_PREFIX}${title}"
-        icon="web-browser"
+        # icon="web-browser"
+        icon="$(get_desktop_name "brave-browser")"
         action_for["$display_text"]="cdp:$tabid"
         list+="$display_text\0icon\x1f$icon\n"
     done <<< "$tabs"

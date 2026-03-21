@@ -360,11 +360,14 @@ binds {
     // shows a list of important hotkeys.
     Alt+Shift+Slash { show-hotkey-overlay; }
 
+    Alt+Shift+A { spawn-sh "pkill -x waybar && echo '' || waybar --config ~/.config/waybar/config.niri.jsonc &"; }
+
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Alt+Return repeat=false hotkey-overlay-title="Open a Terminal: alacritty" { spawn "kitty"; }
     Alt+D repeat=false hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Alt+W repeat=false hotkey-overlay-title="Run Window Switcher: fuzzel" { spawn "~/scripts/fuzzel-switch.sh"; }
-    Alt+E repeat=false hotkey-overlay-title="Run File Picker: fuzzel" { spawn "~/scripts/fuzzel-file-explorer.sh"; }
+    Alt+Shift+E repeat=false hotkey-overlay-title="Run File Picker: fuzzel" { spawn "~/scripts/fuzzel-file-explorer.sh"; }
+    Alt+E repeat=false hotkey-overlay-title="General submap: wlr-which-key" { spawn "wlr-which-key"; }
     Alt+Backslash repeat=false hotkey-overlay-title="Open file explorer" { spawn "thunar"; }
     Alt+Shift+R repeat=false hotkey-overlay-title="Run Window Switcher: fuzzel" { spawn "~/scripts/fuzzel-niri-rename-current-window.sh"; }
     Alt+Shift+T repeat=false hotkey-overlay-title="Run Window Renamer: fuzzel" { spawn "~/scripts/fuzzel-niri-rename-current-workspace.sh"; }

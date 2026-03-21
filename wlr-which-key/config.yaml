@@ -1,22 +1,22 @@
 # Theming
 font: JetBrainsMono Nerd Font 12
-background: "#282828d0"
+background: "#010101ff"
 color: "#fbf1c7"
-border: "#8ec07c"
+border: "#333A3F"
 separator: " ➜ "
 border_width: 2
-corner_r: 10
+corner_r: 0
 padding: 15 # Defaults to corner_r
 rows_per_column: 5 # No limit by default
 column_padding: 25 # Defaults to padding
 
 # Anchor and margin
-anchor: center # One of center, left, right, top, bottom, bottom-left, top-left, etc.
+anchor: top-left # One of center, left, right, top, bottom, bottom-left, top-left, etc.
 # Only relevant when anchor is not center
-margin_right: 0
-margin_bottom: 0
-margin_left: 0
-margin_top: 0
+margin_right: 10
+margin_bottom: 10
+margin_left: 10
+margin_top: 10
 
 # namespace to use for the layer shell surface
 # namespace: "wlr_which_key"
@@ -29,24 +29,39 @@ inhibit_compositor_keyboard_shortcuts: true
 auto_kbd_layout: true
 
 menu:
+  - key: "e"
+    desc: Launch
+    submenu:
+      -  key: "b"
+         desc: Browser
+         cmd: 'brave-browser-stable --remote-debugging-port=9222'
+      -  key: "a"
+         desc: Ask AI
+         cmd: 'brave-browser-stable --remote-debugging-port=9222 --new-window "https://chatgpt.com/?temporary-chat=true"'
+      -  key: "p"
+         desc: SuperProd
+         cmd: '~/scripts/launch-or-focus.sh superProductivity "flatpak run com.super_productivity.SuperProductivity"'
   - key: "p"
     desc: Power
     submenu:
       - key: "s"
         desc: Sleep
-        cmd: systemctl suspend
-      - key: "r"
-        desc: Reboot
-        cmd: reboot
+        cmd: 'swaylock --grace 0; systemctl suspend'
       - key: "o"
-        desc: Off
-        cmd: poweroff
+        desc: "power-danger-layer"
+        submenu:
+          - key: "r"
+            desc: Reboot
+            cmd: reboot
+          - key: "o"
+            desc: Off
+            cmd: poweroff
+      - key: "l"
+        desc: Lock
+        cmd: swaylock --grace 1
   - key: "l"
     desc: Laptop Screen
     submenu:
-      - key: "t"
-        desc: Toggle On/Off
-        cmd: toggle-laptop-display.sh
       - key: "s"
         desc: Scale
         submenu:
