@@ -9,10 +9,10 @@
 
 .module {
   padding-left: 5px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
   padding-right: 5px;
   background-color: rgba(0, 0, 0,  0.5);
-  border-radius: 4px;
+  border-radius: 0px;
 }
 
 window#waybar {
@@ -24,7 +24,7 @@ window#waybar {
 tooltip {
   background: black;
   border: 1px solid rgba(100, 114, 125, 0.5);
-  border-radius: 6px
+  border-radius: 0px
 }
 tooltip label {
   color: white;

@@ -316,6 +316,14 @@ window-rule {
   default-window-height { fixed 600; }
 }
 
+window-rule {
+    match app-id=r#"fzfmenu"#
+    open-floating true
+    min-width 600
+    max-width 800
+    max-height 600
+    open-on-workspace "launcher"
+}   
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 window-rule {

@@ -17,7 +17,9 @@ os:
   customPagers:
     - command: difftastic --color=always
       colorArg: --color=always
-# git:
-#   pagers:
-#     - colorArg: always
-#       pager: delta --dark --paging=never
+  editPreset: "nvim"
+
+git:
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never

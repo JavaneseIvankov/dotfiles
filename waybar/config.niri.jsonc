@@ -12,19 +12,22 @@
     ],
     "modules-right": [
         "mpd",
+        "custom/separator",
         "idle_inhibitor",
+        "custom/separator",
         "pulseaudio",
-        "network",
+        "custom/separator",
         "power-profiles-daemon",
+        "custom/separator",
         "cpu",
+        "custom/separator",
         "memory",
+        "custom/separator",
         "temperature",
-        "backlight",
-        "keyboard-state",
+        "custom/separator",
         "battery",
-        // "battery#bat2",
         "clock",
-        "tray",
+        "tray"
     ],
     "keyboard-state": {
         "numlock": true,
@@ -143,7 +146,7 @@
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": "󰝟 {icon} {format_source}",
         "format-muted": "󰝟 {format_source}",
-        "format-source": "{volume}% ",
+        "format-source": " {volume}% ",
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
@@ -182,5 +185,9 @@
 			"suspend": "systemctl suspend",
 			"hibernate": "systemctl hibernate"
 		}
+    },
+    "custom/separator": {
+        "format": "|",
+        "interval": "once"
     }
 }

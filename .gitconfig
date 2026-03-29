@@ -1,0 +1,9 @@
+[user]
+	email = runsworkspace@gmail.com
+	name = arundaya
+[credential]
+  helper = cache --timeout 30000
+	helper = oauth
+[push]
+  default = upstream
+

@@ -55,3 +55,4 @@ link "$HOME/dotfiles/desktop-entry" "$HOME/.local/share/applications/desktop-ent
 
 link "$HOME/dotfiles/zsh/.zshrc" "$HOME/.zshrc"
 link "$HOME/dotfiles/zsh/.zprofile" "$HOME/.zprofile"
+link "$HOME/dotfiles/.gitconfig" "$HOME/.gitconfig"

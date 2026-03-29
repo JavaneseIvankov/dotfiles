@@ -41,6 +41,9 @@ menu:
       -  key: "p"
          desc: SuperProd
          cmd: '~/scripts/launch-or-focus.sh superProductivity "flatpak run com.super_productivity.SuperProductivity"'
+  - key: "n"
+    desc: Notification
+    cmd: swaync-client -t
   - key: "p"
     desc: Power
     submenu:
