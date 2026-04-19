@@ -619,8 +619,8 @@ binds {
 
     Super+S { screenshot-screen; }
     Super+Shift+S { screenshot; }
-    Alt+Ctrl+S { spawn "sh" "-c" "grim - | wl-copy"; }
-    Alt+Shift+S { spawn "sh" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
+    Alt+Ctrl+S { spawn "sh" "-c" "grim - | wl-copy; notify-send 'full screenshot copied to clipboard'"; }
+    Alt+Shift+S { spawn "sh" "-c" "~/scripts/area-screenshot.sh"; }
     Super+Ctrl+S { screenshot-window; }
 
     // Applications such as remote-desktop clients and software KVM switches may
