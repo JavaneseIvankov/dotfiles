@@ -16,6 +16,7 @@ alias nn='nvim .'
 alias lg='lazygit'
 alias lzd='lazydocker'
 alias pn='pnpm'
+alias batcon='~/scripts/ideapad-battery-conservation.sh'
 
 alias -g H='| head'
 alias -g L='| less'
