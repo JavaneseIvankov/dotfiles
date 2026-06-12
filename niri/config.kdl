@@ -101,6 +101,12 @@ layout {
     // center-focused-column "always"
     center-focused-column "never"
 
+    tab-indicator {
+      place-within-column
+      active-color "#26A65B"
+      inactive-color "#090909"
+    }
+
     // You can customize the widths that "switch-preset-column-width" (Alt+R) toggles between.
     preset-column-widths {
         // Proportion sets the width as a fraction of the output width, taking gaps into account.
@@ -253,7 +259,6 @@ spawn-sh-at-startup "waybar --config ~/.config/waybar/config.niri.jsonc &"
 spawn-sh-at-startup "wl-paste --watch cliphist store &"
 spawn-sh-at-startup "swww-daemon &"
 spawn-sh-at-startup "xremap --watch ~/.config/xremap/config.yml &"
-spawn-sh-at-startup "walker --gapplication-service &"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.

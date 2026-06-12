@@ -11,3 +11,7 @@ export PATH=/home/arundaya/go:$PATH
 
 export EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/code
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/arundaya/.local/bin:$PATH"
