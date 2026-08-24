@@ -1,41 +1,54 @@
 return {
-	"neovim/nvim-lspconfig",
-	keys = {
-		-- { "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Go to definition" },
-	},
-	config = function()
-		local lspconfig = require("lspconfig")
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  "neovim/nvim-lspconfig",
+  config = function()
+    -- 1. Definisikan Capabilities (untuk autocompletion)
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-		-- Helper function for common LSP setups
-		local function setup_server(server_name, config)
-			config = config or {}
-			config.capabilities = capabilities
-			lspconfig[server_name].setup(config)
-		end
+    -- 2. Fungsi pembantu untuk setup Native LSP
+    local function enable_server(server_name, opts)
+      opts = opts or {}
+      -- Gabungkan capabilities bawaan dengan custom opts
+      opts.capabilities = vim.tbl_deep_extend("force", capabilities, opts.capabilities or {})
+      
+      -- Daftarkan konfigurasi ke Neovim
+      vim.lsp.config(server_name, opts)
+      -- Aktifkan server (ini otomatis memasang autocommands untuk FileType terkait)
+      vim.lsp.enable(server_name)
+    end
 
-		-- Python LSP
-		setup_server("pyright", {
-			root_dir = function(fname)
-				return lspconfig.util.find_git_ancestor(fname) or vim.fn.getcwd()
-			end,
-			settings = {
-				python = {
-					analysis = {
-						autoSearchPaths = true,
-						useLibraryCodeForTypes = true,
-						diagnosticMode = "workspace",
-						typeCheckingMode = "loose",
-					},
-				},
-			},
-		})
+    -- 3. Setup Python (Pyright) dengan konfigurasi khusus
+    enable_server("pyright", {
+      -- Migrasi root_dir ke vim.fs (Native) menggantikan lspconfig.util
+      root_dir = function(fname)
+        return vim.fs.dirname(vim.fs.find(".git", { path = fname, upward = true })[1]) or vim.fn.getcwd()
+      end,
+      settings = {
+        python = {
+          analysis = {
+            autoSearchPaths = true,      -- Diubah ke camelCase
+            useLibraryCodeForTypes = true,
+            diagnosticMode = "workspace",
+            typeCheckingMode = "loose",
+          },
+        },
+      },
+    })
 
-		-- TypeScript/JavaScript LSP
-		-- setup_server("ts_ls")
-		setup_server("vtsls")
-		setup_server("emmet_language_server")
-		setup_server("lua_ls")
-		setup_server("marksman")
-	end,
+    enable_server("gopls", {
+      cmd = { "/home/arundaya/go/bin/gopls" },
+    })
+
+    -- 4. Setup Server Standar
+    local servers = {
+      "vtsls",
+      "emmet_language_server",
+      "lua_ls",
+      "marksman",
+      "bashls", -- Perbaikan nama: 'bash-language-server' -> 'bashls'
+    }
+
+    for _, server in ipairs(servers) do
+      enable_server(server)
+    end
+  end,
 }

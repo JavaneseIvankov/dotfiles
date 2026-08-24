@@ -9,6 +9,7 @@ return {
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 			"neovim/nvim-lspconfig",
+			"onsails/lspkind.nvim",
 			dependencies = {
 				"plugins.lsp-config",
 			},
@@ -23,6 +24,7 @@ return {
 						require("luasnip").lsp_expand(args.body)
 					end,
 				},
+
 				window = {
 					completion = cmp.config.window.bordered(),
 					documentation = cmp.config.window.bordered(),
@@ -33,6 +35,24 @@ return {
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<C-n>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
@@ -44,6 +64,11 @@ return {
 				completion = {
 					keyword_length = 2,
 				},
+				format = require("lspkind").cmp_format({
+					mode = "symbol_text",
+					maxwidth = 50,
+					ellipsis_char = "…",
+				}),
 			})
 
 			-- Setup for `/` and `?`
@@ -63,6 +88,9 @@ return {
 				}, {
 					{ name = "cmdline" },
 				}),
+				matching = {
+					disallow_symbol_nonprefix_matching = false,
+				},
 			})
 		end,
 	},

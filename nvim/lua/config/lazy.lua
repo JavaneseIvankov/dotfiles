@@ -34,7 +34,7 @@ require("lazy").setup({
 	checker = { enabled = true },
 })
 
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("flexoki")
 require("lualine").setup()
 require("config.autocmds")
 require("config.keymaps")

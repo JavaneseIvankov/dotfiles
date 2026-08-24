@@ -9,26 +9,6 @@
 //
 // Zed Clean & Minimal Settings
 {
-   "expand_excerpt_lines": 7,
-   "agent": {
-      "dock": "right",
-      "profiles": {
-         "janitor": {
-            "name": "janitor",
-            "tools": {},
-            "enable_all_context_servers": false,
-            "context_servers": {}
-         }
-      },
-      "default_model": {
-         "provider": "9router",
-         "model": "cheap",
-         "enable_thinking": true,
-         "effort": "xhigh",
-      },
-      "favorite_models": [],
-      "model_parameters": [],
-   },
    "language_models": {
       "openai_compatible": {
          "9router": {
@@ -67,7 +47,7 @@
                   },
                },
                {
-                  "name": "balanced",
+                  "name": "balance",
                   "max_tokens": 200000,
                   "max_output_tokens": 32000,
                   "max_completion_tokens": 200000,
@@ -87,7 +67,6 @@
       },
    },
    "edit_predictions": {
-      "provider": "copilot",
       "allow_data_collection": "no",
    },
    "agent_servers": {
@@ -150,6 +129,18 @@
    "show_whitespaces": "selection",
    "wrap_guides": [],
    "tab_size": 3,
+   "agent": {
+      "play_sound_when_agent_done": "when_hidden",
+      "single_file_review": true,
+      "default_profile": "write",
+      "model_parameters": [],
+      "default_model": {
+         "effort": "medium",
+         "enable_thinking": true,
+         "provider": "9router",
+         "model": "cheap",
+      },
+   },
    "icon_theme": "Bearded Icon Theme",
    "base_keymap": "VSCode",
 
@@ -172,7 +163,14 @@
    "theme": {
       "mode": "dark",
       "light": "Gruvbox Dark Hard",
-      "dark": "Flexoki Dark",
+      "dark": "Ayu Dark",
+   },
+
+   // Clean look
+   "editor": {
+      "highlight_active_line": false,
+      "scroll_past_end": false,
+      "render_whitespace": false,
    },
 
    "indent_guides": {
@@ -182,14 +180,19 @@
    "relative_line_numbers": "enabled",
    "line_indicator_format": "short",
 
+   "breadcrumbs": false, // hides file path bar
    "minimap": {
       "show": "never",
    }, // disable minimap
 
+   // Optional: reduce distractions
+   "notifications": {
+      "show_toasts": false,
+   },
+
    // Control which items are shown/hidden in the title bar
    "title_bar": {
-      // Show/hide branch icon beside branch switcher
-      "show_branch_status_icon": true,
+      "show_branch_icon": true, // Show/hide branch icon beside branch switcher
       "show_branch_name": true, // Show/hide branch name
       "show_project_items": true, // Show/hide project host and name
       "show_onboarding_banner": false, // Show/hide onboarding banners
@@ -208,6 +211,11 @@
       },
    },
 
+   // Optional: hide tab bar if only one file open
+   "tabs": {
+      "show_single_tab": false,
+   },
+
    "max_tabs": 3,
 
    "tab_bar": {
@@ -220,6 +228,10 @@
       "quick_actions": false,
    },
 
+   "features": {
+      "edit_prediction_provider": "copilot",
+   },
+
    "diagnostics": {
       "button": true,
       "include_warnings": true,
@@ -230,6 +242,7 @@
          "min_column": 0,
          "max_severity": "error",
       },
+      "cargo": null,
    },
 
    "file_finder": {

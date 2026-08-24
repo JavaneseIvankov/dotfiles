@@ -1,3 +1,7 @@
+
+# # Kiro CLI pre block. Keep at the top of this file.
+# [[ -f "${HOME}/.local/share/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zshrc.pre.zsh"
+
 autoload -Uz compinit
 compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
@@ -19,6 +23,7 @@ alias pn='pnpm'
 alias batcon='~/scripts/ideapad-battery-conservation.sh'
 alias pa='php artisan'
 alias task='go-task'
+alias open='xdg-open'
 
 alias -g H='| head'
 alias -g L='| less'
@@ -36,8 +41,16 @@ hash -d dl='/home/arundaya/Downloads'
 export PATH="/home/arundaya/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/home/arundaya/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 export GOPATH="/home/arundaya/go"
-export GOPATH=$PATH:$GOPATH/bin
-
+export PATH="$GOPATH/bin:$PATH"
+export PATH="/home/arundaya/.cargo/bin:$PATH"
 
 # Added by Antigravity CLI installer
 export PATH="/home/arundaya/.local/bin:$PATH"
+
+
+# Kiro CLI post block. Keep at the bottom of this file.
+# [[ -f "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zshrc.post.zsh"
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

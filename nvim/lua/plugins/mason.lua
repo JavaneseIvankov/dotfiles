@@ -23,6 +23,7 @@ return {
 			"kotlin-language-server",
 			"gopls",
 			"marksman",
+      "bash-language-server"
 		},
 		automatic_installation = true,
 		ui = {

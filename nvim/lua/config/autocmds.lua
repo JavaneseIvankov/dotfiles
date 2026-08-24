@@ -26,3 +26,30 @@ o.splitright = true
 o.splitbelow = true -- When on, splitting a window will put the new window below the current one
 o.termguicolors = true
 o.conceallevel = 1
+o.confirm = true -- Prompts you to save unsaved changes before exiting
+o.textwidth = 80
+o.wrapmargin = 10
+o.breakindent = true
+o.breakindentopt = "shift:2,min:20,sbr"
+o.linebreak = true
+o.ignorecase = true
+o.smartcase = true
+
+vim.api.nvim_create_autocmd("VimEnter", {
+	group = vim.api.nvim_create_augroup("auto_restore_session", { clear = true }),
+	nested = true,
+	callback = function()
+		if vim.fn.argc() == 0 then
+			require("persistence").load()
+		end
+	end,
+})
+
+vim.api.nvim_create_autocmd("CmdlineEnter", {
+	pattern = ":*",
+	command = "set nosmartcase",
+})
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+	pattern = ":*",
+	command = "set smartcase",
+})

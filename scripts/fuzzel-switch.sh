@@ -3,8 +3,10 @@
 set -euo pipefail
 
 ALIAS_FILE="$HOME/.cache/hypr-window-aliases"
+CDP_ALIAS_FILE="$HOME/.cache/cdp-tab-aliases"
 mkdir -p "$(dirname "$ALIAS_FILE")"
 touch "$ALIAS_FILE"
+touch "$CDP_ALIAS_FILE"
 
 get_desktop_name() {
     "$(dirname "$0")/get_desktop_name.sh" "$1"
@@ -14,6 +16,42 @@ declare -A aliases
 while IFS='|' read -r addr alias; do
     [ -n "${addr:-}" ] && aliases["$addr"]="$alias"
 done < "$ALIAS_FILE"
+
+declare -A cdp_aliases
+while IFS='|' read -r tabid url alias; do
+    [ -n "${tabid:-}" ] || continue
+    cdp_aliases["$tabid"]="$alias"
+done < "$CDP_ALIAS_FILE"
+
+cleanup_cdp_aliases() {
+    local tmpfile tabid url alias
+
+    tmpfile="$(mktemp)"
+    while IFS='|' read -r tabid url alias; do
+        [ -n "${tabid:-}" ] || continue
+        [ -n "${active_cdp_tabs[$tabid]:-}" ] && printf '%s|%s|%s\n' "$tabid" "$url" "$alias" >> "$tmpfile"
+    done < "$CDP_ALIAS_FILE"
+    mv "$tmpfile" "$CDP_ALIAS_FILE"
+}
+
+domain_from_url() {
+    local url="$1"
+    local domain
+
+    domain="${url#*://}"
+    domain="${domain%%/*}"
+    domain="${domain#*@}"
+    domain="${domain%%:*}"
+    printf '%s' "$domain"
+}
+
+decode_html_entities() {
+    sed -e 's/&amp;/\&/g' \
+        -e 's/&lt;/</g' \
+        -e 's/&gt;/>/g' \
+        -e 's/&quot;/"/g' \
+        -e "s/&#39;/'/g"
+}
 
 switch_niri() {
     parsed="$(niri msg --json windows | jq -r '.[] | "\(.id)\t\(.app_id)\t\(.title)"' 2>/dev/null || true)"
@@ -44,11 +82,7 @@ switch_niri() {
 switch_cdp() {
     tabs=$(curl -s http://localhost:9222/json \
         | jq -r '.[] | select(.type == "page") | "\(.title)\t\(.id)"' \
-        | sed -e 's/&amp;/\&/g' \
-              -e 's/&lt;/</g' \
-              -e 's/&gt;/>/g' \
-              -e 's/&quot;/"/g' \
-              -e "s/&#39;/'/g")
+        | decode_html_entities)
 
     [ -z "$tabs" ] && echo "No CDP tabs found" && return 1
 
@@ -72,8 +106,23 @@ switch_cdp() {
 TAB_PREFIX="${TAB_PREFIX:-[.t]  }"
 
 # Build a single combined list containing Niri windows and CDP tabs.
-declare -A action_for
+declare -a action_by_index
+declare -a cdp_title_by_index
+declare -A active_cdp_tabs
+action_by_index=()
+cdp_title_by_index=()
 list=""
+
+add_entry() {
+    local display_text="$1"
+    local icon="$2"
+    local action="$3"
+    local index
+
+    index="${#action_by_index[@]}"
+    action_by_index["$index"]="$action"
+    list+="$display_text\0icon\x1f$icon\n"
+}
 
 is_excluded_app_id() {
    appId="$1"
@@ -95,37 +144,45 @@ while IFS=$'\t' read -r id app_id title; do
     base_display="${aliases[$id]:-$title}"
     display_text="$base_display ($app_id)"
     icon="$(get_desktop_name "$app_id")"
-    action_for["$display_text"]="niri:$id"
-    list+="$display_text\0icon\x1f$icon\n"
+    add_entry "$display_text" "$icon" "niri:$id"
 done <<< "$parsed"
 
 # CDP tabs (fetch safely; tolerate missing CDP endpoint)
 tabs_json="$(curl -s --max-time 1 http://localhost:9222/json 2>/dev/null || true)"
 tabs=""
 if [ -n "$tabs_json" ]; then
-    tabs="$(printf '%s' "$tabs_json" | jq -r '.[] | select(.type == "page") | "\(.title)\t\(.id)"' 2>/dev/null || true)"
-    tabs="$(printf '%s' "$tabs" | sed -e 's/&amp;/\&/g' \
-          -e 's/&lt;/</g' \
-          -e 's/&gt;/>/g' \
-          -e 's/&quot;/"/g' \
-          -e "s/&#39;/'/g")"
+    tabs="$(printf '%s' "$tabs_json" | jq -r '.[] | select(.type == "page") | "\(.title)\t\(.id)\t\(.url // "")"' 2>/dev/null | decode_html_entities || true)"
 fi
 
 if [ -n "$tabs" ]; then
-    while IFS=$'\t' read -r title tabid; do
+    while IFS=$'\t' read -r title tabid url; do
         [ -z "$title" ] && continue
-        display_text="${TAB_PREFIX}${title}"
+        [ -z "$tabid" ] && continue
+        active_cdp_tabs["$tabid"]=1
+        alias="${cdp_aliases[$tabid]:-}"
+        base_display="${alias:-$title}"
+        domain="$(domain_from_url "$url")"
+        if [ -n "$domain" ]; then
+            display_text="${TAB_PREFIX}${base_display} (${domain})"
+        else
+            display_text="${TAB_PREFIX}${base_display}"
+        fi
         # icon="web-browser"
         icon="$(get_desktop_name "brave-browser")"
-        action_for["$display_text"]="cdp:$tabid"
-        list+="$display_text\0icon\x1f$icon\n"
+        index="${#action_by_index[@]}"
+        add_entry "$display_text" "$icon" "cdp:$tabid"
+        cdp_title_by_index["$index"]="$title"
     done <<< "$tabs"
 fi
 
-sel="$(printf "%b" "$list" | fuzzel --icon-theme Papirus -d -p 'SWITCH:')"
+if [ -n "$tabs_json" ]; then
+    cleanup_cdp_aliases
+fi
+
+sel="$(printf "%b" "$list" | fuzzel --icon-theme Papirus -d --index -p 'SWITCH:')"
 [ -z "$sel" ] && exit 0
 
-action="${action_for[$sel]:-}"
+action="${action_by_index[$sel]:-}"
 case "$action" in
     niri:*)
         id="${action#niri:}"
@@ -136,11 +193,7 @@ case "$action" in
         [ -n "$tabid" ] && {
             curl -s "http://localhost:9222/json/activate/$tabid" > /dev/null || true
             # attempt to focus the browser window whose title contains the tab title
-            if [[ "$sel" == "$TAB_PREFIX"* ]]; then
-                selected_title="${sel:${#TAB_PREFIX}}"
-            else
-                selected_title="$sel"
-            fi
+            selected_title="${cdp_title_by_index[$sel]:-}"
             sleep 0.1
             result="$(niri msg --json windows \
                 | jq -r --arg title "$selected_title" \

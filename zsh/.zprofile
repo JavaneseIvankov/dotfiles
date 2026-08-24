@@ -1,3 +1,7 @@
+
+# # Kiro CLI pre block. Keep at the top of this file.
+# [[ -f "${HOME}/.local/share/kiro-cli/shell/zprofile.pre.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zprofile.pre.zsh"
+
 # .zprofile
 
 # User specific environment and startup programs
@@ -15,3 +19,7 @@ export VISUAL=/usr/bin/code
 
 # Added by Antigravity CLI installer
 export PATH="/home/arundaya/.local/bin:$PATH"
+
+
+# Kiro CLI post block. Keep at the bottom of this file.
+# [[ -f "${HOME}/.local/share/kiro-cli/shell/zprofile.post.zsh" ]] && builtin source "${HOME}/.local/share/kiro-cli/shell/zprofile.post.zsh"

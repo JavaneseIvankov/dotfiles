@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=ApiDog
+Exec=/home/arundaya/.local/bin/apidog
+Type=Application
+Categories=Development;
+Terminal=false

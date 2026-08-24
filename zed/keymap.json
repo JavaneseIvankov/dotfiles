@@ -6,79 +6,104 @@
 // To see the default key bindings run `zed: open default keymap`
 // from the command palette.
 [
-  {
-    "context": "Workspace",
-    "bindings": {
-      "shift shift": "file_finder::Toggle"
-    }
-  },
-  {
-    "bindings": {
-      // "ctrl-l": "workspace::ToggleRightDock",
-      "ctrl-t": "workspace::ToggleBottomDock",
-      "ctrl-q": "pane::CloseActiveItem",
-      "ctrl-w v": "pane::SplitVertical",
-      "ctrl-w d": "pane::SplitDown",
+   {
+      "context": "Workspace",
+      "bindings": {
+         "shift shift": "file_finder::Toggle",
+         "space f p": "command_palette::Toggle",
+         "space f r": "command_palette::Toggle",
+         "ctrl-shift-a": "agent::ToggleFocus",
+         "space g a": "agent::ToggleFocus",
+      },
+   },
+   {
+      "unbind": {
+         "ctrl-b": "agent::ToggleFocus",
+      },
+      "bindings": {
+         "ctrl-b": "workspace::ToggleRightDock",
+         "ctrl-h": "workspace::ToggleLeftDock",
+         "ctrl-t": "workspace::ToggleBottomDock",
+         "ctrl-q": "pane::CloseActiveItem",
+         "ctrl-w v": "pane::SplitVertical",
+         "ctrl-w d": "pane::SplitDown",
 
-      "ctrl-w h": "workspace::ActivatePaneLeft",
-      "ctrl-w j": "workspace::ActivatePaneDown",
-      "ctrl-w k": "workspace::ActivatePaneUp",
-      "ctrl-w l": "workspace::ActivatePaneRight"
-    }
-  },
-  {
-    "context": "Editor && vim_mode != normal && vim_mode != visual",
-    "bindings": {
-      "j k": ["workspace::SendKeystrokes", "escape"],
-      "ctrl-a": ["vim::EndOfLine", { "display_lines": false }],
-      "ctrl-i": ["workspace::SendKeystrokes", "ctrl-o I"]
-    }
-  },
-  {
-    "context": "Editor && vim_mode == normal",
-    "bindings": {
-      "space i": ["workspace::SendKeystrokes", "I"],
-      "space a": ["workspace::SendKeystrokes", "A"],
-      "space m": "workspace::ToggleZoom",
+         "ctrl-w h": "workspace::ActivatePaneLeft",
+         "ctrl-w j": "workspace::ActivatePaneDown",
+         "ctrl-w k": "workspace::ActivatePaneUp",
+         "ctrl-w l": "workspace::ActivatePaneRight",
+      },
+   },
+   {
+      "context": "Editor && vim_mode != normal && vim_mode != visual",
+      "bindings": {
+         "j k": ["workspace::SendKeystrokes", "escape"],
+         "ctrl-a": ["vim::EndOfLine", { "display_lines": false }],
+         "ctrl-i": ["workspace::SendKeystrokes", "ctrl-o I"],
+      },
+   },
+   {
+      "context": "Editor && vim_mode == normal",
+      "bindings": {
+         "space i": ["workspace::SendKeystrokes", "I"],
+         "space a": ["workspace::SendKeystrokes", "A"],
 
-      "space f f": "file_finder::Toggle",
-      "space f i": "vim::Search",
-      "space f a": "workspace::NewSearch",
-      "space f o": "outline::Toggle",
-      "space f s": "project_symbols::Toggle",
+         "space f r": "file_finder::Toggle",
+         "space f i": "vim::Search",
+         "space f a": "workspace::NewSearch",
+         "space f o": "outline::Toggle",
+         "space f s": "project_symbols::Toggle",
 
-      "ctrl-b": "workspace::ToggleLeftDock",
-      "space r a": "editor::Rename",
-      "space w": "workspace::Save",
-      "space q": "pane::CloseActiveItem",
-      "space Q": "pane::CloseInactiveItems",
+         "ctrl-h": "workspace::ToggleLeftDock",
+         "space r a": "editor::Rename",
+         "space w": "workspace::Save",
+         "space q": "pane::CloseActiveItem",
 
-      "g a": "agent::ToggleFocus",
-      "=": "editor::AutoIndent",
-      "H": "editor::Hover",
-      "K": "pane::ActivateNextItem",
-      "J": "pane::ActivatePreviousItem",
-      "g f": "vim::NextMethodStart",
-      "g F": "vim::PreviousMethodStart",
-      "g e": "editor::GoToDiagnostic",
-      "g E": "editor::GoToPreviousDiagnostic"
-    }
-  },
-  {
-    "context": "Editor && vim_mode == visual",
-    "bindings": {
-      "n": "vim::SelectNext",
-      "N": "vim::SelectPrevious",
-      "A": "editor::SelectAllMatches",
-      "e": "vim::SelectLargerSyntaxNode",
-      "E": "vim::SelectSmallerSyntaxNode"
-    }
-  },
-  {
-    "context": "Terminal",
-    "bindings": {
-      "ctrl-n": "workspace::NewTerminal",
-      "ctrl-t": "workspace::ToggleBottomDock"
-    }
-  }
+         "ctrl-g w": "multi_workspace::FocusWorkspaceSidebar",
+         "g a": "agent::ToggleFocus",
+         "=": "editor::AutoIndent",
+         "H": "editor::Hover",
+         "K": "pane::ActivateNextItem",
+         "J": "pane::ActivatePreviousItem",
+         "g m": "vim::NextMethodStart",
+         "g M": "vim::PreviousMethodStart",
+         "e n": "editor::GoToDiagnostic",
+         "e p": "editor::GoToPreviousDiagnostic",
+      },
+   },
+   {
+      "context": "Editor && vim_mode == visual",
+      "bindings": {
+         "n": "vim::SelectNext",
+         "N": "vim::SelectPrevious",
+         "A": "editor::SelectAllMatches",
+         "e": "vim::SelectLargerSyntaxNode",
+         "E": "vim::SelectSmallerSyntaxNode",
+      },
+   },
+   {
+      "context": "Terminal",
+      "bindings": {
+         "ctrl-n": "workspace::NewTerminal",
+         "ctrl-t": "workspace::ToggleBottomDock",
+      },
+   },
+   {
+      "context": "Workspace",
+      "unbind": {
+         "ctrl-n": "workspace::NewFile",
+      },
+   },
+   {
+      "context": "ThreadsSidebar",
+      "bindings": {
+         "ctrl-g w": "multi_workspace::FocusWorkspaceSidebar",
+      },
+   },
+   {
+      "context": "(Editor && vim_mode == normal)",
+      "bindings": {
+         "space m": "workspace::ToggleZoom"
+      }
+   }
 ]

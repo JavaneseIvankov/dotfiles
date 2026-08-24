@@ -2,34 +2,48 @@
 
 data_path="$HOME/.cache/fuzzel-file-exp.cache"
 
+canonical_dir() {
+  local path="$1"
+
+  [[ -d "$path" ]] && realpath -- "$path"
+}
+
 # Get last used path from cache
 get_path_cache() {
-  [[ -f "$data_path" ]] && cat "$data_path"
+  local path
+
+  [[ -f "$data_path" ]] || return
+  path="$(cat "$data_path")"
+  canonical_dir "$path"
 }
 
 # Save path to cache
 save_path_cache() {
-  echo "$1" > "$data_path"
+  local path
+
+  path="$(canonical_dir "$1")" || return
+  printf '%s\n' "$path" > "$data_path"
 }
 
 # List files/directories in provided path
 get_files() {
   local path="$1"
-  cd "$path" || exit 1
 
-  local res="../"$'\n'
-  for f in *; do
-    [[ "$f" == "." ]] && continue
-    [[ -d "$f" ]] && res+="$f/"$'\n' || res+="$f"$'\n'
-  done
+  (
+    cd "$path" || exit 1
+    shopt -s nullglob
 
-  echo "$res"
+    printf '../\n'
+    for f in *; do
+      [[ -d "$f" ]] && printf '%s/\n' "$f" || printf '%s\n' "$f"
+    done
+  )
 }
 
 # Show menu and return selected item as full path
 display() {
   local path="$1"
-  local content sel sel_path count
+  local content sel sel_path count lines
 
   content="$(get_files "$path")"
   count=$(printf "%s" "$content" | wc -l)
@@ -43,7 +57,7 @@ display() {
 
   [[ -z "$sel" ]] && echo "" && return
 
-  sel_path="$path/$sel"
+  sel_path="$(realpath -- "$path/$sel")" || return
   echo "$sel_path"
 }
 
@@ -53,6 +67,8 @@ main() {
   local path sel
   path="$(get_path_cache)"
   [[ -z "$path" ]] && path="$(pwd)"
+  path="$(canonical_dir "$path")" || path="$HOME"
+  save_path_cache "$path"
 
   sel="$(display "$path")"
 
