@@ -34,6 +34,7 @@ link() {
 
 # User-level configs
 link "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
+link "$HOME/dotfiles/ModuleVim" "$HOME/.config/mvim"
 link "$HOME/dotfiles/fuzzel" "$HOME/.config/fuzzel"
 link "$HOME/dotfiles/hypr" "$HOME/.config/hypr"
 link "$HOME/dotfiles/lazygit" "$HOME/.config/lazygit"
@@ -51,7 +52,11 @@ link "$HOME/dotfiles/wl-kbptr" "$HOME/.config/wl-kbptr"
 link "$HOME/dotfiles/code/argv.json" "$HOME/.config/Code/argv.json"
 
 link "$HOME/dotfiles/scripts" "$HOME/scripts"
-link "$HOME/dotfiles/desktop-entry" "$HOME/.local/share/applications/desktop-entry"
+
+for entry in "$HOME/dotfiles/desktop-entry"/*.desktop; do
+  [ -e "$entry" ] || continue
+  link "$entry" "$HOME/.local/share/applications/$(basename "$entry")"
+done
 
 link "$HOME/dotfiles/zsh/.zshrc" "$HOME/.zshrc"
 link "$HOME/dotfiles/zsh/.zprofile" "$HOME/.zprofile"
