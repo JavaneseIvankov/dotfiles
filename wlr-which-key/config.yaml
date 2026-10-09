@@ -34,10 +34,10 @@ menu:
     submenu:
       -  key: "b"
          desc: Browser
-         cmd: 'brave-browser-stable --remote-debugging-port=9222'
+         cmd: 'vivaldi-stable --remote-debugging-port=9222'
       -  key: "a"
          desc: Ask AI
-         cmd: 'brave-browser-stable --remote-debugging-port=9222 --new-window "https://chatgpt.com/?temporary-chat=true"'
+         cmd: 'vivaldi-stable --remote-debugging-port=9222 --new-window "https://chatgpt.com/?temporary-chat=true"'
       -  key: "p"
          desc: SuperProd
          cmd: '~/scripts/launch-or-focus.sh superProductivity "flatpak run com.super_productivity.SuperProductivity"'
