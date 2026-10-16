@@ -41,6 +41,7 @@ Ketika kedua tombol jempol ditahan bersamaan (`Super-Shift_R-` di evdev), keyboa
 | **`p`** | `Backspace` | Tangan Kanan (Top Row) | Hapus 1 karakter kiri tanpa menjangkau pojok atas |
 | **`o`** | `Ctrl + Backspace` | Tangan Kanan (Top Row) | Hapus 1 kata ke belakang (*word delete*) tepat di sebelah `p` |
 | **`u`** | `Ctrl + z` | Tangan Kanan (Top Row) | Undo perubahan teks instan |
+| **`s`** | `Launch Terminal` (`kitty`) | Tangan Kiri (Home Row) | Buka default terminal / shell instan (mnemonik: **s**hell) |
 
 *Keunggulan Arsitektur:* 
 - Layer ini tidak mengganggu kombinasi Niri (`Super + Shift + ...`) karena Niri mendengarkan `Shift_L` (kelingking), sedangkan jempol kiri memancarkan `Shift_R`.
@@ -102,7 +103,7 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 
 | Shortcut | Semantic Intent | Target Role / Command | Deskripsi |
 | :--- | :--- | :--- | :--- |
-| `$MOD + Return` | `launch` | `$TERMINAL` | Buka terminal utama |
+| `$MOD + Return` / `$MOD + Shift + s` | `launch` | `$TERMINAL` | Buka terminal utama |
 | `$MOD + d` | `launch` | `$APP_LAUNCHER` | Buka launcher aplikasi |
 | `$MOD + w` | `launch` | `$WINDOW_SWITCHER` | Buka switcher window aktif |
 | `$MOD + e` | `helper` | `$CHORD_HELPER` | Buka leader key menu (`$LEADER`, lihat Section 5) |

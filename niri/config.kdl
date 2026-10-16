@@ -419,6 +419,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, leader menu.
     Super+Return repeat=false hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+    Super+Shift+S repeat=false hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Super+D repeat=false hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+W repeat=false hotkey-overlay-title="Run Window Switcher: fuzzel" { spawn "fuzzel-utils" "switch"; }
     Super+E repeat=false hotkey-overlay-title="Leader Menu: wlr-which-key" { spawn "wlr-which-key"; }
