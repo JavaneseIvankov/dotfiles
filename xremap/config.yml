@@ -23,5 +23,5 @@ keymap:
       CapsLock-l: Right
       # Dual-Thumb Fast Editing Layer (Left Alt + Right Alt held)
       Super-Shift_R-p: Backspace
-      Super-Shift_R-w: C-Backspace
+      Super-Shift_R-o: C-Backspace
       Super-Shift_R-u: C-z

@@ -39,7 +39,7 @@ Ketika kedua tombol jempol ditahan bersamaan (`Super-Shift_R-` di evdev), keyboa
 | Tombol saat Kedua Jempol Ditahan | Aksi / Sinyal Output | Posisi Jari | Deskripsi |
 | :--- | :--- | :--- | :--- |
 | **`p`** | `Backspace` | Tangan Kanan (Top Row) | Hapus 1 karakter kiri tanpa menjangkau pojok atas |
-| **`w`** | `Ctrl + Backspace` | Tangan Kiri (Top Row) | Hapus 1 kata ke belakang (*word delete*) |
+| **`o`** | `Ctrl + Backspace` | Tangan Kanan (Top Row) | Hapus 1 kata ke belakang (*word delete*) tepat di sebelah `p` |
 | **`u`** | `Ctrl + z` | Tangan Kanan (Top Row) | Undo perubahan teks instan |
 
 *Keunggulan Arsitektur:* 
