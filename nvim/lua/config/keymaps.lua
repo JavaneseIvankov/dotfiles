@@ -57,6 +57,109 @@ map("i", "<C>s", "<cmd> w <CR>", { noremap })
 map("n", "<leader>n", "<cmd> bnext<CR>", { noremap })
 map("n", "<leader>p", "<cmd> bprev<CR>", { noremap })
 
+-- Copy buffer path to clipboard
+local function get_active_buffer_path(relative)
+	local path = vim.api.nvim_buf_get_name(0)
+
+	if vim.bo.filetype == "oil" then
+		local ok, oil = pcall(require, "oil")
+		if ok then
+			local dir = oil.get_current_dir(0)
+			local entry = oil.get_cursor_entry()
+			if dir and entry and entry.name then
+				path = dir .. entry.name
+			elseif dir then
+				path = dir
+			end
+		end
+	end
+
+	if path:match("^oil://") then
+		path = path:gsub("^oil://", "")
+	end
+
+	if path == "" then
+		vim.notify("Current buffer has no file path", vim.log.levels.WARN)
+		return nil
+	end
+
+	if relative then
+		path = vim.fn.fnamemodify(path, ":.")
+		if path == "" then
+			path = "."
+		end
+	end
+
+	return path
+end
+
+local function copy_buf_path(relative)
+	local path = get_active_buffer_path(relative)
+	if not path then
+		return
+	end
+	vim.fn.setreg("+", path)
+	vim.fn.setreg('"', path)
+	local label = relative and "relative path" or "full path"
+	vim.notify('Copied ' .. label .. ' to clipboard: "' .. path .. '"', vim.log.levels.INFO)
+end
+
+local function copy_buf_root_path()
+	local path = get_active_buffer_path(false)
+	if not path then
+		return
+	end
+
+	local root = vim.fs.root(path, { ".git" })
+		or vim.fs.root(path, { "package.json", "Cargo.toml", "go.mod", "pyproject.toml" })
+		or vim.fn.getcwd()
+
+	local rel = (root and vim.fs.relpath(root, path)) or vim.fn.fnamemodify(path, ":.")
+	if rel == "" then
+		rel = "."
+	end
+
+	vim.fn.setreg("+", rel)
+	vim.fn.setreg('"', rel)
+	vim.notify('Copied root-relative path to clipboard: "' .. rel .. '"', vim.log.levels.INFO)
+end
+
+local function copy_buf_name()
+	local path = get_active_buffer_path(false)
+	if not path then
+		return
+	end
+	local filename = vim.fn.fnamemodify(path:gsub("/+$", ""), ":t")
+	if filename == "" then
+		filename = path
+	end
+	vim.fn.setreg("+", filename)
+	vim.fn.setreg('"', filename)
+	vim.notify('Copied file name to clipboard: "' .. filename .. '"', vim.log.levels.INFO)
+end
+
+vim.keymap.set("n", "<leader>cp", function()
+	copy_buf_path(true)
+end, { desc = "Copy relative buffer path to clipboard" })
+
+vim.keymap.set("n", "<leader>cP", function()
+	copy_buf_path(false)
+end, { desc = "Copy full buffer path to clipboard" })
+
+vim.keymap.set("n", "<leader>cr", copy_buf_root_path, { desc = "Copy root-relative path to clipboard" })
+
+vim.keymap.set("n", "<leader>bp", function()
+	copy_buf_path(true)
+end, { desc = "Copy relative buffer path to clipboard" })
+
+vim.keymap.set("n", "<leader>bP", function()
+	copy_buf_path(false)
+end, { desc = "Copy full buffer path to clipboard" })
+
+vim.keymap.set("n", "<leader>br", copy_buf_root_path, { desc = "Copy root-relative path to clipboard" })
+
+vim.keymap.set("n", "<leader>cf", copy_buf_name, { desc = "Copy buffer file name to clipboard" })
+
 -- Latex keybinds
 vim.api.nvim_set_keymap("n", "<leader>gl", "<cmd>AsyncRun latexmk -pvc -pdf %<cr>", { noremap = true, silent = true })
 

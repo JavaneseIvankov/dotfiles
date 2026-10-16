@@ -1,0 +1,48 @@
+return {
+fn = function ()
+vim.api.nvim_command("set foldmethod=expr")
+vim.api.nvim_command("set foldexpr=nvim_treesitter#foldexpr()")
+   end,
+opts = {
+	ensure_installed = {
+		"c",
+		"lua",
+		"rust",
+		"java",
+		"go",
+		"python",
+		"bash",
+		"cmake",
+		"cpp",
+		"css",
+		"dockerfile",
+		"fish",
+		"gomod",
+		"html",
+		"http",
+		"kotlin",
+		"make",
+		"markdown",
+		"markdown_inline",
+		"php",
+		"toml",
+		"yaml",
+-- 		due to treesitter pr:https://github.com/nvim-treesitter/nvim-treesitter/pull/3297
+--         use html to parse xml
+-- 		"xml",
+		"vue"
+	},
+	highlight = {enable = true},
+	indent = {enable = true},
+	autotag = {enable = true},
+	rainbow = {
+		enable = true,
+		extended_mode = true,
+
+		-- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
+		max_file_lines = 2000,
+	},
+	context_commentstring = {enable = true}
+}
+}
+

@@ -352,6 +352,17 @@ window-rule {
 }
 
 window-rule {
+    match app-id="yazi-picker"
+    
+    // Forces the window to open in Niri's floating layer
+    open-floating true
+    
+    // Optional: Size the floating terminal nicely on your screen
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.6; }
+}
+
+window-rule {
     match app-id=r#"fzfmenu"#
     open-floating true
     min-width 600
@@ -411,12 +422,12 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Alt+Return repeat=false hotkey-overlay-title="Open a Terminal: alacritty" { spawn "kitty"; }
     Alt+D repeat=false hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Alt+W repeat=false hotkey-overlay-title="Run Window Switcher: fuzzel" { spawn "~/scripts/fuzzel-switch.sh"; }
-    Alt+Shift+E repeat=false hotkey-overlay-title="Run File Picker: fuzzel" { spawn "~/scripts/fuzzel-file-explorer.sh"; }
+    Alt+W repeat=false hotkey-overlay-title="Run Window Switcher: fuzzel" { spawn "fuzzel-utils" "switch"; }
+    Alt+Shift+E repeat=false hotkey-overlay-title="Run File Picker: fuzzel" { spawn "fuzzel-utils" "file-explorer"; }
     Alt+E repeat=false hotkey-overlay-title="General submap: wlr-which-key" { spawn "wlr-which-key"; }
     Alt+Backslash repeat=false hotkey-overlay-title="Open file explorer" { spawn "thunar"; }
-    Alt+Shift+R repeat=false hotkey-overlay-title="Run Window Switcher: fuzzel" { spawn "~/scripts/fuzzel-niri-rename-current-window.sh"; }
-    Alt+Shift+T repeat=false hotkey-overlay-title="Run Window Renamer: fuzzel" { spawn "~/scripts/fuzzel-niri-rename-current-workspace.sh"; }
+    Alt+Shift+R repeat=false hotkey-overlay-title="Rename Current Window: fuzzel" { spawn "fuzzel-utils" "rename-window"; }
+    Alt+Shift+T repeat=false hotkey-overlay-title="Rename Current Workspace: fuzzel" { spawn "fuzzel-utils" "rename-workspace-current"; }
     Super+L repeat=false hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Super+Shift+L repeat=false hotkey-overlay-title="Lock the Screen and Suspend: swaylock" { spawn-sh "swaylock --grace 0 | sleep 2; systemctl suspend"; }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
@@ -450,6 +461,7 @@ binds {
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
     Alt+Shift+O repeat=false { toggle-overview; }
+    MouseMiddle { toggle-overview; }
 
     Alt+Q repeat=false { close-window; }
 

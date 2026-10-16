@@ -1,0 +1,22 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=WhatsApp
+GenericName=Instant Messenger
+Comment=Fast, simple, secure messaging and calling
+Exec=brave-browser --app=https://web.whatsapp.com/ %U
+Icon=whatsapp
+Terminal=false
+StartupWMClass=brave-web.whatsapp.com__-Default
+StartupNotify=true
+Categories=Network;InstantMessaging;Chat;
+Keywords=whatsapp;chat;im;messaging;call;web;pwa;
+Actions=NewWindow;Incognito;
+
+[Desktop Action NewWindow]
+Name=Open New Window
+Exec=brave-browser --new-window --app=https://web.whatsapp.com/
+
+[Desktop Action Incognito]
+Name=Open in Incognito Mode
+Exec=brave-browser --incognito --app=https://web.whatsapp.com/

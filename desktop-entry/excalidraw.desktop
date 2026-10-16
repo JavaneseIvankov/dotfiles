@@ -1,0 +1,22 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Excalidraw
+GenericName=Virtual Whiteboard
+Comment=Sketch diagrams and collaborate with a hand-drawn feel
+Exec=brave-browser --app=https://excalidraw.com %U
+Icon=excalidraw
+Terminal=false
+StartupWMClass=brave-excalidraw.com__-Default
+StartupNotify=true
+Categories=Graphics;2DGraphics;VectorGraphics;
+Keywords=whiteboard;diagram;drawing;sketch;excalidraw;pwa;
+Actions=NewWindow;Incognito;
+
+[Desktop Action NewWindow]
+Name=Open New Window
+Exec=brave-browser --new-window --app=https://excalidraw.com
+
+[Desktop Action Incognito]
+Name=Open in Incognito Mode
+Exec=brave-browser --incognito --app=https://excalidraw.com

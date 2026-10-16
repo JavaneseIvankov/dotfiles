@@ -7,3 +7,4 @@ modmap:
 keymap:
   - remap:
       RIGHTSHIFT-SPACE: ENTER
+      RIGHTALT-C: ESC
