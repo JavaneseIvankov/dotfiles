@@ -3,8 +3,11 @@ modmap:
       LEFTALT: RIGHTSHIFT
       CAPSLOCK: ESC
       ESC: CAPSLOCK
+      LEFTMETA: RIGHTALT
+      RIGHTALT: LEFTMETA
 
 keymap:
   - remap:
       RIGHTSHIFT-SPACE: ENTER
-      RIGHTALT-C: ESC
+      Super-c: ESC
+      RIGHTALT-c: ESC

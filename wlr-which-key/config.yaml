@@ -12,44 +12,90 @@ column_padding: 25 # Defaults to padding
 
 # Anchor and margin
 anchor: top-left # One of center, left, right, top, bottom, bottom-left, top-left, etc.
-# Only relevant when anchor is not center
 margin_right: 10
 margin_bottom: 10
 margin_left: 10
 margin_top: 10
 
-# namespace to use for the layer shell surface
-# namespace: "wlr_which_key"
-
 # Permits key bindings that conflict with compositor key bindings.
-# Default is `false`.
 inhibit_compositor_keyboard_shortcuts: true
 
-# Try to guess the correct keyboard layout to use. Default is `false`.
+# Try to guess the correct keyboard layout to use.
 auto_kbd_layout: true
 
 menu:
   - key: "e"
     desc: Launch
     submenu:
-      -  key: "b"
-         desc: Browser
-         cmd: 'vivaldi-stable --remote-debugging-port=9222'
-      -  key: "a"
-         desc: Ask AI
-         cmd: 'vivaldi-stable --remote-debugging-port=9222 --new-window "https://chatgpt.com/?temporary-chat=true"'
-      -  key: "p"
-         desc: SuperProd
-         cmd: '~/scripts/launch-or-focus.sh superProductivity "flatpak run com.super_productivity.SuperProductivity"'
+      - key: "b"
+        desc: Browser
+        cmd: 'vivaldi-stable --remote-debugging-port=9222'
+      - key: "a"
+        desc: Ask AI
+        cmd: 'vivaldi-stable --remote-debugging-port=9222 --new-window "https://chatgpt.com/?temporary-chat=true"'
+      - key: "p"
+        desc: SuperProd
+        cmd: '~/scripts/launch-or-focus.sh superProductivity "flatpak run com.super_productivity.SuperProductivity"'
+
+  - key: "s"
+    desc: Screenshot
+    submenu:
+      - key: "a"
+        desc: Area (Clipboard)
+        cmd: '~/scripts/area-screenshot.sh'
+      - key: "s"
+        desc: Screen (Full)
+        cmd: 'sh -c "grim - | wl-copy && notify-send \"Full screenshot copied to clipboard\""'
+      - key: "w"
+        desc: Active Window
+        cmd: 'niri msg action screenshot-window'
+
+  - key: "f"
+    desc: Files
+    submenu:
+      - key: "m"
+        desc: File Manager (Thunar)
+        cmd: 'thunar'
+      - key: "p"
+        desc: File Picker (Fuzzy)
+        cmd: 'fuzzel-utils file-explorer'
+
+  - key: "r"
+    desc: Rename
+    submenu:
+      - key: "w"
+        desc: Rename Window
+        cmd: 'fuzzel-utils rename-window'
+      - key: "s"
+        desc: Rename Workspace
+        cmd: 'fuzzel-utils rename-workspace-current'
+
+  - key: "t"
+    desc: Toggle UI
+    submenu:
+      - key: "b"
+        desc: Toggle Waybar
+        cmd: 'pkill -x waybar && echo "" || waybar --config ~/.config/waybar/config.niri.jsonc &'
+      - key: "t"
+        desc: Toggle Tabbed Column
+        cmd: 'niri msg action toggle-column-tabbed-display'
+
   - key: "n"
     desc: Notification
-    cmd: swaync-client -t
+    cmd: 'swaync-client -t'
+
   - key: "p"
     desc: Power
     submenu:
+      - key: "l"
+        desc: Lock
+        cmd: 'swaylock --grace 1'
       - key: "s"
         desc: Sleep
         cmd: 'swaylock --grace 0; systemctl suspend'
+      - key: "m"
+        desc: Power Off Monitors
+        cmd: 'niri msg action power-off-monitors'
       - key: "o"
         desc: "power-danger-layer"
         submenu:
@@ -59,9 +105,7 @@ menu:
           - key: "o"
             desc: Off
             cmd: poweroff
-      - key: "l"
-        desc: Lock
-        cmd: swaylock --grace 1
+
   - key: "l"
     desc: Laptop Screen
     submenu:
@@ -70,13 +114,13 @@ menu:
         submenu:
           - key: "1"
             desc: Set Scale to 1.0
-            cmd: wlr-randr --output eDP-1 --scale 1
+            cmd: 'wlr-randr --output eDP-1 --scale 1'
           - key: "2"
             desc: Set Scale to 1.1
-            cmd: wlr-randr --output eDP-1 --scale 1.1
+            cmd: 'wlr-randr --output eDP-1 --scale 1.1'
           - key: "3"
             desc: Set Scale to 1.2
-            cmd: wlr-randr --output eDP-1 --scale 1.2
+            cmd: 'wlr-randr --output eDP-1 --scale 1.2'
           - key: "4"
             desc: Set Scale to 1.3
-            cmd: wlr-randr --output eDP-1 --scale 1.3
+            cmd: 'wlr-randr --output eDP-1 --scale 1.3'
