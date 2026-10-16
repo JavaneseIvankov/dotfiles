@@ -106,7 +106,7 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + d` | `launch` | `$APP_LAUNCHER` | Buka launcher aplikasi |
 | `$MOD + w` | `launch` | `$WINDOW_SWITCHER` | Buka switcher window aktif |
 | `$MOD + e` | `helper` | `$CHORD_HELPER` | Buka leader key menu (`$LEADER`, lihat Section 5) |
-| `$MOD + o` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard pointer navigation |
+| `$MOD + Space` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard pointer navigation |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
 
 > *Catatan:* Utilitas file manager, file picker, renamer, dan toggle bar telah di-collapse ke dalam **Leader Menu (`$LEADER`)** di Section 5 untuk menghemat namespace tombol.

@@ -563,7 +563,7 @@ binds {
     // Super+TouchpadScrollDown { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+"; }
     // Super+TouchpadScrollUp   { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-"; }
 
-    Super+O { spawn-sh "wl-kbptr -o modes=floating,click -o mode_floating.source=detect"; }
+    Super+Space { spawn-sh "wl-kbptr -o modes=floating,click -o mode_floating.source=detect"; }
 
     // You can refer to workspaces by index. However, keep in mind that
     // niri is a dynamic workspace system, so these commands are kind of
