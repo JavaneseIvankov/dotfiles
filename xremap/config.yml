@@ -1,7 +1,12 @@
+virtual_modifiers:
+  - CapsLock
+
 modmap:
   - remap:
       LEFTALT: RIGHTSHIFT
-      CAPSLOCK: ESC
+      CapsLock:
+        held: CapsLock
+        alone: ESC
       ESC: CAPSLOCK
       LEFTMETA: RIGHTALT
       RIGHTALT: LEFTMETA
@@ -11,3 +16,12 @@ keymap:
       RIGHTSHIFT-SPACE: ENTER
       Super-c: ESC
       RIGHTALT-c: ESC
+      # Caps-Nav Layer (Arrow keys)
+      CapsLock-h: Left
+      CapsLock-j: Down
+      CapsLock-k: Up
+      CapsLock-l: Right
+      # Dual-Thumb Fast Editing Layer (Left Alt + Right Alt held)
+      Super-Shift_R-p: Backspace
+      Super-Shift_R-w: C-Backspace
+      Super-Shift_R-u: C-z

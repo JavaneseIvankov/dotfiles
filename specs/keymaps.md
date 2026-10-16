@@ -18,8 +18,33 @@ Bagian ini mendefinisikan transformasi tombol fisik laptop di level kernel/evdev
 | **`Left Alt`** | `Shift` (Overload: Space/Enter) | **Thumb Shift** | Mengetik huruf kapital & simbol tanpa ketegangan kelingking |
 | **`Right Alt`** | `Super` (Mod4) | **WM Modifier (`$MOD`)** | Jempol kanan memegang kendali penuh Window Manager (0% ubah muscle memory) |
 | **`Super / Win`** | `Alt` (Mod1) | **In-App Alt** | Disediakan khusus saat aplikasi/terminal membutuhkan tombol `Alt` |
-| **`Caps Lock`** | `Escape` | **Vim Normal Mode** | Escape instan tanpa perlu menjangkau sudut kiri atas keyboard |
+| **`Caps Lock`** | `Escape` (tap) / Nav Modifier (held) | **Dual-Role Esc & Nav** | Tap untuk Escape instan (Vim); tahan untuk navigasi panah tanpa ghosting |
 | **`Right Alt + C`** | `Escape` | **Right-hand Escape** | Kombo escape satu tangan kanan |
+
+### 0.1. Caps-Nav Layer (Tahan `Caps Lock`)
+Navigasi kursor panah dialokasikan khusus pada `Caps Lock` (held) untuk menghindari limitasi *hardware matrix jamming* laptop (di mana kombinasi 3 tombol fisik `Left Alt + Right Alt + H` diblokir oleh keyboard controller/BIOS):
+
+| Tombol saat `Caps Lock` Ditahan | Aksi / Sinyal Output | Posisi Jari | Deskripsi |
+| :--- | :--- | :--- | :--- |
+| **`h`** | `Left Arrow` ($\leftarrow$) | Tangan Kanan (Home Row) | Navigasi kursor kiri di semua aplikasi |
+| **`j`** | `Down Arrow` ($\downarrow$) | Tangan Kanan (Home Row) | Navigasi kursor bawah di semua aplikasi |
+| **`k`** | `Up Arrow` ($\uparrow$) | Tangan Kanan (Home Row) | Navigasi kursor atas di semua aplikasi |
+| **`l`** | `Right Arrow` ($\rightarrow$) | Tangan Kanan (Home Row) | Navigasi kursor kanan di semua aplikasi |
+
+*Catatan:* Mengetuk (*tap*) `Caps Lock` sendirian tetap mengirim sinyal `Escape` murni tanpa delay.
+
+### 0.2. Dual-Thumb Fast Editing Layer (Tahan `Left Alt` + `Right Alt`)
+Ketika kedua tombol jempol ditahan bersamaan (`Super-Shift_R-` di evdev), keyboard mengaktifkan layer reflek edit teks berfrekuensi tinggi tanpa perlu merentangkan jari kelingking ke pojok keyboard:
+
+| Tombol saat Kedua Jempol Ditahan | Aksi / Sinyal Output | Posisi Jari | Deskripsi |
+| :--- | :--- | :--- | :--- |
+| **`p`** | `Backspace` | Tangan Kanan (Top Row) | Hapus 1 karakter kiri tanpa menjangkau pojok atas |
+| **`w`** | `Ctrl + Backspace` | Tangan Kiri (Top Row) | Hapus 1 kata ke belakang (*word delete*) |
+| **`u`** | `Ctrl + z` | Tangan Kanan (Top Row) | Undo perubahan teks instan |
+
+*Keunggulan Arsitektur:* 
+- Layer ini tidak mengganggu kombinasi Niri (`Super + Shift + ...`) karena Niri mendengarkan `Shift_L` (kelingking), sedangkan jempol kiri memancarkan `Shift_R`.
+- Didesain minimalis dan zero-delay sesuai kebutuhan ergonomi pengetikan tanpa tombol berlebih seperti Delete/Home/End.
 
 ---
 
