@@ -9,12 +9,36 @@
 
 ---
 
+## 0. Hardware & Low-Level Input Remap (xremap / keyd)
+
+Bagian ini mendefinisikan transformasi tombol fisik laptop di level kernel/evdev (`xremap` atau `keyd`) sebelum sinyal diterima oleh Window Manager dan aplikasi:
+
+| Tombol Fisik Laptop | Dipetakan Menjadi | Peran / Fungsi Semantik | Alasan Ergonomi & Desain |
+| :--- | :--- | :--- | :--- |
+| **`Left Alt`** | `Shift` (Overload: Space/Enter) | **Thumb Shift** | Mengetik huruf kapital & simbol tanpa ketegangan kelingking |
+| **`Right Alt`** | `Super` (Mod4) | **WM Modifier (`$MOD`)** | Jempol kanan memegang kendali penuh Window Manager (0% ubah muscle memory) |
+| **`Super / Win`** | `Alt` (Mod1) | **In-App Alt** | Disediakan khusus saat aplikasi/terminal membutuhkan tombol `Alt` |
+| **`Caps Lock`** | `Escape` | **Vim Normal Mode** | Escape instan tanpa perlu menjangkau sudut kiri atas keyboard |
+| **`Right Alt + C`** | `Escape` | **Right-hand Escape** | Kombo escape satu tangan kanan |
+
+---
+
 ## 1. Filosofi & Konteks Ergonomi
 
-* **Modifier Utama (`$MOD`):** Default adalah **`Alt`** (karena saya menggunakan layout ergonomis 36-key / Miryoku dengan thumb modifier). Pada keyboard laptop biasa tanpa split, tombol Alt tetap menjadi modifier utama di jempol. Jika profil target mensyaratkan keyboard standar tanpa remap jempol, AI dapat mengubah `$MOD` menjadi `Super`.
-* **Secondary Modifier (`$SUPER`):** Digunakan untuk fungsi global level sistem yang kritis (Lock, Suspend, Screenshot, Screen reader).
+* **Modifier Utama Window Manager (`$MOD`):** Default adalah **`Super`** (Mod4).
+  * **Pemisahan Peran Dua Jempol:**
+    * **Jempol Kiri:** Khusus untuk **Mengetik Teks** (`Left Alt` $\rightarrow$ **Shift** / Space). Tidak pernah mengontrol WM.
+    * **Jempol Kanan:** Khusus untuk **Window Management** (`Right Alt` $\rightarrow$ **Super** / `$MOD`).
+    * **Hasil:** Muscle memory jempol kanan tetap identik seperti saat memakai Niri/WM sebelumnya, tetapi sinyal yang dikirim ke sistem adalah **`Super`**.
+* **Kebebasan Tombol `Alt` (In-App Namespace):**
+  * Karena seluruh aksi WM ditangani oleh sinyal `Super`, namespace `Alt` **bersih 100% untuk aplikasi**:
+    * Navigasi shell ZSH/Bash (`Alt+f`, `Alt+b`, `Alt+d`, `Alt+.`).
+    * Manipulasi baris kode di Neovim (`<M-j>`, `<M-k>`).
+    * Navigasi pane Tmux dan history browser (`Alt+Left/Right`).
+    * Akses ke `Alt` di laptop dilakukan melalui tombol fisik `Super/Win` (kiri bawah).
 * **Filosofi Navigasi:** 
   * Menjaga tangan tetap di *home row* (Vim navigation `h / j / k / l`).
+  * **Konsistensi Vim `L`:** Tombol `$MOD + l` **mutlak dialokasikan untuk Focus Right**. Fungsi Lock Screen dialihkan sepenuhnya ke dalam Leader Menu (`$LEADER -> p -> l`).
   * *Mouseless principle*: Minimalkan penggunaan mouse/touchpad; sediakan keyboard navigation (`$MOUSELESS_POINTER`) jika interaksi kursor dibutuhkan.
 * **Pendekatan Layout:**
   * Di Niri: Berbasis *Infinite Horizontal Ribbon* (kolom horizontal dinamis).
@@ -48,20 +72,19 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Arch 
 
 ## 3. Core Keymaps (Direct Bindings)
 
-### 3.1. Application Launchers & System Utilities
+### 3.1. Application Launchers & Core Utilities
+Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level flat:
+
 | Shortcut | Semantic Intent | Target Role / Command | Deskripsi |
 | :--- | :--- | :--- | :--- |
 | `$MOD + Return` | `launch` | `$TERMINAL` | Buka terminal utama |
 | `$MOD + d` | `launch` | `$APP_LAUNCHER` | Buka launcher aplikasi |
-| `$MOD + e` | `helper` | `$CHORD_HELPER` | Buka leader key menu (lihat Section 5) |
 | `$MOD + w` | `launch` | `$WINDOW_SWITCHER` | Buka switcher window aktif |
-| `$MOD + \` | `launch` | `$FILE_MANAGER` | Buka file manager GUI |
-| `$MOD + Shift + e` | `launch` | `$FILE_PICKER` | Buka file picker cepat |
-| `$MOD + Shift + a` | `toggle` | `$BAR_TOGGLER` | Toggle / reload bar sistem |
-| `$MOD + Shift + r` | `rename` | `$WINDOW_RENAMER` | Ganti alias window yang sedang aktif |
-| `$MOD + Shift + t` | `rename` | `$WORKSPACE_RENAMER`| Ganti nama workspace saat ini |
+| `$MOD + e` | `helper` | `$CHORD_HELPER` | Buka leader key menu (`$LEADER`, lihat Section 5) |
 | `$MOD + o` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard pointer navigation |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
+
+> *Catatan:* Utilitas file manager, file picker, renamer, dan toggle bar telah di-collapse ke dalam **Leader Menu (`$LEADER`)** di Section 5 untuk menghemat namespace tombol.
 
 ### 3.2. Window Navigation (Focus)
 | Shortcut | Semantic Intent | Target / Arah | Deskripsi |
@@ -91,7 +114,6 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Arch 
 | `$MOD + Shift + f` | `window:action` | `fullscreen` | Toggle fullscreen sejati |
 | `$MOD + Ctrl + v` | `window:action` | `toggle_float` | Toggle mode floating pada window aktif |
 | `$MOD + Shift + v` | `window:action` | `switch_focus_floating_tiling` | Tukar fokus antara layer floating & tiling |
-| `$MOD + g` | `layout:action` | `toggle_tabbed_display`| Ubah kolom menjadi tampilan tab vertikal |
 | `$MOD + Shift + o` | `canvas:action` | `toggle_overview` | Buka / tutup tampilan overview kanvas |
 
 ### 3.5. Layout & Sizing Adjustments
@@ -125,19 +147,20 @@ Popup switcher berbasis riwayat fokus baru-baru ini:
 | `$MOD + Tab` / `$MOD + n` | `recent_windows:next` | Pilih window berikutnya di daftar recent |
 | `$MOD + Shift + Tab` / `$MOD + p` / `$MOD + c` | `recent_windows:prev` | Pilih window sebelumnya di daftar recent |
 
-### 3.8. System, Session, & Screen Capture
-Semua shortcut di bawah ini menggunakan modifier sistem (`$SUPER`):
+### 3.8. System, Session, & Hardware Fallbacks
+Hanya aksi level sistem fundamental yang dipertahankan di level flat:
+
 | Shortcut | Semantic Intent | Target / Payload | Deskripsi |
 | :--- | :--- | :--- | :--- |
-| `$SUPER + l` | `session:lock` | `$SCREEN_LOCKER` | Kunci sesi layar |
-| `$SUPER + Shift + l` | `session:suspend`| `lock_and_suspend` | Kunci layar lalu suspend sistem |
-| `$SUPER + s` | `screenshot:screen` | `clipboard` | Screenshot seluruh layar ke clipboard |
-| `$SUPER + Shift + s` | `screenshot:area` | `clipboard` | Screenshot area interaktif ke clipboard |
-| `$SUPER + Ctrl + s` | `screenshot:window` | `clipboard` | Screenshot jendela aktif ke clipboard |
-| `$SUPER + Alt + s` | `accessibility` | `toggle_screen_reader` | Toggle Orca screen reader |
+| `Print` | `screenshot:screen_file` | `file` | Tombol hardware fallback: tangkap layar penuh ke file |
+| `$MOD + Alt + s` | `accessibility` | `toggle_screen_reader` | Toggle Orca screen reader |
 | `$MOD + Escape` | `system:input` | `toggle_key_inhibit` | Toggle keyboard shortcuts inhibitor |
-| `Ctrl + Alt + Delete`| `session:quit` | `confirm_exit` | Tampilkan konfirmasi keluar sesi |
-| `$MOD + Shift + p` | `system:power` | `power_off_monitors` | Matikan monitor seketika |
+| `Ctrl + $MOD + Delete`| `session:quit` | `confirm_exit` | Tampilkan konfirmasi keluar sesi |
+
+> **Catatan Mnemonic Chord:**
+> - Aksi **Screenshot** (Area, Full, Window) dipindahkan ke `$LEADER ➜ [s]`.
+> - Aksi **Lock Screen** dan **Suspend** dipindahkan ke `$LEADER ➜ [p]` (agar `$MOD + l` mutlak untuk Vim Focus Right).
+> - Aksi **Power off monitors** dipindahkan ke `$LEADER ➜ [p] ➜ [m]`.
 
 ---
 
@@ -168,11 +191,29 @@ $LEADER ($MOD + e)
 │   ├── [a] ➜ Ask AI: launch($AI_PROMPT)
 │   └── [p] ➜ Productivity: launch_or_focus($TASK_TRACKER)
 │
+├── [s] ➜ Screenshot
+│   ├── [a] ➜ Area: screenshot:area (seleksi interaktif ke clipboard)
+│   ├── [s] ➜ Screen: screenshot:screen (seluruh layar ke clipboard)
+│   └── [w] ➜ Window: screenshot:window (jendela aktif ke clipboard)
+│
+├── [f] ➜ Files & Search
+│   ├── [m] ➜ File Manager GUI: launch($FILE_MANAGER)
+│   └── [p] ➜ File Picker Fuzzy: launch($FILE_PICKER)
+│
+├── [r] ➜ Rename
+│   ├── [w] ➜ Rename Window: launch($WINDOW_RENAMER)
+│   └── [s] ➜ Rename Workspace: launch($WORKSPACE_RENAMER)
+│
+├── [t] ➜ Toggle UI & Layout
+│   ├── [b] ➜ Toggle Status Bar: toggle($BAR_TOGGLER)
+│   └── [t] ➜ Toggle Tabbed Column: layout:action(toggle_tabbed_display)
+│
 ├── [n] ➜ Notification Center: toggle($NOTIFICATION_CENTER)
 │
 ├── [p] ➜ Power & Session
-│   ├── [s] ➜ Sleep: system:suspend
 │   ├── [l] ➜ Lock: system:lock
+│   ├── [s] ➜ Sleep / Suspend: system:suspend
+│   ├── [m] ➜ Monitors Off: system:power(power_off_monitors)
 │   └── [o] ➜ Danger Layer (Aksi Kritis)
 │       ├── [r] ➜ Reboot: system:reboot
 │       └── [o] ➜ Power Off: system:poweroff
