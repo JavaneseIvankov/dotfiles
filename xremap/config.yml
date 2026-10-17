@@ -12,7 +12,8 @@ modmap:
       RIGHTALT: LEFTMETA
 
 keymap:
-  - remap:
+  - name: Global and CapsNav
+    remap:
       RIGHTSHIFT-SPACE: ENTER
       Super-c: ESC
       RIGHTALT-c: ESC
@@ -22,3 +23,9 @@ keymap:
       CapsLock-k: Up
       CapsLock-l: Right
       CapsLock-u: C-z
+
+  - name: Strict Fast Editing
+    exact_match: true
+    remap:
+      Super-o: Backspace
+      Super-p: C-Backspace

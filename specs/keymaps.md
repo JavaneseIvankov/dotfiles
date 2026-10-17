@@ -34,9 +34,21 @@ Navigasi kursor dan aksi undo dialokasikan pada tombol `Caps Lock` (held) sebaga
 
 *Catatan:* Mengetuk (*tap*) `Caps Lock` sendirian tetap mengirim sinyal `Escape` murni tanpa delay untuk kebutuhan Vim normal mode.
 
-### 0.2. Catatan Arsitektur: Eksplorasi Dual-Thumb Layer & Rencana Migrasi ke Kanata
-* Pada implementasi `xremap`, kombinasi chord dua jempol fisik (`Left Alt` + `Right Alt`) memicu *modifier collapse* menjadi `Super + Shift` yang bertabrakan dengan namespace Window Manager Niri (seperti `toggle-overview` `Super + Shift + O`).
-* Untuk mewujudkan layer chord independen tanpa tabrakan modifier OS, arsitektur input tingkat rendah akan dimigrasikan ke **Kanata** (menggunakan fitur native `defchords` / `deflayer`).
+### 0.2. Fast Editing Layer (Tahan Jempol Kanan `Right Alt` dengan `exact_match: true`)
+Aksi penghapusan teks cepat dialokasikan pada jempol kanan (`Right Alt` / `Super`) menggunakan aturan **`exact_match: true`** di `xremap`. Hal ini memastikan shortcut hanya aktif saat ditekan **murni dengan Super saja**, dan otomatis melepaskan kombinasi saat ada tombol `Shift` (sehingga shortcut Niri seperti `Super + Shift + O` untuk *toggle overview* tidak pernah terganggu):
+
+| Tombol Trigger | Aksi / Sinyal Output | Posisi Jari | Syarat Modifier | Deskripsi |
+| :--- | :--- | :--- | :--- | :--- |
+| **`Super + o`** | `Backspace` | Kanan (Top Row) | Murni `Super` (`exact_match`) | Hapus 1 karakter kiri (jari manis, sangat ergonomis) |
+| **`Super + p`** | `Ctrl + Backspace` | Kanan (Top Row) | Murni `Super` (`exact_match`) | Hapus 1 kata ke belakang (*word delete*, jari kelingking) |
+
+*Keunggulan Arsitektur:* 
+- **Bebas Foreshadowing:** Karena dilindungi oleh `exact_match: true`, penekanan `Super + Shift + O` (Pinky Left Shift) akan langsung diabaikan oleh aturan ini dan diteruskan ke Niri untuk mengaktifkan `toggle-overview`.
+- **Zero-Delay One-Handed:** Kamu bisa menghapus karakter maupun kata hanya dengan satu tangan kanan secara instan tanpa perlu menahan jempol kiri.
+
+### 0.3. Catatan Arsitektur: Rencana Migrasi ke Kanata
+* Pada implementasi `xremap`, kombinasi chord dua jempol fisik (`Left Alt` + `Right Alt`) memicu *modifier collapse* menjadi `Super + Shift` yang bertabrakan dengan namespace Window Manager Niri.
+* Untuk mewujudkan *pure isolated layer* yang dipicu secara simultan oleh kedua tombol jempol tanpa memancarkan modifier OS, arsitektur input tingkat rendah akan dimigrasikan ke **Kanata** (menggunakan fitur native `defchords` / `deflayer`).
 
 ---
 
