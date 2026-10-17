@@ -110,7 +110,7 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Linux
 | `$NOTIFICATION_CENTER`| Panel notifikasi sistem | `swaync-client -t` | Dunst, Mako |
 | `$TASK_TRACKER` | Manajemen tugas & waktu | `flatpak run com.super_productivity.SuperProductivity` | SuperProductivity |
 | `$AI_PROMPT` | Asisten AI instan | Browser membuka ChatGPT temporary chat | Web/CLI AI tool |
-| `$DICTATION_TOOL` | Speech-to-text / voice typing | `hyprwhspr record toggle` | NVIDIA Parakeet TDT / Whisper via hyprwhspr |
+| `$DICTATION_TOOL` | Speech-to-text / voice typing | `hyprwhspr record toggle` | Whisper small (pywhispercpp Vulkan) multilingual via hyprwhspr |
 
 ---
 
