@@ -30,22 +30,21 @@ Navigasi kursor panah dialokasikan khusus pada `Caps Lock` (held) untuk menghind
 | **`j`** | `Down Arrow` ($\downarrow$) | Tangan Kanan (Home Row) | Navigasi kursor bawah di semua aplikasi |
 | **`k`** | `Up Arrow` ($\uparrow$) | Tangan Kanan (Home Row) | Navigasi kursor atas di semua aplikasi |
 | **`l`** | `Right Arrow` ($\rightarrow$) | Tangan Kanan (Home Row) | Navigasi kursor kanan di semua aplikasi |
+| **`u`** | `Ctrl + z` | Tangan Kanan (Top Row) | Undo perubahan teks instan dari layer navigasi |
 
 *Catatan:* Mengetuk (*tap*) `Caps Lock` sendirian tetap mengirim sinyal `Escape` murni tanpa delay.
 
-### 0.2. Fast Editing Layer (Tahan `Right Alt` atau Tahan `Left Alt + Right Alt`)
-Layer reflek edit teks berfrekuensi tinggi dirancang simetris agar bisa diakses baik dengan satu jempol (`Right Alt` / `Super`) maupun kedua jempol (`Left Alt + Right Alt` / `Super-Shift_R-`). Desain simetris ini mencegah insiden salah hapus jika terjadi *timing release* pada salah satu jempol:
+### 0.2. Fast Editing Layer (Tahan Jempol Kanan `Right Alt` dengan `exact_match: true`)
+Aksi penghapusan teks cepat dialokasikan pada jempol kanan (`Right Alt` / `Super`) menggunakan aturan **`exact_match: true`** di `xremap`. Hal ini memastikan bahwa shortcut hanya aktif saat tombol ditekan **murni dengan Super saja**, dan otomatis melepaskan kombinasi saat ada tombol `Shift` (sehingga shortcut Niri seperti `Super + Shift + O` untuk *toggle overview* tidak pernah terganggu):
 
-| Tombol Trigger | Aksi / Sinyal Output | Posisi Jari | Aksesibel Via | Deskripsi |
+| Tombol Trigger | Aksi / Sinyal Output | Posisi Jari | Syarat Modifier | Deskripsi |
 | :--- | :--- | :--- | :--- | :--- |
-| **`o`** | `Backspace` | Kanan (Top Row) | Single-Thumb / Dual-Thumb | Hapus 1 karakter kiri (jari manis, sangat ergonomis & dekat) |
-| **`p`** | `Ctrl + Backspace` | Kanan (Top Row) | Single-Thumb / Dual-Thumb | Hapus 1 kata ke belakang (*word delete*, jari kelingking) |
-| **`u`** | `Ctrl + z` | Kanan (Top Row) | Khusus Dual-Thumb (`Super-Shift_R-`) | Undo teks (dibatasi dual-thumb agar tidak bentrok dengan `Super+u` workspace) |
-| **`s`** | `Launch Terminal` (`kitty`) | Kiri (Home Row) | Dual-Thumb / Pinky Shift | Buka default terminal / shell instan (mnemonik: **s**hell) |
+| **`Super + o`** | `Backspace` | Kanan (Top Row) | Murni `Super` (`exact_match`) | Hapus 1 karakter kiri (jari manis, sangat ergonomis) |
+| **`Super + p`** | `Ctrl + Backspace` | Kanan (Top Row) | Murni `Super` (`exact_match`) | Hapus 1 kata ke belakang (*word delete*, jari kelingking) |
 
 *Keunggulan Arsitektur:* 
-- **Simetri & Safety:** Baik kamu menahan 1 jempol (`Right Alt`) maupun 2 jempol (`Left Alt + Right Alt`), tombol `o` selalu Backspace (karakter) dan `p` selalu Word Backspace. Menempatkan single-character Backspace pada `o` (jari manis) sangat nyaman karena jari manis lebih kuat dan tidak melelahkan dibanding kelingking.
-- Didesain minimalis dan zero-delay sesuai kebutuhan ergonomi pengetikan tanpa tombol berlebih seperti Delete/Home/End.
+- **Bebas Foreshadowing:** Karena dilindungi oleh `exact_match: true`, penekanan `Super + Shift + O` (Pinky Left Shift) akan langsung diabaikan oleh aturan ini dan diteruskan ke Niri untuk mengaktifkan `toggle-overview`.
+- **Zero-Delay One-Handed:** Kamu bisa menghapus karakter maupun kata hanya dengan satu tangan kanan secara instan tanpa perlu menahan jempol kiri.
 
 ---
 
