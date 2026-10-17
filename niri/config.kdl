@@ -424,7 +424,7 @@ binds {
     Super+W repeat=false hotkey-overlay-title="Run Window Switcher: fuzzel" { spawn "fuzzel-utils" "switch"; }
     Super+E repeat=false hotkey-overlay-title="Leader Menu: wlr-which-key" { spawn "wlr-which-key"; }
     Super+Grave repeat=false hotkey-overlay-title="Dictation English (Parakeet: Fast)" { spawn "true"; }
-    Super+backslash repeat=false hotkey-overlay-title="Dictation Indonesian (Groq Whisper Turbo)" { spawn "true"; }
+    Super+Space repeat=false hotkey-overlay-title="Dictation Universal (Groq Whisper Turbo)" { spawn "true"; }
     Super+Alt+D repeat=false hotkey-overlay-title="Toggle Dictation English" { spawn "hyprwhspr" "record" "toggle"; }
     Super+Alt+I repeat=false hotkey-overlay-title="Toggle Dictation Indonesian" { spawn "hyprwhspr-id" "record" "toggle"; }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
@@ -568,7 +568,7 @@ binds {
     // Super+TouchpadScrollDown { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+"; }
     // Super+TouchpadScrollUp   { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-"; }
 
-    Super+Space { spawn-sh "wl-kbptr -o modes=floating,click -o mode_floating.source=detect"; }
+    Super+G repeat=false hotkey-overlay-title="Mouseless Pointer: wl-kbptr" { spawn-sh "wl-kbptr -o modes=floating,click -o mode_floating.source=detect"; }
 
     // You can refer to workspaces by index. However, keep in mind that
     // niri is a dynamic workspace system, so these commands are kind of

@@ -7,9 +7,9 @@
     "model": "whisper-large-v3-turbo"
   },
   "language": "id",
-  "whisper_prompt": "Dikte percakapan Bahasa Indonesia dan istilah teknis coding.",
+  "whisper_prompt": "Dikte percakapan Bahasa Indonesia, English terms, dan istilah teknis coding.",
   "recording_mode": "auto",
-  "primary_shortcut": "Super+Backslash",
+  "primary_shortcut": "Super+Space",
   "keyboard_device_names": [
     "kanata"
   ]

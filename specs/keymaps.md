@@ -110,8 +110,8 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Linux
 | `$NOTIFICATION_CENTER`| Panel notifikasi sistem | `swaync-client -t` | Dunst, Mako |
 | `$TASK_TRACKER` | Manajemen tugas & waktu | `flatpak run com.super_productivity.SuperProductivity` | SuperProductivity |
 | `$AI_PROMPT` | Asisten AI instan | Browser membuka ChatGPT temporary chat | Web/CLI AI tool |
-| `$DICTATION_EN` | Speech-to-text English (ultra-fast) | `hyprwhspr record toggle` | NVIDIA Parakeet TDT via hyprwhspr |
-| `$DICTATION_ID` | Speech-to-text Indonesian (cloud fast & akurat) | `hyprwhspr-id record toggle` | Groq Whisper Large v3 Turbo via hyprwhspr-id |
+| `$DICTATION` | Speech-to-text universal (cloud fast & akurat) | `hyprwhspr-id record toggle` | Groq Whisper Large v3 Turbo via hyprwhspr-id |
+| `$DICTATION_EN` | Speech-to-text English (offline ultra-fast) | `hyprwhspr record toggle` | NVIDIA Parakeet TDT via hyprwhspr |
 
 ---
 
@@ -126,9 +126,9 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + d` | `launch` | `$APP_LAUNCHER` | Buka launcher aplikasi |
 | `$MOD + w` | `launch` | `$WINDOW_SWITCHER` | Buka switcher window aktif |
 | `$MOD + e` | `helper` | `$CHORD_HELPER` | Buka leader key menu (`$LEADER`, lihat Section 5) |
-| `$MOD + Space` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard pointer navigation |
-| `$MOD + Grave` / `$MOD + Alt + d` | `voice:dictate:en` | `$DICTATION_EN` | Dikte English instan (Parakeet TDT): Tap toggle, Hold push-to-talk |
-| `$MOD + Backslash` / `$MOD + Alt + i` | `voice:dictate:id` | `$DICTATION_ID` | Dikte Indonesia super cepat & akurat (Groq Whisper Turbo): Tap toggle, Hold push-to-talk |
+| `$MOD + g` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard grid pointer navigation (`wl-kbptr`) |
+| `$MOD + Space` / `$MOD + Alt + i` | `voice:dictate` | `$DICTATION` | Dikte suara universal (Groq Whisper Turbo): Tap toggle, Hold push-to-talk |
+| `$MOD + Grave` / `$MOD + Alt + d` | `voice:dictate:en` | `$DICTATION_EN` | Dikte English instan (Parakeet TDT offline): Tap toggle, Hold push-to-talk |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
 
 > *Catatan:* Utilitas file manager, file picker, renamer, dan toggle bar telah di-collapse ke dalam **Leader Menu (`$LEADER`)** di Section 5 untuk menghemat namespace tombol.
