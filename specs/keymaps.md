@@ -9,20 +9,21 @@
 
 ---
 
-## 0. Hardware & Low-Level Input Remap (xremap / keyd)
+## 0. Hardware & Low-Level Input Remap (Kanata / evdev)
 
-Bagian ini mendefinisikan transformasi tombol fisik laptop di level kernel/evdev (`xremap` atau `keyd`) sebelum sinyal diterima oleh Window Manager dan aplikasi:
+Bagian ini mendefinisikan transformasi tombol fisik laptop di level kernel/evdev menggunakan **Kanata** (sebelumnya `xremap`) sebelum sinyal diterima oleh Window Manager dan aplikasi:
 
 | Tombol Fisik Laptop | Dipetakan Menjadi | Peran / Fungsi Semantik | Alasan Ergonomi & Desain |
 | :--- | :--- | :--- | :--- |
-| **`Left Alt`** | `Shift` (Overload: Space/Enter) | **Thumb Shift** | Mengetik huruf kapital & simbol tanpa ketegangan kelingking |
-| **`Right Alt`** | `Super` (Mod4) | **WM Modifier (`$MOD`)** | Jempol kanan memegang kendali penuh Window Manager (0% ubah muscle memory) |
-| **`Super / Win`** | `Alt` (Mod1) | **In-App Alt** | Disediakan khusus saat aplikasi/terminal membutuhkan tombol `Alt` |
+| **`Left Alt`** | `Right Shift` (Chord: Space $\rightarrow$ Enter) | **Thumb Shift** | Mengetik huruf kapital & simbol tanpa ketegangan kelingking |
+| **`Right Alt`** | `Super` (Left Meta) | **WM Modifier (`$MOD`)** | Jempol kanan memegang kendali penuh Window Manager (0% ubah muscle memory) |
+| **`Super / Win`** | `Right Alt` (Mod1) | **In-App Alt** | Disediakan khusus saat aplikasi/terminal membutuhkan tombol `Alt` |
 | **`Caps Lock`** | `Escape` (tap) / Nav Modifier (held) | **Dual-Role Esc & Nav** | Tap untuk Escape instan (Vim); tahan untuk navigasi panah tanpa ghosting |
-| **`Right Alt + C`** | `Escape` | **Right-hand Escape** | Kombo escape satu tangan kanan |
+| **`Right Alt + C`** | `Escape` | **Right-hand Escape** | Kombo chord escape satu tangan kanan (`defchordsv2`) |
+| **`Left Alt + Space`**| `Enter` (Repeatable) | **Thumb Enter** | Menekan Enter tanpa menjangkau kelingking kanan; native layer mapping (repeatable, tanpa batasan durasi/timeout) |
 
 ### 0.1. Caps-Nav Layer (Tahan `Caps Lock`, Tap = `Escape`)
-Navigasi kursor dan aksi undo dialokasikan pada tombol `Caps Lock` (held) sebagai layer navigasi internal yang independen:
+Navigasi kursor, aksi undo, dan penghapusan teks dialokasikan pada tombol `Caps Lock` (held) sebagai layer navigasi internal yang independen:
 
 | Tombol saat `Caps Lock` Ditahan | Aksi / Sinyal Output | Posisi Jari | Deskripsi |
 | :--- | :--- | :--- | :--- |
@@ -31,24 +32,37 @@ Navigasi kursor dan aksi undo dialokasikan pada tombol `Caps Lock` (held) sebaga
 | **`k`** | `Up Arrow` ($\uparrow$) | Tangan Kanan (Home Row) | Navigasi kursor atas di semua aplikasi |
 | **`l`** | `Right Arrow` ($\rightarrow$) | Tangan Kanan (Home Row) | Navigasi kursor kanan di semua aplikasi |
 | **`u`** | `Ctrl + z` | Tangan Kanan (Top Row) | Undo perubahan teks instan dari layer navigasi |
+| **`o`** | `Backspace` | Tangan Kanan (Top Row) | Hapus 1 karakter kiri |
+| **`p`** | `Ctrl + Backspace` | Tangan Kanan (Top Row) | Hapus 1 kata ke belakang (*word delete*) |
 
 *Catatan:* Mengetuk (*tap*) `Caps Lock` sendirian tetap mengirim sinyal `Escape` murni tanpa delay untuk kebutuhan Vim normal mode.
 
-### 0.2. Fast Editing Layer (Tahan Jempol Kanan `Right Alt` dengan `exact_match: true`)
-Aksi penghapusan teks cepat dialokasikan pada jempol kanan (`Right Alt` / `Super`) menggunakan aturan **`exact_match: true`** di `xremap`. Hal ini memastikan shortcut hanya aktif saat ditekan **murni dengan Super saja**, dan otomatis melepaskan kombinasi saat ada tombol `Shift` (sehingga shortcut Niri seperti `Super + Shift + O` untuk *toggle overview* tidak pernah terganggu):
+### 0.2. Single-Thumb Fast Editing Layer (Tahan Jempol Kanan `Right Alt`)
+Aksi penghapusan teks cepat satu tangan kanan dialokasikan pada jempol kanan (`Right Alt` / `Super`) melalui Kanata `ralt-layer` dengan aturan **`fork`**. Hal ini memastikan shortcut hanya aktif saat ditekan tanpa tombol `Left Shift`, dan otomatis memancarkan `Super + Shift + O` saat tombol kelingking kiri ditekan sehingga shortcut Niri seperti `toggle-overview` tidak pernah terganggu:
 
 | Tombol Trigger | Aksi / Sinyal Output | Posisi Jari | Syarat Modifier | Deskripsi |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Super + o`** | `Backspace` | Kanan (Top Row) | Murni `Super` (`exact_match`) | Hapus 1 karakter kiri (jari manis, sangat ergonomis) |
-| **`Super + p`** | `Ctrl + Backspace` | Kanan (Top Row) | Murni `Super` (`exact_match`) | Hapus 1 kata ke belakang (*word delete*, jari kelingking) |
+| **`Right Alt + o`** | `Backspace` | Kanan (Top Row) | Murni `Right Alt` (`fork`) | Hapus 1 karakter kiri (jari manis, sangat ergonomis) |
+| **`Right Alt + p`** | `Ctrl + Backspace` | Kanan (Top Row) | Murni `Right Alt` (`fork`) | Hapus 1 kata ke belakang (*word delete*, jari kelingking) |
+| **`Right Alt + c`** | `Escape` | Kanan (Bottom Row) | Murni `Right Alt` | Kombo Escape satu tangan kanan |
 
-*Keunggulan Arsitektur:* 
-- **Bebas Foreshadowing:** Karena dilindungi oleh `exact_match: true`, penekanan `Super + Shift + O` (Pinky Left Shift) akan langsung diabaikan oleh aturan ini dan diteruskan ke Niri untuk mengaktifkan `toggle-overview`.
-- **Zero-Delay One-Handed:** Kamu bisa menghapus karakter maupun kata hanya dengan satu tangan kanan secara instan tanpa perlu menahan jempol kiri.
+*Keunggulan Arsitektur:*
+- **Bebas Foreshadowing:** Dilindungi oleh aturan `fork`, penekanan `Left Shift + Right Alt + O` akan langsung melepaskan aksi Backspace dan meneruskan kombinasi murni `Super + Shift + O` ke Niri untuk mengaktifkan `toggle-overview`.
+- **Zero-Delay One-Handed:** Menghapus karakter maupun kata hanya dengan satu tangan kanan secara instan tanpa perlu menahan jempol kiri.
 
-### 0.3. Catatan Arsitektur: Rencana Migrasi ke Kanata
-* Pada implementasi `xremap`, kombinasi chord dua jempol fisik (`Left Alt` + `Right Alt`) memicu *modifier collapse* menjadi `Super + Shift` yang bertabrakan dengan namespace Window Manager Niri.
-* Untuk mewujudkan *pure isolated layer* yang dipicu secara simultan oleh kedua tombol jempol tanpa memancarkan modifier OS, arsitektur input tingkat rendah akan dimigrasikan ke **Kanata** (menggunakan fitur native `defchords` / `deflayer`).
+### 0.3. Dual-Thumb Layer (Tahan Kedua Jempol Fisik: `Left Alt` + `Right Alt`)
+Layer ini diaktifkan secara independen melalui kanata `defchordsv2` saat kedua jempol fisik (`Left Alt` dan `Right Alt`) ditekan bersamaan. Kanata mengalihkan state ke layer `dual-thumb` secara internal **tanpa memancarkan modifier OS** (`Super` maupun `Shift`), sehingga tidak terjadi konflik (*zero conflict*) dengan namespace Window Manager Niri:
+
+| Tombol saat Kedua Jempol Ditahan | Aksi Semantik | Posisi Jari | Deskripsi |
+| :--- | :--- | :--- | :--- |
+| **`o`** | `Backspace` | Tangan Kanan (Top Row) | Hapus 1 karakter kiri (jari manis) |
+| **`p`** | `Ctrl + Backspace` | Tangan Kanan (Top Row) | Hapus 1 kata ke belakang (*word delete*, jari kelingking) |
+| **`u`** | `Ctrl + z` | Tangan Kanan (Top Row) | Undo teks instan (telunjuk) |
+| **`s`** | `Launch Terminal` (`$TERMINAL`) | Tangan Kiri (Home Row) | Memancarkan `Super + Return` untuk men-trigger Niri native spawn Kitty |
+
+*Catatan Arsitektur & Migrasi dari xremap:*
+- **Akar Masalah di xremap:** Pada `xremap`, evdev scancode `KEY_LEFTSHIFT` (pinky) dan `KEY_RIGHTSHIFT` (thumb) disatukan menjadi `Modifier::Shift`. Akibatnya, kombinasi chord dua jempol tidak dapat dibedakan dari kombinasi `Super + Shift` pinky, sehingga membajak shortcut Niri (`toggle-overview`).
+- **Solusi Kanata:** Kanata mengisolasi chord fisik di level `defchordsv2` dan beralih ke layer `dual-thumb` mandiri. Ketika tombol kelingking kiri `Left Shift` ditekan bersama `Right Alt` (Super) dan `O`, Kanata meneruskan event modifier murni ke Niri sebagai `Super + Shift + O`, mempertahankan fungsionalitas Niri 100%.
 
 ---
 

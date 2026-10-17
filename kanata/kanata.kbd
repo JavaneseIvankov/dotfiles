@@ -1,0 +1,67 @@
+;; Kanata Configuration (SSOT Keymap Implementation)
+;; https://github.com/jtroo/kanata
+
+(defcfg
+  process-unmapped-keys yes
+  concurrent-tap-hold yes
+  linux-dev-names-include (
+    "AT Translated Set 2 keyboard"
+    "Telink Wireless Device"
+  )
+)
+
+(defsrc
+  caps esc  lmet lalt spc  ralt c lsft
+  h j k l
+  u o p s
+)
+
+(deflayer base
+  @cap caps ralt @l-sft spc @r-lmet c lsft
+  h j k l
+  u o p s
+)
+
+(deflayer nav
+  _    _    _    _      _   _    _    _
+  left down up   right
+  C-z  bspc C-bspc _
+)
+
+(deflayer lalt-layer
+  _    _    _    _      @th-ret (layer-while-held dual-thumb) _ _
+  _    _    _    _
+  _    _    _    _
+)
+
+(deflayer ralt-layer
+  _    _    _    (layer-while-held dual-thumb) _ _ @c-esc _
+  _    _    _    _
+  _    @o-act @p-act _
+)
+
+(deflayer dual-thumb
+  _    _    _    _      _   _    _    _
+  _    _    _    _
+  C-z  bspc C-bspc M-ret
+)
+
+(defalias
+  cap (tap-hold-release 200 200 esc (layer-while-held nav))
+  l-sft (multi rshift (layer-while-held lalt-layer))
+  r-lmet (multi lmet (layer-while-held ralt-layer))
+  o-act (fork (multi (release-key lmet) bspc) o (lsft))
+  p-act (fork (multi (release-key lmet) C-bspc) p (lsft))
+  c-esc (multi (release-key lmet) esc)
+
+  ;; Simple, repeatable Thumb Enter: unshift lalu kirim normal Enter
+  th-ret (unshift ret)
+)
+
+(defchordsv2
+  ;; TAHAN KEDUA JEMPOL (lalt + ralt) -> Masuk ke layer dual-thumb mandiri
+  (lalt ralt) (layer-while-held dual-thumb) 200 first-release ()
+
+  ;; ESCAPE KANAN: Tahan ralt + c -> Escape
+  (ralt c) esc 200 first-release ()
+)
