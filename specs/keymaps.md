@@ -38,13 +38,13 @@ Layer reflek edit teks berfrekuensi tinggi dirancang simetris agar bisa diakses 
 
 | Tombol Trigger | Aksi / Sinyal Output | Posisi Jari | Aksesibel Via | Deskripsi |
 | :--- | :--- | :--- | :--- | :--- |
-| **`p`** | `Backspace` | Kanan (Top Row) | Single-Thumb / Dual-Thumb | Hapus 1 karakter kiri tanpa menjangkau pojok atas |
-| **`o`** | `Ctrl + Backspace` | Kanan (Top Row) | Single-Thumb / Dual-Thumb | Hapus 1 kata ke belakang (*word delete*) tepat di sebelah `p` |
+| **`o`** | `Backspace` | Kanan (Top Row) | Single-Thumb / Dual-Thumb | Hapus 1 karakter kiri (jari manis, sangat ergonomis & dekat) |
+| **`p`** | `Ctrl + Backspace` | Kanan (Top Row) | Single-Thumb / Dual-Thumb | Hapus 1 kata ke belakang (*word delete*, jari kelingking) |
 | **`u`** | `Ctrl + z` | Kanan (Top Row) | Khusus Dual-Thumb (`Super-Shift_R-`) | Undo teks (dibatasi dual-thumb agar tidak bentrok dengan `Super+u` workspace) |
 | **`s`** | `Launch Terminal` (`kitty`) | Kiri (Home Row) | Dual-Thumb / Pinky Shift | Buka default terminal / shell instan (mnemonik: **s**hell) |
 
 *Keunggulan Arsitektur:* 
-- **Simetri & Safety:** Baik kamu menahan 1 jempol (`Right Alt`) maupun 2 jempol (`Left Alt + Right Alt`), tombol `p` selalu Backspace (karakter) dan `o` selalu Word Backspace. Tidak ada risiko terhapus satu kata penuh akibat jempol kiri terlepas duluan.
+- **Simetri & Safety:** Baik kamu menahan 1 jempol (`Right Alt`) maupun 2 jempol (`Left Alt + Right Alt`), tombol `o` selalu Backspace (karakter) dan `p` selalu Word Backspace. Menempatkan single-character Backspace pada `o` (jari manis) sangat nyaman karena jari manis lebih kuat dan tidak melelahkan dibanding kelingking.
 - Didesain minimalis dan zero-delay sesuai kebutuhan ergonomi pengetikan tanpa tombol berlebih seperti Delete/Home/End.
 
 ---

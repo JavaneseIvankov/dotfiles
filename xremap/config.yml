@@ -22,8 +22,8 @@ keymap:
       CapsLock-k: Up
       CapsLock-l: Right
       # Fast Editing (Right Alt held / Dual-Thumb held)
-      Super-p: Backspace
-      Super-o: C-Backspace
-      Super-Shift_R-p: Backspace
-      Super-Shift_R-o: C-Backspace
+      Super-o: Backspace
+      Super-p: C-Backspace
+      Super-Shift_R-o: Backspace
+      Super-Shift_R-p: C-Backspace
       Super-Shift_R-u: C-z
