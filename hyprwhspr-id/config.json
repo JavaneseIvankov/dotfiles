@@ -1,9 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/goodroot/hyprwhspr/main/share/config.schema.json",
-  "transcription_backend": "pywhispercpp",
-  "model": "small",
-  "pywhispercpp_use_vad": false,
-  "sampling_strategy": "greedy",
+  "transcription_backend": "rest-api",
+  "rest_endpoint_url": "https://api.groq.com/openai/v1/audio/transcriptions",
+  "rest_api_provider": "groq",
+  "rest_body": {
+    "model": "whisper-large-v3-turbo"
+  },
   "language": "id",
   "whisper_prompt": "Dikte percakapan Bahasa Indonesia dan istilah teknis coding.",
   "recording_mode": "auto",
