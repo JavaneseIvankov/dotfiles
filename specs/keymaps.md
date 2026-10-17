@@ -126,7 +126,7 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + w` | `launch` | `$WINDOW_SWITCHER` | Buka switcher window aktif |
 | `$MOD + e` | `helper` | `$CHORD_HELPER` | Buka leader key menu (`$LEADER`, lihat Section 5) |
 | `$MOD + Space` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard pointer navigation |
-| `$MOD + Grave` / `$MOD + Alt + d` | `toggle` | `$DICTATION_TOOL` | Mulai / berhenti mendikte suara (speech-to-text) |
+| `$MOD + Grave` / `$MOD + Alt + d` | `voice:dictate` | `$DICTATION_TOOL` | Dikte suara hybrid: Tap (<400ms) untuk toggle, Hold (≥400ms) untuk push-to-talk |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
 
 > *Catatan:* Utilitas file manager, file picker, renamer, dan toggle bar telah di-collapse ke dalam **Leader Menu (`$LEADER`)** di Section 5 untuk menghemat namespace tombol.

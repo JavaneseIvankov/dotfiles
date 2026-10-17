@@ -423,7 +423,7 @@ binds {
     Super+D repeat=false hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+W repeat=false hotkey-overlay-title="Run Window Switcher: fuzzel" { spawn "fuzzel-utils" "switch"; }
     Super+E repeat=false hotkey-overlay-title="Leader Menu: wlr-which-key" { spawn "wlr-which-key"; }
-    Super+Grave repeat=false hotkey-overlay-title="Toggle Dictation (Speech-to-Text)" { spawn "hyprwhspr" "record" "toggle"; }
+    Super+Grave repeat=false hotkey-overlay-title="Dictation: Tap to toggle / Hold to speak" { spawn "true"; }
     Super+Alt+D repeat=false hotkey-overlay-title="Toggle Dictation (Speech-to-Text)" { spawn "hyprwhspr" "record" "toggle"; }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

@@ -1,5 +1,9 @@
 {
   "$schema": "https://raw.githubusercontent.com/goodroot/hyprwhspr/main/share/config.schema.json",
   "recording_mode": "auto",
-  "transcription_backend": "parakeet-cpp"
+  "transcription_backend": "parakeet-cpp",
+  "primary_shortcut": "Super+Grave",
+  "keyboard_device_names": [
+    "kanata"
+  ]
 }
