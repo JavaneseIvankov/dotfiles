@@ -3,6 +3,7 @@
   "transcription_backend": "parakeet-cpp",
   "recording_mode": "auto",
   "primary_shortcut": "Super+Grave",
+  "cancel_shortcut": "Escape",
   "keyboard_device_names": [
     "kanata"
   ]

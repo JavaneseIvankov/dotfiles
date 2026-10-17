@@ -10,6 +10,7 @@
   "whisper_prompt": "Dikte percakapan Bahasa Indonesia, English terms, dan istilah teknis coding.",
   "recording_mode": "auto",
   "primary_shortcut": "Super+Space",
+  "cancel_shortcut": "Escape",
   "keyboard_device_names": [
     "kanata"
   ]

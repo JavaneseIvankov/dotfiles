@@ -131,6 +131,7 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + Grave` / `$MOD + Alt + d` | `voice:dictate:en` | `$DICTATION_EN` | Dikte English instan (Parakeet TDT offline): Tap toggle, Hold push-to-talk |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
 
+> *Catatan Dikte:* Saat mikrofon sedang aktif merekam, menekan **`Escape`** (atau tap `Caps Lock`) akan membatalkan sesi secara kontekstual (*discard audio & abort* tanpa menyuntikkan teks).
 > *Catatan:* Utilitas file manager, file picker, renamer, dan toggle bar telah di-collapse ke dalam **Leader Menu (`$LEADER`)** di Section 5 untuk menghemat namespace tombol.
 
 ### 3.2. Window Navigation (Focus)
