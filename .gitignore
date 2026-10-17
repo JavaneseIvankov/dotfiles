@@ -1,0 +1,7 @@
+# hyprwhspr runtime transient symlinks
+hyprwhspr/audio_level
+hyprwhspr/recording_control
+hyprwhspr/recording_status
+hyprwhspr-id/audio_level
+hyprwhspr-id/recording_control
+hyprwhspr-id/recording_status

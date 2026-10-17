@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/goodroot/hyprwhspr/main/share/config.schema.json",
+  "transcription_backend": "pywhispercpp",
+  "model": "small",
+  "pywhispercpp_use_vad": true,
+  "sampling_strategy": "greedy",
+  "language": "id",
+  "whisper_prompt": "Dikte percakapan Bahasa Indonesia dan istilah teknis coding.",
+  "recording_mode": "auto",
+  "primary_shortcut": "Super+Shift+Grave",
+  "keyboard_device_names": [
+    "kanata"
+  ]
+}

@@ -110,7 +110,8 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Linux
 | `$NOTIFICATION_CENTER`| Panel notifikasi sistem | `swaync-client -t` | Dunst, Mako |
 | `$TASK_TRACKER` | Manajemen tugas & waktu | `flatpak run com.super_productivity.SuperProductivity` | SuperProductivity |
 | `$AI_PROMPT` | Asisten AI instan | Browser membuka ChatGPT temporary chat | Web/CLI AI tool |
-| `$DICTATION_TOOL` | Speech-to-text / voice typing | `hyprwhspr record toggle` | Whisper small (pywhispercpp Vulkan) multilingual via hyprwhspr |
+| `$DICTATION_EN` | Speech-to-text English (ultra-fast) | `hyprwhspr record toggle` | NVIDIA Parakeet TDT via hyprwhspr |
+| `$DICTATION_ID` | Speech-to-text Indonesian (akurat) | `hyprwhspr-id record toggle` | Whisper small (Vulkan/greedy) via hyprwhspr-id |
 
 ---
 
@@ -126,7 +127,8 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + w` | `launch` | `$WINDOW_SWITCHER` | Buka switcher window aktif |
 | `$MOD + e` | `helper` | `$CHORD_HELPER` | Buka leader key menu (`$LEADER`, lihat Section 5) |
 | `$MOD + Space` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard pointer navigation |
-| `$MOD + Grave` / `$MOD + Alt + d` | `voice:dictate` | `$DICTATION_TOOL` | Dikte suara hybrid: Tap (<400ms) untuk toggle, Hold (≥400ms) untuk push-to-talk |
+| `$MOD + Grave` / `$MOD + Alt + d` | `voice:dictate:en` | `$DICTATION_EN` | Dikte English instan (Parakeet TDT): Tap toggle, Hold push-to-talk |
+| `$MOD + Shift + Grave` / `$MOD + Alt + i` | `voice:dictate:id` | `$DICTATION_ID` | Dikte Indonesia akurat (Whisper small): Tap toggle, Hold push-to-talk |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
 
 > *Catatan:* Utilitas file manager, file picker, renamer, dan toggle bar telah di-collapse ke dalam **Leader Menu (`$LEADER`)** di Section 5 untuk menghemat namespace tombol.
@@ -253,7 +255,9 @@ $LEADER ($MOD + e)
 │   ├── [b] ➜ Toggle Status Bar: toggle($BAR_TOGGLER)
 │   └── [t] ➜ Toggle Tabbed Column: layout:action(toggle_tabbed_display)
 │
-├── [d] ➜ Dictation (STT): toggle($DICTATION_TOOL)
+├── [d] ➜ Dictation (STT)
+│   ├── [e] ➜ English (Fast): toggle($DICTATION_EN)
+│   └── [i] ➜ Indonesia (Akurat): toggle($DICTATION_ID)
 │
 ├── [n] ➜ Notification Center: toggle($NOTIFICATION_CENTER)
 │

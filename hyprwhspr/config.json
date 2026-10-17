@@ -1,11 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/goodroot/hyprwhspr/main/share/config.schema.json",
-  "transcription_backend": "pywhispercpp",
-  "model": "small",
-  "pywhispercpp_use_vad": true,
-  "sampling_strategy": "greedy",
-  "language": null,
-  "whisper_prompt": "Dikte percakapan Bahasa Indonesia dan English teknis.",
+  "transcription_backend": "parakeet-cpp",
   "recording_mode": "auto",
   "primary_shortcut": "Super+Grave",
   "keyboard_device_names": [

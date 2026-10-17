@@ -81,8 +81,14 @@ menu:
         cmd: 'niri msg action toggle-column-tabbed-display'
 
   - key: "d"
-    desc: Dictate (STT)
-    cmd: 'hyprwhspr record toggle'
+    desc: Dictate
+    submenu:
+      - key: "e"
+        desc: English (Parakeet)
+        cmd: 'hyprwhspr record toggle'
+      - key: "i"
+        desc: Indonesia (Whisper)
+        cmd: 'hyprwhspr-id record toggle'
 
   - key: "n"
     desc: Notification
