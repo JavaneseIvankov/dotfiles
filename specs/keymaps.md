@@ -21,8 +21,8 @@ Bagian ini mendefinisikan transformasi tombol fisik laptop di level kernel/evdev
 | **`Caps Lock`** | `Escape` (tap) / Nav Modifier (held) | **Dual-Role Esc & Nav** | Tap untuk Escape instan (Vim); tahan untuk navigasi panah tanpa ghosting |
 | **`Right Alt + C`** | `Escape` | **Right-hand Escape** | Kombo escape satu tangan kanan |
 
-### 0.1. Caps-Nav Layer (Tahan `Caps Lock`)
-Navigasi kursor panah dialokasikan khusus pada `Caps Lock` (held) untuk menghindari limitasi *hardware matrix jamming* laptop (di mana kombinasi 3 tombol fisik `Left Alt + Right Alt + H` diblokir oleh keyboard controller/BIOS):
+### 0.1. Caps-Nav Layer (Tahan `Caps Lock`, Tap = `Escape`)
+Navigasi kursor dan aksi undo dialokasikan pada tombol `Caps Lock` (held) sebagai layer navigasi internal yang independen:
 
 | Tombol saat `Caps Lock` Ditahan | Aksi / Sinyal Output | Posisi Jari | Deskripsi |
 | :--- | :--- | :--- | :--- |
@@ -32,19 +32,11 @@ Navigasi kursor panah dialokasikan khusus pada `Caps Lock` (held) untuk menghind
 | **`l`** | `Right Arrow` ($\rightarrow$) | Tangan Kanan (Home Row) | Navigasi kursor kanan di semua aplikasi |
 | **`u`** | `Ctrl + z` | Tangan Kanan (Top Row) | Undo perubahan teks instan dari layer navigasi |
 
-*Catatan:* Mengetuk (*tap*) `Caps Lock` sendirian tetap mengirim sinyal `Escape` murni tanpa delay.
+*Catatan:* Mengetuk (*tap*) `Caps Lock` sendirian tetap mengirim sinyal `Escape` murni tanpa delay untuk kebutuhan Vim normal mode.
 
-### 0.2. Fast Editing Layer (Tahan Jempol Kanan `Right Alt` dengan `exact_match: true`)
-Aksi penghapusan teks cepat dialokasikan pada jempol kanan (`Right Alt` / `Super`) menggunakan aturan **`exact_match: true`** di `xremap`. Hal ini memastikan bahwa shortcut hanya aktif saat tombol ditekan **murni dengan Super saja**, dan otomatis melepaskan kombinasi saat ada tombol `Shift` (sehingga shortcut Niri seperti `Super + Shift + O` untuk *toggle overview* tidak pernah terganggu):
-
-| Tombol Trigger | Aksi / Sinyal Output | Posisi Jari | Syarat Modifier | Deskripsi |
-| :--- | :--- | :--- | :--- | :--- |
-| **`Super + o`** | `Backspace` | Kanan (Top Row) | Murni `Super` (`exact_match`) | Hapus 1 karakter kiri (jari manis, sangat ergonomis) |
-| **`Super + p`** | `Ctrl + Backspace` | Kanan (Top Row) | Murni `Super` (`exact_match`) | Hapus 1 kata ke belakang (*word delete*, jari kelingking) |
-
-*Keunggulan Arsitektur:* 
-- **Bebas Foreshadowing:** Karena dilindungi oleh `exact_match: true`, penekanan `Super + Shift + O` (Pinky Left Shift) akan langsung diabaikan oleh aturan ini dan diteruskan ke Niri untuk mengaktifkan `toggle-overview`.
-- **Zero-Delay One-Handed:** Kamu bisa menghapus karakter maupun kata hanya dengan satu tangan kanan secara instan tanpa perlu menahan jempol kiri.
+### 0.2. Catatan Arsitektur: Eksplorasi Dual-Thumb Layer & Rencana Migrasi ke Kanata
+* Pada implementasi `xremap`, kombinasi chord dua jempol fisik (`Left Alt` + `Right Alt`) memicu *modifier collapse* menjadi `Super + Shift` yang bertabrakan dengan namespace Window Manager Niri (seperti `toggle-overview` `Super + Shift + O`).
+* Untuk mewujudkan layer chord independen tanpa tabrakan modifier OS, arsitektur input tingkat rendah akan dimigrasikan ke **Kanata** (menggunakan fitur native `defchords` / `deflayer`).
 
 ---
 

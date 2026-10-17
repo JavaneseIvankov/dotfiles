@@ -393,6 +393,7 @@ recent-windows {
     open-delay-ms 150
     binds {
       Super+C { previous-window; }
+      Super+P { previous-window; }
       Super+N { next-window; }
       Super+Tab { next-window; }
       Super+Shift+Tab { previous-window; }

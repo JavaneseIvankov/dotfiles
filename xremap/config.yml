@@ -12,21 +12,13 @@ modmap:
       RIGHTALT: LEFTMETA
 
 keymap:
-  - name: Global and CapsNav
-    remap:
+  - remap:
       RIGHTSHIFT-SPACE: ENTER
       Super-c: ESC
       RIGHTALT-c: ESC
-      # Caps-Nav Layer (Arrow keys & Undo)
+      # Caps-Nav Layer (Held = Nav/Edit, Tap = Esc)
       CapsLock-h: Left
       CapsLock-j: Down
       CapsLock-k: Up
       CapsLock-l: Right
       CapsLock-u: C-z
-
-  - name: Strict Fast Editing
-    exact_match: true
-    remap:
-      # Single-Thumb Fast Editing (Right Alt held, strictly without Shift)
-      Super-o: Backspace
-      Super-p: C-Backspace
