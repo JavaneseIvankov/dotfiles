@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/goodroot/hyprwhspr/main/share/config.schema.json",
+  "recording_mode": "auto",
+  "transcription_backend": "parakeet-cpp"
+}

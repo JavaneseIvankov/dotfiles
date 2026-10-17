@@ -91,7 +91,7 @@ Layer ini diaktifkan secara independen melalui kanata `defchordsv2` saat kedua j
 
 ## 2. Capability Providers & Semantic Roles
 
-Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Arch Linux / Wayland):
+Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Linux / Wayland):
 
 | Role Token | Kebutuhan / Peran | Implementasi Default | Catatan & Alternatif Umum |
 | :--- | :--- | :--- | :--- |
@@ -110,6 +110,7 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Arch 
 | `$NOTIFICATION_CENTER`| Panel notifikasi sistem | `swaync-client -t` | Dunst, Mako |
 | `$TASK_TRACKER` | Manajemen tugas & waktu | `flatpak run com.super_productivity.SuperProductivity` | SuperProductivity |
 | `$AI_PROMPT` | Asisten AI instan | Browser membuka ChatGPT temporary chat | Web/CLI AI tool |
+| `$DICTATION_TOOL` | Speech-to-text / voice typing | `hyprwhspr record toggle` | NVIDIA Parakeet TDT / Whisper via hyprwhspr |
 
 ---
 
@@ -125,6 +126,7 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + w` | `launch` | `$WINDOW_SWITCHER` | Buka switcher window aktif |
 | `$MOD + e` | `helper` | `$CHORD_HELPER` | Buka leader key menu (`$LEADER`, lihat Section 5) |
 | `$MOD + Space` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard pointer navigation |
+| `$MOD + Grave` / `$MOD + Alt + d` | `toggle` | `$DICTATION_TOOL` | Mulai / berhenti mendikte suara (speech-to-text) |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
 
 > *Catatan:* Utilitas file manager, file picker, renamer, dan toggle bar telah di-collapse ke dalam **Leader Menu (`$LEADER`)** di Section 5 untuk menghemat namespace tombol.
@@ -250,6 +252,8 @@ $LEADER ($MOD + e)
 ├── [t] ➜ Toggle UI & Layout
 │   ├── [b] ➜ Toggle Status Bar: toggle($BAR_TOGGLER)
 │   └── [t] ➜ Toggle Tabbed Column: layout:action(toggle_tabbed_display)
+│
+├── [d] ➜ Dictation (STT): toggle($DICTATION_TOOL)
 │
 ├── [n] ➜ Notification Center: toggle($NOTIFICATION_CENTER)
 │
