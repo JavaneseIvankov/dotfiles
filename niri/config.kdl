@@ -424,7 +424,7 @@ binds {
     Super+W repeat=false hotkey-overlay-title="Run Window Switcher: fuzzel" { spawn "fuzzel-utils" "switch"; }
     Super+E repeat=false hotkey-overlay-title="Leader Menu: wlr-which-key" { spawn "wlr-which-key"; }
     Super+Grave repeat=false hotkey-overlay-title="Dictation English (Parakeet: Fast)" { spawn "true"; }
-    Super+Shift+Grave repeat=false hotkey-overlay-title="Dictation Indonesian (Whisper: Accurate)" { spawn "true"; }
+    Super+backslash repeat=false hotkey-overlay-title="Dictation Indonesian (Whisper: Accurate)" { spawn "true"; }
     Super+Alt+D repeat=false hotkey-overlay-title="Toggle Dictation English" { spawn "hyprwhspr" "record" "toggle"; }
     Super+Alt+I repeat=false hotkey-overlay-title="Toggle Dictation Indonesian" { spawn "hyprwhspr-id" "record" "toggle"; }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.

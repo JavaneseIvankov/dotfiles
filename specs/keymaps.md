@@ -128,7 +128,7 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + e` | `helper` | `$CHORD_HELPER` | Buka leader key menu (`$LEADER`, lihat Section 5) |
 | `$MOD + Space` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard pointer navigation |
 | `$MOD + Grave` / `$MOD + Alt + d` | `voice:dictate:en` | `$DICTATION_EN` | Dikte English instan (Parakeet TDT): Tap toggle, Hold push-to-talk |
-| `$MOD + Shift + Grave` / `$MOD + Alt + i` | `voice:dictate:id` | `$DICTATION_ID` | Dikte Indonesia akurat (Whisper small): Tap toggle, Hold push-to-talk |
+| `$MOD + Backslash` / `$MOD + Alt + i` | `voice:dictate:id` | `$DICTATION_ID` | Dikte Indonesia akurat (Whisper small): Tap toggle, Hold push-to-talk |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
 
 > *Catatan:* Utilitas file manager, file picker, renamer, dan toggle bar telah di-collapse ke dalam **Leader Menu (`$LEADER`)** di Section 5 untuk menghemat namespace tombol.
