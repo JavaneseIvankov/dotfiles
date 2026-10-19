@@ -31,6 +31,8 @@ Navigasi kursor, aksi undo, dan penghapusan teks dialokasikan pada tombol `Caps 
 | **`j`** | `Down Arrow` ($\downarrow$) | Tangan Kanan (Home Row) | Navigasi kursor bawah di semua aplikasi |
 | **`k`** | `Up Arrow` ($\uparrow$) | Tangan Kanan (Home Row) | Navigasi kursor atas di semua aplikasi |
 | **`l`** | `Right Arrow` ($\rightarrow$) | Tangan Kanan (Home Row) | Navigasi kursor kanan di semua aplikasi |
+| **`w`** | `Ctrl + Right Arrow` | Tangan Kiri (Top Row) | Lompat 1 kata ke depan (*word forward*, gaya Vim `w`) |
+| **`b`** | `Ctrl + Left Arrow` | Tangan Kiri (Bottom Row) | Lompat 1 kata ke belakang (*word backward*, gaya Vim `b`) |
 | **`u`** | `Ctrl + z` | Tangan Kanan (Top Row) | Undo perubahan teks instan dari layer navigasi |
 | **`o`** | `Backspace` | Tangan Kanan (Top Row) | Hapus 1 karakter kiri |
 | **`p`** | `Ctrl + Backspace` | Tangan Kanan (Top Row) | Hapus 1 kata ke belakang (*word delete*) |

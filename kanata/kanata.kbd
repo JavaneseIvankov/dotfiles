@@ -14,36 +14,42 @@
   caps esc  lmet lalt spc  ralt c lsft
   h j k l
   u o p s
+  w b
 )
 
 (deflayer base
   @cap caps ralt @l-sft spc @r-lmet c lsft
   h j k l
   u o p s
+  w b
 )
 
 (deflayer nav
   _    _    _    _      _   _    _    _
   left down up   right
   C-z  bspc C-bspc _
+  C-right C-left
 )
 
 (deflayer lalt-layer
   _    _    _    _      @th-ret (layer-while-held dual-thumb) _ _
   _    _    _    _
   _    _    _    _
+  _    _
 )
 
 (deflayer ralt-layer
   _    _    _    (layer-while-held dual-thumb) _ _ @c-esc _
   _    _    _    _
   _    @o-act @p-act _
+  _    _
 )
 
 (deflayer dual-thumb
   _    _    _    _      _   _    _    _
   _    _    _    _
   C-z  bspc C-bspc M-ret
+  _    _
 )
 
 (defalias
