@@ -9,12 +9,24 @@ DEVICE_NAME="i2c-MSFT0001:01"
 DRIVER_DIR="/sys/bus/i2c/drivers/i2c_hid_acpi"
 SCRIPT_PATH="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/$(basename -- "$0")"
 SUDOERS_FILE="/etc/sudoers.d/restart-touchpad"
+QUIET=0
 
 notify() {
     title="$1"
     msg="$2"
     urgency="${3:-normal}"
-    echo "[$title] $msg"
+    is_error="${4:-0}"
+
+    if [ "$QUIET" -eq 1 ] && [ "$is_error" -eq 0 ]; then
+        return 0
+    fi
+
+    if [ "$QUIET" -eq 0 ]; then
+        echo "[$title] $msg"
+    elif [ "$is_error" -eq 1 ]; then
+        echo "[$title] $msg" >&2
+    fi
+
     if command -v notify-send >/dev/null 2>&1; then
         target_user="${SUDO_USER:-$(id -un)}"
         target_uid="$(id -u "$target_user" 2>/dev/null || echo 1000)"
@@ -37,6 +49,7 @@ electrical noise, capacitive baseline drift, and erratic cursor jumps.
 
 Options:
   -d, --deep             Perform a deep reset (reload kernel modules i2c_hid_acpi and i2c_hid)
+  -q, --quiet            Silent mode (no terminal output or notifications unless an error occurs)
   --install-sudoers      Install passwordless sudo rule in /etc/sudoers.d for this script
   -h, --help             Show this help message
 
@@ -74,7 +87,7 @@ install_sudoers() {
 }
 
 reset_sysfs() {
-    notify "Touchpad Recalibration" "Hands off touchpad for 2s — recalibrating sensor baseline..." "critical"
+    notify "Touchpad Recalibration" "Hands off touchpad for 2s — recalibrating sensor baseline..." "normal" 0
 
     # Step 1: Unbind device (puts device into low-power sleep)
     if [ -e "$DRIVER_DIR/$DEVICE_NAME" ]; then
@@ -92,16 +105,16 @@ reset_sysfs() {
     # Step 4: Verification
     sleep 0.5
     if [ -e "$DRIVER_DIR/$DEVICE_NAME" ]; then
-        notify "Touchpad Ready" "Touchpad baseline recalibration complete." "normal"
+        notify "Touchpad Ready" "Touchpad baseline recalibration complete." "normal" 0
         return 0
     else
-        echo "Sysfs bind verification failed, falling back to deep reset..." >&2
+        [ "$QUIET" -eq 0 ] && echo "Sysfs bind verification failed, falling back to deep reset..." >&2
         return 1
     fi
 }
 
 reset_deep() {
-    notify "Touchpad Deep Reset" "Reloading kernel drivers (hands off for 2s)..." "critical"
+    notify "Touchpad Deep Reset" "Reloading kernel drivers (hands off for 2s)..." "normal" 0
 
     modprobe -r i2c_hid_acpi i2c_hid || true
     sleep 1.5
@@ -109,16 +122,17 @@ reset_deep() {
 
     sleep 0.5
     if grep -q "Touchpad" /proc/bus/input/devices 2>/dev/null; then
-        notify "Touchpad Ready" "Touchpad kernel module reset complete." "normal"
+        notify "Touchpad Ready" "Touchpad kernel module reset complete." "normal" 0
         return 0
     else
-        notify "Touchpad Error" "Failed to re-initialize touchpad device." "critical"
+        notify "Touchpad Error" "Failed to re-initialize touchpad device." "critical" 1
         return 1
     fi
 }
 
 main() {
     DEEP=0
+    QUIET=0
 
     # Parse flags that don't need root
     for arg in "$@"; do
@@ -141,6 +155,10 @@ main() {
         case "$1" in
             -d|--deep)
                 DEEP=1
+                shift
+                ;;
+            -q|--quiet)
+                QUIET=1
                 shift
                 ;;
             *)
