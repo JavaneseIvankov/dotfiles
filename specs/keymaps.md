@@ -20,6 +20,7 @@ Bagian ini mendefinisikan transformasi tombol fisik laptop di level kernel/evdev
 | **`Super / Win`** | `Right Alt` (Mod1) | **In-App Alt** | Disediakan khusus saat aplikasi/terminal membutuhkan tombol `Alt` |
 | **`Caps Lock`** | `Escape` (tap) / Nav Modifier (held) | **Dual-Role Esc & Nav** | Tap untuk Escape instan (Vim); tahan untuk navigasi panah tanpa ghosting |
 | **`Right Alt + C`** | `Escape` | **Right-hand Escape** | Kombo chord escape satu tangan kanan (`defchordsv2`) |
+| **`j + k`** (Chord) | `Escape` | **Home-Row Fast Escape** | Tekan serentak (45ms) saat mengetik teks untuk memicu Escape tanpa menggeser jari dari home row (`defchordsv2`) |
 | **`Left Alt + Space`**| `Enter` (Repeatable) | **Thumb Enter** | Menekan Enter tanpa menjangkau kelingking kanan; native layer mapping (repeatable, tanpa batasan durasi/timeout) |
 
 ### 0.1. Caps-Nav Layer (Tahan `Caps Lock`, Tap = `Escape`)
