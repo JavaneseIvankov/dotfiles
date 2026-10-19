@@ -125,7 +125,8 @@ layout {
     // - "always", the focused column will always be centered.
     // - "on-overflow", focusing a column will center it if it doesn't fit
     //   together with the previously focused column.
-    center-focused-column "on-overflow"
+    // center-focused-column "always"
+    center-focused-column "never"
     always-center-single-column
 
     tab-indicator {
