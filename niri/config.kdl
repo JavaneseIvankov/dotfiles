@@ -125,8 +125,8 @@ layout {
     // - "always", the focused column will always be centered.
     // - "on-overflow", focusing a column will center it if it doesn't fit
     //   together with the previously focused column.
-    // center-focused-column "always"
-    center-focused-column "never"
+    center-focused-column "on-overflow"
+    always-center-single-column
 
     tab-indicator {
       place-within-column
@@ -623,8 +623,8 @@ binds {
     Super+Shift+F { fullscreen-window; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
-    // Makes the olumn "fill the rest of the space".
-    // Super+Ctrl+F { expand-column-to-available-width; }
+    // Makes the column "fill the rest of the space".
+    Super+Ctrl+F repeat=false hotkey-overlay-title="Expand Column: Fill available space" { expand-column-to-available-width; }
 
     // Super+C { center-column; }
 

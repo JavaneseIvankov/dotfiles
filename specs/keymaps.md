@@ -162,6 +162,7 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + q` | `window:action` | `close` | Tutup window aktif secara aman |
 | `$MOD + f` | `window:action` | `maximize_column` | Maksimalkan lebar kolom aktif |
 | `$MOD + Shift + f` | `window:action` | `fullscreen` | Toggle fullscreen sejati |
+| `$MOD + Ctrl + f` | `window:action` | `expand_column_available` | Perluas kolom mengisi ruang layar yang tersisa (fill available space) |
 | `$MOD + Ctrl + v` | `window:action` | `toggle_float` | Toggle mode floating pada window aktif |
 | `$MOD + Shift + v` | `window:action` | `switch_focus_floating_tiling` | Tukar fokus antara layer floating & tiling |
 | `$MOD + Shift + o` | `canvas:action` | `toggle_overview` | Buka / tutup tampilan overview kanvas |
