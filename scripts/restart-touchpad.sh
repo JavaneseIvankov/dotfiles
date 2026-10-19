@@ -16,15 +16,15 @@ notify() {
     urgency="${3:-normal}"
     echo "[$title] $msg"
     if command -v notify-send >/dev/null 2>&1; then
-        notify-send -u "$urgency" -a "Touchpad Recalibration" "$title" "$msg" 2>/dev/null || true
-    fi
-}
-
-run_privileged() {
-    if [ "$(id -u)" -eq 0 ]; then
-        "$@"
-    else
-        sudo "$@"
+        target_user="${SUDO_USER:-$(id -un)}"
+        target_uid="$(id -u "$target_user" 2>/dev/null || echo 1000)"
+        if [ "$(id -u)" -eq 0 ] && [ -n "${SUDO_USER:-}" ]; then
+            sudo -u "$target_user" \
+                DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$target_uid/bus" \
+                notify-send -u "$urgency" -a "Touchpad Recalibration" "$title" "$msg" 2>/dev/null || true
+        else
+            notify-send -u "$urgency" -a "Touchpad Recalibration" "$title" "$msg" 2>/dev/null || true
+        fi
     fi
 }
 
@@ -48,7 +48,7 @@ EOF
 }
 
 install_sudoers() {
-    user="$(id -un)"
+    user="${SUDO_USER:-$(id -un)}"
     tmp_file="$(mktemp /tmp/restart-touchpad-sudoers.XXXXXX)"
     echo "$user ALL=(ALL) NOPASSWD: $SCRIPT_PATH" > "$tmp_file"
     
@@ -60,8 +60,13 @@ install_sudoers() {
     fi
 
     echo "Installing sudoers rule to $SUDOERS_FILE..."
-    run_privileged cp "$tmp_file" "$SUDOERS_FILE"
-    run_privileged chmod 0440 "$SUDOERS_FILE"
+    if [ "$(id -u)" -eq 0 ]; then
+        cp "$tmp_file" "$SUDOERS_FILE"
+        chmod 0440 "$SUDOERS_FILE"
+    else
+        sudo cp "$tmp_file" "$SUDOERS_FILE"
+        sudo chmod 0440 "$SUDOERS_FILE"
+    fi
     rm -f "$tmp_file"
     echo "Successfully installed $SUDOERS_FILE"
     echo "You can now run '$SCRIPT_PATH' without a password prompt (ideal for Niri keybindings)."
@@ -73,15 +78,15 @@ reset_sysfs() {
 
     # Step 1: Unbind device (puts device into low-power sleep)
     if [ -e "$DRIVER_DIR/$DEVICE_NAME" ]; then
-        echo "$DEVICE_NAME" | run_privileged tee "$DRIVER_DIR/unbind" >/dev/null
+        echo "$DEVICE_NAME" > "$DRIVER_DIR/unbind"
     fi
 
     # Step 2: Dissipation pause - allows charge & baseline capacitance to settle
     sleep 1.5
 
     # Step 3: Rebind device (triggers I2C_HID_PWR_ON and I2C_HID_CMD_RESET)
-    if [ -w "$DRIVER_DIR/bind" ] || [ "$(id -u)" -eq 0 ] || sudo -n true 2>/dev/null || true; then
-        echo "$DEVICE_NAME" | run_privileged tee "$DRIVER_DIR/bind" >/dev/null
+    if [ -w "$DRIVER_DIR/bind" ]; then
+        echo "$DEVICE_NAME" > "$DRIVER_DIR/bind"
     fi
 
     # Step 4: Verification
@@ -98,9 +103,9 @@ reset_sysfs() {
 reset_deep() {
     notify "Touchpad Deep Reset" "Reloading kernel drivers (hands off for 2s)..." "critical"
 
-    run_privileged modprobe -r i2c_hid_acpi i2c_hid || true
+    modprobe -r i2c_hid_acpi i2c_hid || true
     sleep 1.5
-    run_privileged modprobe i2c_hid_acpi
+    modprobe i2c_hid_acpi
 
     sleep 0.5
     if grep -q "Touchpad" /proc/bus/input/devices 2>/dev/null; then
@@ -115,17 +120,28 @@ reset_deep() {
 main() {
     DEEP=0
 
+    # Parse flags that don't need root
+    for arg in "$@"; do
+        case "$arg" in
+            -h|--help)
+                usage
+                ;;
+            --install-sudoers)
+                install_sudoers
+                ;;
+        esac
+    done
+
+    # Ensure elevated privileges for hardware reset
+    if [ "$(id -u)" -ne 0 ]; then
+        exec sudo "$SCRIPT_PATH" "$@"
+    fi
+
     while [ $# -gt 0 ]; do
         case "$1" in
             -d|--deep)
                 DEEP=1
                 shift
-                ;;
-            --install-sudoers)
-                install_sudoers
-                ;;
-            -h|--help)
-                usage
                 ;;
             *)
                 echo "Unknown option: $1" >&2
