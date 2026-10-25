@@ -4,7 +4,7 @@ Name=Yazi
 GenericName=File Manager
 Comment=Blazing fast terminal file manager
 Icon=yazi
-Exec=kitty --class yazi yazi %f
+Exec=kitty -o confirm_os_window_close=0 --class yazi yazi %f
 Terminal=false
 Categories=System;FileTools;FileManager;ConsoleOnly;
 MimeType=inode/directory;

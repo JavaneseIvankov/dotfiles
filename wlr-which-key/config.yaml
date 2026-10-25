@@ -55,7 +55,7 @@ menu:
     submenu:
       - key: "m"
         desc: File Manager (Yazi)
-        cmd: 'kitty --class yazi yazi'
+        cmd: 'kitty -o confirm_os_window_close=0 --class yazi yazi'
       - key: "M"
         desc: File Manager GUI (Thunar)
         cmd: 'thunar'
