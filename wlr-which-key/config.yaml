@@ -54,7 +54,10 @@ menu:
     desc: Files
     submenu:
       - key: "m"
-        desc: File Manager (Thunar)
+        desc: File Manager (Yazi)
+        cmd: 'kitty --class yazi yazi'
+      - key: "M"
+        desc: File Manager GUI (Thunar)
         cmd: 'thunar'
       - key: "p"
         desc: File Picker (Fuzzy)

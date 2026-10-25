@@ -104,7 +104,7 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Linux
 | `$WINDOW_SWITCHER` | Pencari & switcher window aktif | `fuzzel-utils switch` | Rofi window, WM native focus |
 | `$WINDOW_RENAMER` | Mengubah alias nama window | `fuzzel-utils rename-window` | Custom script |
 | `$WORKSPACE_RENAMER`| Mengubah nama/label workspace | `fuzzel-utils rename-workspace-current` | Custom script |
-| `$FILE_MANAGER` | File manager grafis | `thunar` | `nautilus`, `dolphin`, `yazi` |
+| `$FILE_MANAGER` | File manager utama | `yazi` (`kitty --class yazi yazi`) | `thunar`, `nautilus`, `dolphin` |
 | `$FILE_PICKER` | Pencari file cepat berbasis fuzzy | `fuzzel-utils file-explorer` | Fzf picker, Walker |
 | `$BROWSER` | Web browser utama | `vivaldi-stable --remote-debugging-port=9222` | Chromium / Firefox |
 | `$MOUSELESS_POINTER`| Kontrol mouse via keyboard | `wl-kbptr -o modes=floating,click -o mode_floating.source=detect` | - |
@@ -249,7 +249,8 @@ $LEADER ($MOD + e)
 │   └── [w] ➜ Window: screenshot:window (jendela aktif ke clipboard)
 │
 ├── [f] ➜ Files & Search
-│   ├── [m] ➜ File Manager GUI: launch($FILE_MANAGER)
+│   ├── [m] ➜ File Manager (Yazi): launch($FILE_MANAGER)
+│   ├── [M] ➜ File Manager GUI (Thunar): launch(thunar)
 │   └── [p] ➜ File Picker Fuzzy: launch($FILE_PICKER)
 │
 ├── [r] ➜ Rename
