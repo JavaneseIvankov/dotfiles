@@ -9,15 +9,15 @@
 }
 
 :root {
-  --cc-bg: rgba(0, 0, 0, 0.92);
-  --noti-border-color: rgba(100, 114, 125, 0.5);
+  --cc-bg: rgb(0, 0, 0);
+  --noti-border-color: rgb(50, 57, 62);
   --noti-bg: 0, 0, 0;
-  --noti-bg-alpha: 0.95;
+  --noti-bg-alpha: 1.0;
   --noti-bg-darker: rgb(10, 10, 10);
   --noti-bg-hover: rgb(26, 26, 26);
-  --noti-bg-focus: rgba(40, 40, 40, 0.7);
-  --noti-close-bg: rgba(100, 114, 125, 0.35);
-  --noti-close-bg-hover: rgba(100, 114, 125, 0.7);
+  --noti-bg-focus: rgb(28, 28, 28);
+  --noti-close-bg: rgb(35, 40, 44);
+  --noti-close-bg-hover: rgb(70, 80, 88);
   --text-color: rgb(255, 255, 255);
   --text-color-disabled: rgb(120, 120, 120);
   --bg-selected: rgb(100, 114, 125);
@@ -38,16 +38,16 @@
 
 /* Fallback for older CSS themes */
 /* Fallback for older CSS themes */
-@define-color cc-bg rgba(0, 0, 0, 0.92);
-@define-color noti-border-color rgba(100, 114, 125, 0.5);
-@define-color noti-bg rgba(0, 0, 0, 0.95);
+@define-color cc-bg rgb(0, 0, 0);
+@define-color noti-border-color rgb(50, 57, 62);
+@define-color noti-bg rgb(0, 0, 0);
 @define-color noti-bg-opaque rgb(0, 0, 0);
 @define-color noti-bg-darker rgb(10, 10, 10);
 @define-color noti-bg-hover rgb(26, 26, 26);
 @define-color noti-bg-hover-opaque rgb(26, 26, 26);
-@define-color noti-bg-focus rgba(40, 40, 40, 0.7);
-@define-color noti-close-bg rgba(100, 114, 125, 0.35);
-@define-color noti-close-bg-hover rgba(100, 114, 125, 0.7);
+@define-color noti-bg-focus rgb(28, 28, 28);
+@define-color noti-close-bg rgb(35, 40, 44);
+@define-color noti-close-bg-hover rgb(70, 80, 88);
 @define-color text-color rgb(255, 255, 255);
 @define-color text-color-disabled rgb(120, 120, 120);
 @define-color bg-selected rgb(100, 114, 125);
