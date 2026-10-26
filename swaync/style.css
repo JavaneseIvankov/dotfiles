@@ -1,7 +1,8 @@
-/* swaync theme - derived from /etc/xdg/swaync/style.css (swaync 0.12.6) with
-   waybar-matching patches: black bg, white text, JetBrainsMono Nerd Font,
-   sharp corners, gray borders, no shadows. Keep structural selectors in sync
-   with the packaged stylesheet. */
+/* swaync theme - derived from /etc/xdg/swaync/style.css (swaync 0.12.6).
+   Flexoki dark palette: bg #100F0F, cards #1C1B1A, ui #252524, ui-2 #343332,
+   text #CECDC3, tx-2 #87857F, accent blue #4385BE. JetBrainsMono Nerd Font,
+   sharp corners, solid opaque colors, no shadows. Structural selectors must
+   stay in sync with the packaged stylesheet. */
 
 * {
   font-family: JetBrainsMono Nerd Font;
@@ -9,18 +10,18 @@
 }
 
 :root {
-  --cc-bg: rgb(0, 0, 0);
-  --noti-border-color: rgb(50, 57, 62);
-  --noti-bg: 0, 0, 0;
+  --cc-bg: rgb(16, 15, 15); /* flexoki bg #100F0F */
+  --noti-border-color: rgb(52, 51, 50); /* flexoki ui-2 #343332 */
+  --noti-bg: 28, 27, 26; /* flexoki bg-2 #1C1B1A */
   --noti-bg-alpha: 1.0;
-  --noti-bg-darker: rgb(10, 10, 10);
-  --noti-bg-hover: rgb(26, 26, 26);
-  --noti-bg-focus: rgb(28, 28, 28);
-  --noti-close-bg: rgb(35, 40, 44);
-  --noti-close-bg-hover: rgb(70, 80, 88);
-  --text-color: rgb(255, 255, 255);
-  --text-color-disabled: rgb(120, 120, 120);
-  --bg-selected: rgb(100, 114, 125);
+  --noti-bg-darker: rgb(16, 15, 15);
+  --noti-bg-hover: rgb(37, 37, 36); /* flexoki ui #252524 */
+  --noti-bg-focus: rgb(52, 51, 50); /* flexoki ui-2 */
+  --noti-close-bg: rgb(52, 51, 50);
+  --noti-close-bg-hover: rgb(64, 62, 61); /* flexoki ui-3 #403E3D */
+  --text-color: rgb(206, 205, 195); /* flexoki tx #CECDC3 */
+  --text-color-disabled: rgb(135, 133, 127); /* flexoki tx-2 #87857F */
+  --bg-selected: rgb(67, 133, 190); /* flexoki blue #4385BE */
   --notification-icon-size: 64px;
   --notification-app-icon-size: calc(var(--notification-icon-size) / 3);
   --notification-group-icon-size: 32px;
@@ -38,19 +39,19 @@
 
 /* Fallback for older CSS themes */
 /* Fallback for older CSS themes */
-@define-color cc-bg rgb(0, 0, 0);
-@define-color noti-border-color rgb(50, 57, 62);
-@define-color noti-bg rgb(0, 0, 0);
+@define-color cc-bg rgb(16, 15, 15);
+@define-color noti-border-color rgb(52, 51, 50);
+@define-color noti-bg rgb(28, 27, 26);
 @define-color noti-bg-opaque rgb(0, 0, 0);
-@define-color noti-bg-darker rgb(10, 10, 10);
-@define-color noti-bg-hover rgb(26, 26, 26);
-@define-color noti-bg-hover-opaque rgb(26, 26, 26);
-@define-color noti-bg-focus rgb(28, 28, 28);
-@define-color noti-close-bg rgb(35, 40, 44);
-@define-color noti-close-bg-hover rgb(70, 80, 88);
-@define-color text-color rgb(255, 255, 255);
-@define-color text-color-disabled rgb(120, 120, 120);
-@define-color bg-selected rgb(100, 114, 125);
+@define-color noti-bg-darker rgb(16, 15, 15);
+@define-color noti-bg-hover rgb(37, 37, 36);
+@define-color noti-bg-hover-opaque rgb(37, 37, 36);
+@define-color noti-bg-focus rgb(52, 51, 50);
+@define-color noti-close-bg rgb(52, 51, 50);
+@define-color noti-close-bg-hover rgb(64, 62, 61);
+@define-color text-color rgb(206, 205, 195);
+@define-color text-color-disabled rgb(135, 133, 127);
+@define-color bg-selected rgb(67, 133, 190);
 notificationwindow, blankwindow {
   background: transparent;
 }
