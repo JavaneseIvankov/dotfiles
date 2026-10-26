@@ -280,7 +280,7 @@ layout {
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
-spawn-at-startup "env" "GSK_RENDERER=vulkan" "swaync"
+spawn-at-startup "env" "GSK_RENDERER=vulkan" "sh" "-c" "exec swaync -c $HOME/dotfiles/swaync/config.json -s $HOME/dotfiles/swaync/style.css"
 
 spawn-sh-at-startup "~/scripts/niri-notify-focus"
 
