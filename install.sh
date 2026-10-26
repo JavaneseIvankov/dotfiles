@@ -41,6 +41,7 @@ link "$HOME/dotfiles/lazygit" "$HOME/.config/lazygit"
 link "$HOME/dotfiles/zed" "$HOME/.config/zed"
 link "$HOME/dotfiles/zsh/sheldon" "$HOME/.config/sheldon"
 link "$HOME/dotfiles/waybar" "$HOME/.config/waybar"
+link "$HOME/dotfiles/swaync" "$HOME/.config/swaync"
 link "$HOME/dotfiles/xremap" "$HOME/.config/xremap"
 link "$HOME/dotfiles/kanata" "$HOME/.config/kanata"
 link "$HOME/dotfiles/hyprwhspr" "$HOME/.config/hyprwhspr"
@@ -55,6 +56,7 @@ link "$HOME/dotfiles/wl-kbptr" "$HOME/.config/wl-kbptr"
 link "$HOME/dotfiles/code/argv.json" "$HOME/.config/Code/argv.json"
 
 link "$HOME/dotfiles/scripts" "$HOME/scripts"
+link "$HOME/dotfiles/scripts/restart-touchpad.sh" "$HOME/.local/bin/restart-touchpad"
 
 for entry in "$HOME/dotfiles/desktop-entry"/*.desktop; do
   [ -e "$entry" ] || continue
