@@ -78,7 +78,7 @@ menu:
     submenu:
       - key: "b"
         desc: Toggle Waybar
-        cmd: 'pkill -x waybar && echo "" || waybar --config ~/.config/waybar/config.niri.jsonc &'
+        cmd: '~/scripts/toggle-waybar.sh'
       - key: "t"
         desc: Toggle Tabbed Column
         cmd: 'niri msg action toggle-column-tabbed-display'

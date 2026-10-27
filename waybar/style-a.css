@@ -1,0 +1,12 @@
+/* Variant A — "refined flat strip".
+ * Same footprint as before: full-bleed bar. The stray 3px grey underline is
+ * replaced by a 1px Flexoki hairline, and the palette now matches swaync.
+ *   waybar -c ~/.config/waybar/config-a.jsonc -s ~/.config/waybar/style-a.css */
+@import url("flexoki.css");
+@import url("modules.css");
+
+window#waybar {
+    background: @bg;
+    border-bottom: 1px solid @ui-2;
+    color: @tx;
+}

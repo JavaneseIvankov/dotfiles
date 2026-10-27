@@ -1,0 +1,144 @@
+/* Module styling shared by every Waybar variant (imported by style-*.css).
+ * Modules carry no background; the hairline dividers below carve the right
+ * cluster into semantic groups, so the bar reads as segments instead of a row
+ * of unrelated numbers. */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    min-height: 0;
+}
+
+.module {
+    padding: 0 8px;
+    color: @tx;
+}
+
+/* Segment dividers: the first module of each group carries the hairline.
+ * groups: media | idle volume network | cpu mem temp backlight | power battery | clock | tray */
+#pulseaudio,
+#cpu,
+#power-profiles-daemon,
+#clock {
+    border-left: 1px solid @ui-2;
+}
+
+/* -- left cluster --------------------------------------------------------- */
+#workspaces {
+    padding: 0 6px;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    margin: 5px 2px;
+    min-width: 16px;
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    color: @tx-2;
+}
+
+#workspaces button:hover {
+    background: @ui;
+    border-bottom-color: @tx-2;
+    color: @tx;
+}
+
+#workspaces button.active {
+    background: @ui;
+    border-bottom-color: @blue;
+    color: @blue;
+}
+
+#workspaces button.urgent {
+    background: @red;
+    border-bottom-color: @red;
+    color: @bg;
+}
+
+#window {
+    color: @tx-2;
+    padding-left: 4px;
+}
+
+/* -- anchors ------------------------------------------------------------- */
+#clock {
+    color: @tx;
+    font-weight: 600;
+}
+
+#tray {
+    padding: 0 6px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+/* -- states (solid colour, never a blinking block) ----------------------- */
+#battery.charging,
+#battery.plugged {
+    color: @green;
+}
+
+#battery.warning:not(.charging) {
+    color: @orange;
+}
+
+#battery.critical:not(.charging) {
+    color: @red;
+}
+
+#temperature.critical {
+    color: @red;
+}
+
+#network.disconnected {
+    color: @orange;
+}
+
+#idle_inhibitor.activated {
+    color: @yellow;
+}
+
+#power-profiles-daemon.performance {
+    color: @orange;
+}
+
+#power-profiles-daemon.balanced {
+    color: @blue;
+}
+
+#power-profiles-daemon.power-saver {
+    color: @green;
+}
+
+#custom-media.playing {
+    color: @tx;
+}
+
+#custom-media.paused {
+    color: @tx-2;
+}
+
+#custom-media.stopped {
+    color: @tx-3;
+}
+
+/* -- tooltips ------------------------------------------------------------ */
+tooltip {
+    background: @bg-2;
+    border: 1px solid @ui-2;
+    border-radius: 3px;
+}
+
+tooltip label {
+    color: @tx;
+    padding: 4px 6px;
+    font-size: 12px;
+}

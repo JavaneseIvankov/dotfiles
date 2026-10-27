@@ -1,0 +1,26 @@
+/* Variant B — "floating Flexoki island".
+ * Detached from the screen edges and outlined with a 1px hairline: the same
+ * geometry language as the swaync cards.
+ *   waybar -c ~/.config/waybar/config-b.jsonc -s ~/.config/waybar/style-b.css
+ *
+ * The left/right inset is drawn here rather than in config-b.jsonc: niri ignores
+ * a right-hand margin on a layer surface anchored to both left and right, which
+ * let the island run off the screen edge. config-b.jsonc therefore only sets
+ * margin-top; the window stays full-bleed and transparent while its child box
+ * carries the visible surface. */
+@import url("flexoki.css");
+@import url("modules.css");
+
+window#waybar {
+    background: transparent;
+    border: none;
+    color: @tx;
+}
+
+window#waybar > box {
+    margin: 0 6px;
+    background: @bg;
+    /* box-shadow, not border: the hairline ring must not add 2px of layout
+     * height, which would push the bar past its configured 30px. */
+    box-shadow: 0 0 0 1px @ui-2;
+}

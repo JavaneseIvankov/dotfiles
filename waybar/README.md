@@ -1,0 +1,69 @@
+# Waybar
+
+Two colour/geometry variants of the same bar, sharing one palette.
+
+| File | Role |
+|---|---|
+| `flexoki.css` | Flexoki dark tokens — byte-identical to `../swaync/style.css` |
+| `modules.css` | shared module styling (dividers, workspaces, states, tooltips) |
+| `config-a.jsonc` + `style-a.css` | **Variant A** — full-bleed strip, 1px hairline under the bar |
+| `config-b.jsonc` + `style-b.css` | **Variant B** — floating island (A + 6px margins, 1px outline) |
+| `config.jsonc` + `style.css` | original look, kept untouched |
+| `config.niri.jsonc` | original Niri module set (source for the generator) |
+| `mkconfig.py` | regenerates `config-a.jsonc` / `config-b.jsonc` from `config.niri.jsonc` |
+| `mediaplayer.py` | `custom/media` backend (playerctl); the old config pointed at a file that did not exist |
+
+## Switching
+
+```sh
+~/scripts/waybar-variant.sh a     # refined flat strip
+~/scripts/waybar-variant.sh b     # floating island
+~/scripts/waybar-variant.sh old   # the previous look
+```
+
+The choice is remembered in `~/.local/state/waybar/variant`, and
+`niri/config.kdl` spawns the script with no argument at login
+(`spawn-sh-at-startup "~/scripts/waybar-variant.sh"`), so the remembered variant
+comes back after a reboot.
+
+The script starts the bar **detached** (`setsid` + `disown`, log in
+`~/.local/state/waybar/waybar.log`) and exits in ~50ms — it must never `exec`
+waybar, or closing the terminal that ran it would kill the bar. Re-running it
+for the variant that is already up is a no-op: the script compares
+`/proc/<pid>/cmdline` and only restarts when the config/stylesheet actually
+differs.
+
+Launching one by hand:
+
+```sh
+waybar -c ~/.config/waybar/config-a.jsonc -s ~/.config/waybar/style-a.css
+waybar -c ~/.config/waybar/config-b.jsonc -s ~/.config/waybar/style-b.css
+```
+
+`-s` is required for both: Waybar always resolves the default stylesheet to
+`~/.config/waybar/style.css`, it does **not** look next to `-c`.
+
+## Notes
+
+- Geometry lives in the config (`height`, `spacing`, `margin-*`); the hairline
+  dividers are `border-left` on the modules that open a group — an empty
+  `custom/separator` collapses to zero width and paints nothing.
+- **Spacing hierarchy.** Each module is one visual unit: icon and value are
+  joined by exactly **one** space in the format string, and the 8px `.module`
+  padding on either side supplies the gap between units. Measured on the live
+  bar this is ~8px icon→value vs ~16px module→module, so the pair reads as a
+  component instead of two modules.
+  Two things break that rule and must not come back:
+  1. a second space after the icon span (`"  {value}"`) — doubles the inner gap
+     to ~19px, which is *wider* than the gap between modules;
+  2. a width spec one digit wider than the value (`{capacity:3}` with `42`),
+     because the padding space is invisible and stacks onto the separator —
+     another ~19px inner gap. All these values are 0-100, so `{:2}` both
+     right-aligns and stays single-digit-safe; 100 just widens once.
+- Numbers are padded (`{usage:2}`, `{capacity:2}`, `{temperatureC:2}`,
+  `{volume:2}`, `{percent:2}`, `{signalStrength:2}`) so the right cluster does
+  not jitter as values change.
+- Icons are dimmed via `<span foreground='#87857F'>` (Pango markup cannot read
+  `@define-color`), so keep that hex in sync with `tx-2` in `flexoki.css`.
+- Edit `mkconfig.py`, then re-run it, to change the module set; both variants
+  stay in sync automatically.

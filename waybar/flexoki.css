@@ -1,0 +1,19 @@
+/* Flexoki dark palette — tokens kept identical to swaync/style.css so the
+ * notification cards and the bar can never drift apart. This is the only place
+ * the Waybar palette is written down. */
+@define-color bg      #100F0F; /* flexoki black    */
+@define-color bg-2    #1C1B1A; /* flexoki base-950 */
+@define-color ui      #252524; /* flexoki base-900 */
+@define-color ui-2    #343332; /* flexoki base-850 */
+@define-color ui-3    #403E3D; /* flexoki base-800 */
+@define-color tx      #CECDC3; /* flexoki base-200 */
+@define-color tx-2    #87857F; /* flexoki base-500 */
+@define-color tx-3    #575653; /* flexoki base-700 */
+@define-color red     #D14D41;
+@define-color orange  #DA702C;
+@define-color yellow  #D0A215;
+@define-color green   #879A39;
+@define-color cyan    #3AA99F;
+@define-color blue    #4385BE;
+@define-color purple  #8B7EC8;
+@define-color magenta #CE5D97;

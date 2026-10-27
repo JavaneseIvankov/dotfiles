@@ -286,7 +286,7 @@ spawn-sh-at-startup "~/scripts/niri-notify-focus"
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-sh-at-startup "~/scripts/reset-window-alias.sh &"
-spawn-sh-at-startup "waybar --config ~/.config/waybar/config.niri.jsonc &"
+spawn-sh-at-startup "~/scripts/waybar-variant.sh"
 spawn-sh-at-startup "wl-paste --watch cliphist store &"
 spawn-sh-at-startup "swww-daemon &"
 // spawn-sh-at-startup "xremap --watch ~/.config/xremap/config.yml &"

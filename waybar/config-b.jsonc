@@ -1,0 +1,162 @@
+// -*- mode: jsonc -*-
+// Waybar · Niri · Variant B — "floating Flexoki island" (A + 6px margins + outline).
+// Swiss-army entry point: ~/scripts/waybar-variant.sh a|b|old
+//   waybar -c ~/.config/waybar/config-b.jsonc -s ~/.config/waybar/style-b.css
+// The only difference from config-a.jsonc is margin-top; the left/right inset
+// of the island is drawn in style-b.css (see the comment there).
+// Generated from config.niri.jsonc by waybar/mkconfig.py — edit that, not this.
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "spacing": 0,
+    "margin-top": 6,
+    "modules-left": [
+        "niri/workspaces",
+        "niri/window"
+    ],
+    "modules-right": [
+        "custom/media",
+        "idle_inhibitor",
+        "pulseaudio",
+        "network",
+        "cpu",
+        "memory",
+        "temperature",
+        "backlight",
+        "power-profiles-daemon",
+        "battery",
+        "clock",
+        "tray"
+    ],
+    "niri/workspaces": {
+        "format": "{index}"
+    },
+    "niri/window": {
+        "format": "{title}",
+        "max-length": 50
+    },
+    "custom/media": {
+        "format": "{text}",
+        "return-type": "json",
+        "interval": 2,
+        "max-length": 30,
+        "escape": true,
+        "tooltip": true,
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2>/dev/null"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "pulseaudio": {
+        "scroll-step": 2,
+        "format": "<span foreground='#87857F'></span> {volume:2}%",
+        "format-bluetooth": "<span foreground='#87857F'>󰝟</span> {volume:2}%",
+        "format-muted": "<span foreground='#87857F'>󰝟</span> muted",
+        "format-source": "<span foreground='#87857F'></span> {source_volume:2}%",
+        "format-source-muted": "<span foreground='#87857F'></span> muted",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+        "tooltip-format": "{desc} · {volume}%",
+        "on-click": "pavucontrol"
+    },
+    "network": {
+        "format-wifi": "<span foreground='#87857F'></span> {signalStrength:2}%",
+        "format-ethernet": "<span foreground='#87857F'></span> {ipaddr}",
+        "format-linked": "<span foreground='#87857F'></span> {ifname} (no ip)",
+        "format-disconnected": "<span foreground='#87857F'></span> offline",
+        "format-alt": "{essid}  {ipaddr}",
+        "tooltip-format": "{essid} · {signalStrength}%\n{ifname} · {ipaddr}/{cidr}\nvia {gwaddr}",
+        "tooltip-format-disconnected": "No network connection"
+    },
+    "cpu": {
+        "interval": 3,
+        "format": "<span foreground='#87857F'></span> {usage:2}%",
+        "tooltip-format": "load {load1:.2f} · {load5:.2f} · {load15:.2f}\n{usage}% used"
+    },
+    "memory": {
+        "interval": 5,
+        "format": "<span foreground='#87857F'></span> {percentage:2}%",
+        "tooltip-format": "{used} used · {avail} free\n{percentage}% of {total}"
+    },
+    "temperature": {
+        "interval": 5,
+        "critical-threshold": 80,
+        "format": "<span foreground='#87857F'></span> {temperatureC:2}°",
+        "format-critical": "<span foreground='#87857F'></span> <span foreground='#D14D41'>{temperatureC:2}°</span>",
+        "format-icons": [
+            ""
+        ],
+        "tooltip-format": "{temperatureC}°C"
+    },
+    "backlight": {
+        "format": "<span foreground='#87857F'>{icon}</span> {percent:2}%",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "tooltip-format": "{percent}%"
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "{profile} profile · {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
+    },
+    "battery": {
+        "interval": 30,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "<span foreground='#87857F'>{icon}</span> {capacity:2}%",
+        "format-charging": "<span foreground='#87857F'>󰂄</span> {capacity:2}%",
+        "format-plugged": "<span foreground='#87857F'></span> {capacity:2}%",
+        "format-alt": "<span foreground='#87857F'>{icon}</span> {time}",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "tooltip-format": "{capacity}% · {time}"
+    },
+    "clock": {
+        "format": "{:%H:%M}",
+        "format-alt": "{:%a %d %b}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "tray": {
+        "spacing": 8
+    }
+}

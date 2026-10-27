@@ -5,3 +5,7 @@ hyprwhspr/recording_status
 hyprwhspr-id/audio_level
 hyprwhspr-id/recording_control
 hyprwhspr-id/recording_status
+
+# agent/tooling state -- never versioned (see AGENTS.md artifact conventions)
+.pi/
+.superpowers/

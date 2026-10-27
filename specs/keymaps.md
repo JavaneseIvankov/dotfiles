@@ -108,7 +108,7 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Linux
 | `$FILE_PICKER` | Pencari file cepat berbasis fuzzy | `fuzzel-utils file-explorer` | Fzf picker, Walker |
 | `$BROWSER` | Web browser utama | `vivaldi-stable --remote-debugging-port=9222` | Chromium / Firefox |
 | `$MOUSELESS_POINTER`| Kontrol mouse via keyboard | `wl-kbptr -o modes=floating,click -o mode_floating.source=detect` | - |
-| `$BAR_TOGGLER` | Toggle status bar | `pkill -x waybar \|\| waybar --config ~/.config/waybar/config.niri.jsonc &` | - |
+| `$BAR_TOGGLER` | Toggle status bar | `~/scripts/toggle-waybar.sh` (restart selalu memakai varian yang tersimpan via `waybar-variant.sh`) | - |
 | `$SCREEN_LOCKER` | Pengunci layar | `swaylock` | `hyprlock` |
 | `$NOTIFICATION_CENTER`| Panel notifikasi sistem | `swaync-client -t` | Dunst, Mako |
 | `$TASK_TRACKER` | Manajemen tugas & waktu | `flatpak run com.super_productivity.SuperProductivity` | SuperProductivity |
