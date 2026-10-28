@@ -99,7 +99,10 @@ def build(margins=None):
     c["modules-left"] = ["niri/workspaces", "niri/window"]
     c["modules-right"] = list(MODULES_RIGHT)
 
-    c["niri/workspaces"] = {"format": "{index}"}
+    # {value} = workspace name, or the index when the workspace is unnamed
+    # (waybar-niri-workspaces(5)); {index} would hide the names, {name} renders
+    # empty buttons for unnamed workspaces.
+    c["niri/workspaces"] = {"format": "{value}"}
     c["niri/window"] = {"format": "{title}", "max-length": 50}
 
     c["custom/media"] = {

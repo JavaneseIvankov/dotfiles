@@ -81,6 +81,14 @@ waybar -c ~/.config/waybar/config-b.jsonc -s ~/.config/waybar/style-b.css
 - Numbers are padded (`{usage:2}`, `{capacity:2}`, `{temperatureC:2}`,
   `{volume:2}`, `{percent:2}`, `{signalStrength:2}`) so the right cluster does
   not jitter as values change.
+- **Workspaces show names.** `niri/workspaces` uses `{value}`, which
+  `waybar-niri-workspaces(5)` defines as *"name of the workspace, or index for
+  unnamed workspaces"* — so `(1)main` renders as itself while an unnamed
+  workspace still shows its number. The two obvious alternatives both lose
+  information: `{index}` never shows a name, and `{name}` renders an empty
+  button for unnamed workspaces. Names make the cluster ~64px wide each
+  (vs ~16px for a bare index), and `niri/window` has `max-length: 50` to stop
+  a long title from being pushed off.
 - Icons are dimmed via `<span foreground='#87857F'>` (Pango markup cannot read
   `@define-color`), so keep that hex in sync with `tx-2` in `flexoki.css`.
 - Edit `mkconfig.py`, then re-run it, to change the module set; both variants
