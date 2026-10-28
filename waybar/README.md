@@ -13,13 +13,31 @@ Two colour/geometry variants of the same bar, sharing one palette.
 | `mkconfig.py` | regenerates `config-a.jsonc` / `config-b.jsonc` from `config.niri.jsonc` |
 | `mediaplayer.py` | `custom/media` backend (playerctl); the old config pointed at a file that did not exist |
 
-## Switching
+## Dock vs float
+
+Two modes, same palette and same module set — only the geometry differs:
+
+| Mode | Variant | Geometry (measured on the live bar) |
+|---|---|---|
+| `dock` | a | surface flush with the screen: left/top inset 0px, 30px tall, 1px hairline under the bar |
+| `float` | b | detached island: left/right inset 6px, top inset 6px, 1px `#343332` ring, `swaync`-card geometry |
 
 ```sh
-~/scripts/waybar-variant.sh a     # refined flat strip
-~/scripts/waybar-variant.sh b     # floating island
-~/scripts/waybar-variant.sh old   # the previous look
+~/scripts/waybar-variant.sh dock      # full-bleed dock (variant a)
+~/scripts/waybar-variant.sh float     # floating island (variant b)
+~/scripts/waybar-variant.sh toggle    # flip whichever is not active
+~/scripts/waybar-variant.sh status    # remembered mode + the running bar
+~/scripts/waybar-variant.sh old       # the previous look
 ```
+
+`toggle` is also on the leader menu: `$LEADER` → `t` → `m` (`$BAR_MODE`).
+
+To change the float inset, edit **`style-b.css`** (`window#waybar > box { margin }`)
+and `margin-top` in `config-b.jsonc` — the horizontal inset has to live in the
+stylesheet, because niri drops a right-hand margin on a layer surface anchored to
+both edges (that is what previously let the island run off the screen).
+
+`a`/`b` still work as raw keys; the state file always stores `a`/`b`/`old`.
 
 The choice is remembered in `~/.local/state/waybar/variant`, and
 `niri/config.kdl` spawns the script with no argument at login

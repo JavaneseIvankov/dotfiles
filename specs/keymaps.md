@@ -109,6 +109,7 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Linux
 | `$BROWSER` | Web browser utama | `vivaldi-stable --remote-debugging-port=9222` | Chromium / Firefox |
 | `$MOUSELESS_POINTER`| Kontrol mouse via keyboard | `wl-kbptr -o modes=floating,click -o mode_floating.source=detect` | - |
 | `$BAR_TOGGLER` | Toggle status bar | `~/scripts/toggle-waybar.sh` (restart selalu memakai varian yang tersimpan via `waybar-variant.sh`) | - |
+| `$BAR_MODE` | Mode geometri status bar: dock (full-bleed) ↔ float (island melayang) | `~/scripts/waybar-variant.sh toggle` — `dock` / `float` / `status` juga tersedia | - |
 | `$SCREEN_LOCKER` | Pengunci layar | `swaylock` | `hyprlock` |
 | `$NOTIFICATION_CENTER`| Panel notifikasi sistem | `swaync-client -t` | Dunst, Mako |
 | `$TASK_TRACKER` | Manajemen tugas & waktu | `flatpak run com.super_productivity.SuperProductivity` | SuperProductivity |
@@ -259,6 +260,7 @@ $LEADER ($MOD + e)
 │
 ├── [t] ➜ Toggle UI & Layout
 │   ├── [b] ➜ Toggle Status Bar: toggle($BAR_TOGGLER)
+│   ├── [m] ➜ Bar Mode Dock ↔ Float: switch($BAR_MODE)
 │   └── [t] ➜ Toggle Tabbed Column: layout:action(toggle_tabbed_display)
 │
 ├── [d] ➜ Dictation (STT)

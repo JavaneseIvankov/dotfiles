@@ -79,6 +79,9 @@ menu:
       - key: "b"
         desc: Toggle Waybar
         cmd: '~/scripts/toggle-waybar.sh'
+      - key: "m"
+        desc: "Bar Mode: Dock / Float"
+        cmd: '~/scripts/waybar-variant.sh toggle'
       - key: "t"
         desc: Toggle Tabbed Column
         cmd: 'niri msg action toggle-column-tabbed-display'
