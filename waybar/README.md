@@ -91,5 +91,18 @@ waybar -c ~/.config/waybar/config-b.jsonc -s ~/.config/waybar/style-b.css
   a long title from being pushed off.
 - Icons are dimmed via `<span foreground='#87857F'>` (Pango markup cannot read
   `@define-color`), so keep that hex in sync with `tx-2` in `flexoki.css`.
+- **Microphone is its own widget.** `wireplumber#mic` — not
+  `pulseaudio#mic` — is bound to the `Audio/Source` node, so it reports the
+  mic's own volume and mute; the pulseaudio module always tracks the sink and
+  would just duplicate the speaker. Left click toggles the source
+  (`wpctl set-mute @DEFAULT_AUDIO_SOURCE@`), right click opens pavucontrol's
+  Input Devices tab. In CSS the widget is `#wireplumber.mic`: waybar splits
+  `module#instance` into a widget name plus a style class, so
+  `#wireplumber#mic` matches nothing.
+- Never put `format-source`/`format-source-muted` on `pulseaudio`.
+  `waybar-pulseaudio(5)` only substitutes `{format_source}`; a
+  `{source_volume}` placeholder throws `pulseaudio: argument not found` and
+  leaves the label **empty** — the module still reserves space, so it looks
+  like a 17px stub (padding only) instead of an icon and a number.
 - Edit `mkconfig.py`, then re-run it, to change the module set; both variants
   stay in sync automatically.

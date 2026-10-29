@@ -74,6 +74,7 @@ MODULES_RIGHT = [
     "custom/media",
     "idle_inhibitor",
     "pulseaudio",
+    "wireplumber#mic",
     "network",
     "cpu",
     "memory",
@@ -122,8 +123,10 @@ def build(margins=None):
         "format": MUTED.format(vol_i[2]) + " {volume:2}%",
         "format-bluetooth": MUTED.format(bt_i) + " {volume:2}%",
         "format-muted": MUTED.format(mute_i) + " muted",
-        "format-source": MUTED.format(src_i) + " {source_volume:2}%",
-        "format-source-muted": MUTED.format(srcm_i) + " muted",
+        # No format-source/-muted here: waybar-pulseaudio(5) has no
+        # {source_volume} replacement (only {format_source}), so a bogus
+        # placeholder there throws "pulseaudio: argument not found" and leaves
+        # the whole label empty. The mic is its own wireplumber#mic widget.
         "format-icons": {
             "headphone": pa["format-icons"]["headphone"],
             "hands-free": pa["format-icons"]["hands-free"],
@@ -135,6 +138,19 @@ def build(margins=None):
         },
         "tooltip-format": "{desc} · {volume}%",
         "on-click": "pavucontrol",
+    }
+    # Microphone: a second audio widget, but bound to the *source* node so it
+    # reports the mic's own volume/mute rather than the speaker's. wireplumber
+    # (not pulseaudio#mic) is required here: the pulseaudio module's muted state
+    # always tracks the sink, so a source instance would never show "muted".
+    c["wireplumber#mic"] = {
+        "node-type": "Audio/Source",
+        "format": MUTED.format(src_i) + " {volume:2}%",
+        "format-muted": MUTED.format(srcm_i) + " muted",
+        "tooltip-format": "Microphone · {node_name}",
+        "scroll-step": 2,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-click-right": "pavucontrol --tab=4",
     }
     c["network"] = {
         "format-wifi": MUTED.format(wifi_i) + " {signalStrength:2}%",

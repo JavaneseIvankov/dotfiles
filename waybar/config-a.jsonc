@@ -17,6 +17,7 @@
         "custom/media",
         "idle_inhibitor",
         "pulseaudio",
+        "wireplumber#mic",
         "network",
         "cpu",
         "memory",
@@ -57,8 +58,6 @@
         "format": "<span foreground='#87857F'></span> {volume:2}%",
         "format-bluetooth": "<span foreground='#87857F'>󰝟</span> {volume:2}%",
         "format-muted": "<span foreground='#87857F'>󰝟</span> muted",
-        "format-source": "<span foreground='#87857F'></span> {source_volume:2}%",
-        "format-source-muted": "<span foreground='#87857F'></span> muted",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -74,6 +73,15 @@
         },
         "tooltip-format": "{desc} · {volume}%",
         "on-click": "pavucontrol"
+    },
+    "wireplumber#mic": {
+        "node-type": "Audio/Source",
+        "format": "<span foreground='#87857F'></span> {volume:2}%",
+        "format-muted": "<span foreground='#87857F'></span> muted",
+        "tooltip-format": "Microphone · {node_name}",
+        "scroll-step": 2,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-click-right": "pavucontrol --tab=4"
     },
     "network": {
         "format-wifi": "<span foreground='#87857F'></span> {signalStrength:2}%",
