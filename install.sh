@@ -58,6 +58,13 @@ link "$HOME/dotfiles/code/argv.json" "$HOME/.config/Code/argv.json"
 link "$HOME/dotfiles/scripts" "$HOME/scripts"
 link "$HOME/dotfiles/scripts/restart-touchpad.sh" "$HOME/.local/bin/restart-touchpad"
 
+# Systemd user units
+mkdir -p "$HOME/.config/systemd/user"
+for unit in "$HOME/dotfiles/systemd/user"/*.service; do
+  [ -e "$unit" ] || continue
+  link "$unit" "$HOME/.config/systemd/user/$(basename "$unit")"
+done
+
 for entry in "$HOME/dotfiles/desktop-entry"/*.desktop; do
   [ -e "$entry" ] || continue
   link "$entry" "$HOME/.local/share/applications/$(basename "$entry")"
