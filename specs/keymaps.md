@@ -114,7 +114,7 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Linux
 | `$NOTIFICATION_CENTER`| Panel notifikasi sistem | `swaync-client -t` | Dunst, Mako |
 | `$TASK_TRACKER` | Manajemen tugas & waktu | `flatpak run com.super_productivity.SuperProductivity` | SuperProductivity |
 | `$AI_PROMPT` | Asisten AI instan | Browser membuka ChatGPT temporary chat | Web/CLI AI tool |
-| `$DICTATION` | Speech-to-text universal (cloud fast & akurat) | `hyprwhspr-id record toggle` | Groq Whisper Large v3 Turbo via hyprwhspr-id |
+| `$DICTATION` | Speech-to-text multi-bahasa (cloud fast & akurat) | `hyprwhspr-id record toggle` | Groq Whisper Large v3 Turbo via hyprwhspr-id (auto-detect ID/EN, `language: null`) |
 | `$DICTATION_EN` | Speech-to-text English (offline ultra-fast) | `hyprwhspr record toggle` | NVIDIA Parakeet TDT via hyprwhspr |
 
 ---
@@ -131,7 +131,7 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + w` | `launch` | `$WINDOW_SWITCHER` | Buka switcher window aktif |
 | `$MOD + e` | `helper` | `$CHORD_HELPER` | Buka leader key menu (`$LEADER`, lihat Section 5) |
 | `$MOD + g` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard grid pointer navigation (`wl-kbptr`) |
-| `$MOD + Space` / `$MOD + Alt + i` | `voice:dictate` | `$DICTATION` | Dikte suara universal (Groq Whisper Turbo): Tap toggle, Hold push-to-talk |
+| `$MOD + Space` / `$MOD + Alt + i` | `voice:dictate` | `$DICTATION` | Dikte suara multi-bahasa (Groq Whisper Turbo, auto-detect Bahasa/English): Tap toggle, Hold push-to-talk |
 | `$MOD + Grave` / `$MOD + Alt + d` | `voice:dictate:en` | `$DICTATION_EN` | Dikte English instan (Parakeet TDT offline): Tap toggle, Hold push-to-talk |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
 
@@ -265,7 +265,7 @@ $LEADER ($MOD + e)
 │
 ├── [d] ➜ Dictation (STT)
 │   ├── [e] ➜ English (Fast): toggle($DICTATION_EN)
-│   └── [i] ➜ Indonesia (Akurat): toggle($DICTATION_ID)
+│   └── [i] ➜ Multilingual Auto (Akurat): toggle($DICTATION)
 │
 ├── [n] ➜ Notification Center: toggle($NOTIFICATION_CENTER)
 │

@@ -434,7 +434,7 @@ binds {
     Super+Grave repeat=false hotkey-overlay-title="Dictation English (Parakeet: Fast)" { spawn "true"; }
     Super+Space repeat=false hotkey-overlay-title="Dictation Universal (Groq Whisper Turbo)" { spawn "true"; }
     Super+Alt+D repeat=false hotkey-overlay-title="Toggle Dictation English" { spawn "hyprwhspr" "record" "toggle"; }
-    Super+Alt+I repeat=false hotkey-overlay-title="Toggle Dictation Indonesian" { spawn "hyprwhspr-id" "record" "toggle"; }
+    Super+Alt+I repeat=false hotkey-overlay-title="Toggle Dictation Multilingual" { spawn "hyprwhspr-id" "record" "toggle"; }
     Super+Alt+T repeat=false hotkey-overlay-title="Recalibrate Touchpad" { spawn "restart-touchpad" "--quiet"; }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.

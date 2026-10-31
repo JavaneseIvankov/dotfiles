@@ -6,8 +6,8 @@
   "rest_body": {
     "model": "whisper-large-v3-turbo"
   },
-  "language": "id",
-  "whisper_prompt": "Dikte percakapan Bahasa Indonesia, English terms, dan istilah teknis coding.",
+  "language": null,
+  "whisper_prompt": "Transkripsi percakapan campuran Bahasa Indonesia dan English (code-switching). Pertahankan istilah teknis, nama produk, dan kata bahasa Inggris apa adanya.",
   "recording_mode": "auto",
   "primary_shortcut": "Super+Space",
   "cancel_shortcut": "Escape",

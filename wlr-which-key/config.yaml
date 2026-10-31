@@ -93,7 +93,7 @@ menu:
         desc: English (Parakeet)
         cmd: 'hyprwhspr record toggle'
       - key: "i"
-        desc: Indonesia (Groq Turbo)
+        desc: Multilingual (Groq Turbo)
         cmd: 'hyprwhspr-id record toggle'
 
   - key: "n"
