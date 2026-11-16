@@ -114,6 +114,8 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Linux
 | `$NOTIFICATION_CENTER`| Panel notifikasi sistem | `swaync-client -t` | Dunst, Mako |
 | `$TASK_TRACKER` | Manajemen tugas & waktu | `flatpak run com.super_productivity.SuperProductivity` | SuperProductivity |
 | `$AI_PROMPT` | Asisten AI instan | Browser membuka ChatGPT temporary chat | Web/CLI AI tool |
+| `$IM_MESSENGER` | Aplikasi pesan instan | PWA Brave: `brave-browser --app=https://web.whatsapp.com/` (app_id: `brave-web.whatsapp.com__-Default`) | `whatsapp-for-linux`, native client |
+| `$NOTE_APP` | Catatan / knowledge base | `~/.local/bin/obsidian` (AppImage, app_id: `obsidian`) | `flatpak run md.obsidian.Obsidian`, Logseq |
 | `$DICTATION` | Speech-to-text multi-bahasa (cloud fast & akurat) | `hyprwhspr-id record toggle` | Groq Whisper Large v3 Turbo via hyprwhspr-id (auto-detect ID/EN, `language: null`) |
 | `$DICTATION_EN` | Speech-to-text English (offline ultra-fast) | `hyprwhspr record toggle` | NVIDIA Parakeet TDT via hyprwhspr |
 
@@ -242,7 +244,9 @@ $LEADER ($MOD + e)
 ├── [e] ➜ Launch (Aplikasi Khusus)
 │   ├── [b] ➜ Web Browser: launch($BROWSER)
 │   ├── [a] ➜ Ask AI: launch($AI_PROMPT)
-│   └── [p] ➜ Productivity: launch_or_focus($TASK_TRACKER)
+│   ├── [p] ➜ Productivity: launch_or_focus($TASK_TRACKER)
+│   ├── [w] ➜ WhatsApp: launch_or_focus($IM_MESSENGER)
+│   └── [o] ➜ Obsidian: launch_or_focus($NOTE_APP)
 │
 ├── [s] ➜ Screenshot
 │   ├── [a] ➜ Area: screenshot:area (seleksi interaktif ke clipboard)

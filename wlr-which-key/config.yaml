@@ -35,7 +35,13 @@ menu:
         cmd: 'vivaldi-stable --remote-debugging-port=9222 --new-window "https://chatgpt.com/?temporary-chat=true"'
       - key: "p"
         desc: SuperProd
-        cmd: '~/scripts/launch-or-focus.sh superProductivity "flatpak run com.super_productivity.SuperProductivity"'
+        cmd: '~/scripts/launch-or-focus.sh superProductivity "/usr/bin/superproductivity"'
+      - key: "w"
+        desc: WhatsApp
+        cmd: '~/scripts/launch-or-focus.sh brave-web.whatsapp.com__-Default "brave-browser --app=https://web.whatsapp.com/"'
+      - key: "o"
+        desc: Obsidian
+        cmd: '~/scripts/launch-or-focus.sh obsidian "/home/arundaya/.local/bin/obsidian"'
 
   - key: "s"
     desc: Screenshot
