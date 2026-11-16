@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
-# Control the nirimap overlay directly (manual-only mode).
+# Control the nirimap overlay (manual-only fork build).
 #
-#   nirimap-ctl.sh toggle   # what $MOD+m runs
-#   nirimap-ctl.sh show     # pin visible
-#   nirimap-ctl.sh hide
-#   nirimap-ctl.sh stop     # kill the resident process
+#   nirimap-ctl.sh hold-start   # $MOD+m press: pin visible, arm the hold
+#   nirimap-ctl.sh hold-end     # $MOD+m release: hide, only if armed
+#   nirimap-ctl.sh toggle       # $MOD+Shift+m
+#   nirimap-ctl.sh show|hide
+#   nirimap-ctl.sh stop
 #
-# nirimap runs with behavior.manual_only = true, so niri events (focus moves,
-# workspace switches, new windows) never surface it — only these commands do.
-# A cold start costs ~250 ms, so show/toggle spawn a resident instance and wait
-# for its control socket; afterwards every command is ~25 ms.
+# nirimap runs with behavior.manual_only = true, so niri events never surface
+# it; only these commands do. A cold start costs ~250 ms, so show/hold-start
+# spawn a resident instance and wait for its control socket; after that every
+# command is ~25 ms.
+#
+# The armed marker exists because the release carrier ($MOD+Print, emitted by
+# kanata) also fires for the toggle combo; without it a toggle would be
+# cancelled the moment the key is released.
 set -euo pipefail
 
 ctl="$(command -v nirimapctl || true)"
@@ -20,7 +25,7 @@ fi
 
 runtime="${XDG_RUNTIME_DIR:-/tmp}"
 socket="$runtime/nirimap.sock"
-# Trace invocations so a missing binding is visible in /tmp/nirimap-ctl.log.
+marker="$runtime/nirimap-hold-armed"
 printf '%s %s\n' "$(date +%H:%M:%S.%3N)" "${1:-<none>}" >> /tmp/nirimap-ctl.log
 
 spawn() {
@@ -37,21 +42,44 @@ spawn() {
   return 1
 }
 
-run() {
-  local action="$1"
-  if ! "$ctl" "$action" 2>/dev/null; then
+show() {
+  if ! "$ctl" show 2>/dev/null; then
     spawn
-    "$ctl" "$action" 2>/dev/null || { [ "$action" = toggle ] && "$ctl" show; }
+    "$ctl" show
   fi
 }
 
 case "${1:-}" in
-  show|hide|toggle) run "$1" ;;
+  hold-start)
+    show
+    : > "$marker"
+    ;;
+  hold-end)
+    if [ -e "$marker" ]; then
+      rm -f "$marker"
+      "$ctl" hide 2>/dev/null || true
+    fi
+    ;;
+  show)
+    show
+    ;;
+  hide)
+    rm -f "$marker"
+    "$ctl" hide 2>/dev/null || true
+    ;;
+  toggle)
+    rm -f "$marker"
+    if ! "$ctl" toggle 2>/dev/null; then
+      spawn
+      "$ctl" show
+    fi
+    ;;
   stop)
+    rm -f "$marker"
     if pkill -x nirimap; then echo 'nirimap stopped'; else echo 'nirimap is not running'; fi
     ;;
   *)
-    echo "usage: ${0##*/} toggle|show|hide|stop" >&2
+    echo "usage: ${0##*/} hold-start|hold-end|toggle|show|hide|stop" >&2
     exit 2
     ;;
 esac

@@ -445,7 +445,13 @@ binds {
 
     // Minimap ($MINIMAP, nirimap fork). manual_only = true: niri events never
     // surface it, only the control socket does. $MOD+m = toggle.
-    Super+M repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-ctl.sh toggle"; }
+    Super+M repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-ctl.sh hold-start"; }
+    Super+Shift+M repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-ctl.sh toggle"; }
+    // m released while $MOD is held: kanata emits fake key Pause, which arrives
+    // as $MOD+Pause. The helper's armed marker keeps the toggle's release (which
+    // emits the same key) harmless.
+    Super+Pause repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-ctl.sh hold-end"; }
+    Pause repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-ctl.sh hold-end"; }
     Super+Grave repeat=false hotkey-overlay-title="Dictation English (Parakeet: Fast)" { spawn "true"; }
     Super+Space repeat=false hotkey-overlay-title="Dictation Universal (Groq Whisper Turbo)" { spawn "true"; }
     Super+Alt+D repeat=false hotkey-overlay-title="Toggle Dictation English" { spawn "hyprwhspr" "record" "toggle"; }
