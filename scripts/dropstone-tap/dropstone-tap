@@ -1,0 +1,173 @@
+#!/usr/bin/env bash
+# dropstone-tap — run Dropstone CLI through a logging MITM proxy.
+# Logs full request/response headers + payloads to a per-run directory.
+#
+# Usage:
+#   dropstone-tap [wrapper options] [--] <dropstone args...>
+#
+# Wrapper options:
+#   -o, --out DIR      log directory (default: ~/.dropstone-tap/runs/<timestamp>)
+#       --redact       mask Authorization / cookie / api-key header values
+#       --filter RE    only log URLs matching RE (python regex)
+#       --hosts CSV    only log these hosts (substring match)
+#       --port N       proxy port (default: auto)
+#       --max-body N   max bytes captured per body (default: 1048576)
+#   -i, --insecure     also set NODE_TLS_REJECT_UNAUTHORIZED=0 (last resort)
+#   -q, --quiet        do not print the post-run summary
+#   -h, --help         this help
+
+set -uo pipefail
+umask 077
+
+SELF_BIN="$(readlink -f -- "${BASH_SOURCE[0]}")"
+SELF_DIR="$(cd -- "$(dirname -- "$SELF_BIN")" && pwd)"
+ADDON="$SELF_DIR/tap_addon.py"
+DROPSTONE_BIN="${DROPSTONE_BIN:-${HOME}/.dropstone/bin/dropstone}"
+TAP_HOME="${DROPSTONE_TAP_HOME:-$HOME/.dropstone-tap}"
+MITM_CONFDIR="$TAP_HOME/mitm"
+CA_FILE="$MITM_CONFDIR/mitmproxy-ca-cert.pem"
+
+OUT=""
+QUIET=0
+INSECURE=0
+MAX_BODY="${DROPSTONE_TAP_MAX_BODY:-1048576}"
+
+usage() { sed -n '2,18p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; exit "${1:-0}"; }
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -o|--out)      OUT="$2"; shift 2 ;;
+    --redact)      export DROPSTONE_TAP_REDACT=1; shift ;;
+    --filter)      export DROPSTONE_TAP_FILTER="$2"; shift 2 ;;
+    --hosts)       export DROPSTONE_TAP_HOSTS="$2"; shift 2 ;;
+    --port)        PROXY_PORT="$2"; shift 2 ;;
+    --max-body)    MAX_BODY="$2"; shift 2 ;;
+    -i|--insecure) INSECURE=1; shift ;;
+    -q|--quiet)    QUIET=1; shift ;;
+    -h|--help)     usage 0 ;;
+    --)            shift; break ;;
+    *)             break ;;
+  esac
+done
+
+[[ -x "$DROPSTONE_BIN" ]] || { echo "dropstone-tap: dropstone not found at $DROPSTONE_BIN (set DROPSTONE_BIN)" >&2; exit 127; }
+[[ -f "$ADDON" ]] || { echo "dropstone-tap: addon missing at $ADDON" >&2; exit 127; }
+
+MITMDUMP="$(command -v mitmdump || true)"
+[[ -n "$MITMDUMP" ]] || MITMDUMP="$HOME/.local/bin/mitmdump"
+if [[ ! -x "$MITMDUMP" ]]; then
+  if command -v uvx >/dev/null 2>&1; then
+    echo "dropstone-tap: mitmdump missing; using uvx --from mitmproxy (slow first run)" >&2
+    MITMDUMP="uvx --from mitmproxy mitmdump"
+  else
+    echo "dropstone-tap: mitmdump not found. install: uv tool install mitmproxy" >&2
+    exit 127
+  fi
+fi
+
+if [[ -z "${PROXY_PORT:-}" ]]; then
+  PROXY_PORT="$(python3 -c 'import socket;s=socket.socket();s.bind(("127.0.0.1",0));print(s.getsockname()[1]);s.close()')"
+fi
+
+TS="$(date +%Y%m%d-%H%M%S)"
+[[ -n "$OUT" ]] || OUT="$TAP_HOME/runs/$TS"
+mkdir -p "$OUT/bodies" "$MITM_CONFDIR"
+chmod 700 "$TAP_HOME" "$OUT" 2>/dev/null || true
+export DROPSTONE_TAP_OUT="$OUT"
+export DROPSTONE_TAP_MAX_BODY="$MAX_BODY"
+
+cleanup() {
+  if [[ -n "${MITM_PID:-}" ]] && kill -0 "$MITM_PID" 2>/dev/null; then
+    kill -TERM "$MITM_PID" 2>/dev/null
+    for _ in $(seq 1 50); do kill -0 "$MITM_PID" 2>/dev/null || break; sleep 0.1; done
+    kill -KILL "$MITM_PID" 2>/dev/null || true
+  fi
+}
+trap cleanup EXIT
+trap 'cleanup; exit 130' INT TERM
+
+# shellcheck disable=SC2086
+$MITMDUMP \
+  --quiet \
+  --listen-host 127.0.0.1 \
+  --listen-port "$PROXY_PORT" \
+  --set confdir="$MITM_CONFDIR" \
+  --set connection_strategy=lazy \
+  -s "$ADDON" \
+  >"$OUT/mitm.log" 2>&1 &
+MITM_PID=$!
+
+for _ in $(seq 1 150); do
+  if python3 -c "import socket,sys;s=socket.socket();s.settimeout(0.2);sys.exit(0 if s.connect_ex(('127.0.0.1',$PROXY_PORT))==0 else 1)" 2>/dev/null; then
+    break
+  fi
+  kill -0 "$MITM_PID" 2>/dev/null || { echo "dropstone-tap: proxy died; see $OUT/mitm.log" >&2; cat "$OUT/mitm.log" >&2; exit 1; }
+  sleep 0.1
+done
+
+PROXY_URL="http://127.0.0.1:$PROXY_PORT"
+export HTTPS_PROXY="$PROXY_URL" https_proxy="$PROXY_URL"
+export HTTP_PROXY="$PROXY_URL"  http_proxy="$PROXY_URL"
+export ALL_PROXY="$PROXY_URL"   all_proxy="$PROXY_URL"
+export NO_PROXY="localhost,127.0.0.1,::1,0.0.0.0,${NO_PROXY:-}"
+export no_proxy="$NO_PROXY"
+export NODE_EXTRA_CA_CERTS="$CA_FILE"
+export SSL_CERT_FILE="$CA_FILE"
+export REQUESTS_CA_BUNDLE="$CA_FILE"
+export CURL_CA_BUNDLE="$CA_FILE"
+export GIT_SSL_CAINFO="$CA_FILE"
+export DROPSTONE_TAP_PROXY="$PROXY_URL"
+export DROPSTONE_TAP_RUN="$OUT"
+if [[ "$INSECURE" == 1 ]]; then export NODE_TLS_REJECT_UNAUTHORIZED=0; fi
+
+if [[ "$QUIET" != 1 ]]; then
+  printf '[dropstone-tap] proxy %s -> logs %s\n' "$PROXY_URL" "$OUT" >&2
+fi
+
+"$DROPSTONE_BIN" "$@"
+RC=$?
+
+cleanup
+trap - EXIT INT TERM
+
+python3 - "$OUT" "$RC" "$QUIET" <<'PY'
+import json, sys
+from pathlib import Path
+
+out = Path(sys.argv[1]); rc = sys.argv[2]; quiet = sys.argv[3] == "1"
+flows = out / "flows.jsonl"
+reqs = {}; order = []
+if flows.exists():
+    for line in flows.read_text(errors="replace").splitlines():
+        try:
+            r = json.loads(line)
+        except Exception:
+            continue
+        if r.get("event") == "request":
+            reqs[r["id"]] = {"method": r.get("method"), "url": r.get("url"), "status": "-",
+                             "req": r.get("body_size", 0), "resp": 0}
+            order.append(r["id"])
+        elif r.get("event") == "response" and r["id"] in reqs:
+            reqs[r["id"]]["status"] = r.get("status")
+            reqs[r["id"]]["resp"] = r.get("body_size", 0)
+        elif r.get("event") == "error" and r["id"] in reqs:
+            reqs[r["id"]]["status"] = "ERR"
+
+summary = out / "summary.txt"
+lines = ["run: " + str(out), "dropstone exit: " + rc, "requests: " + str(len(order)), ""]
+for i in order:
+    r = reqs[i]
+    lines.append("%4d %s  %s %s  (req %sB / resp %sB)" % (i, r["status"], r["method"], r["url"], r["req"], r["resp"]))
+summary.write_text("\n".join(lines) + "\n")
+
+if not quiet:
+    print()
+    print("\n".join(lines))
+    print()
+    print("flows   : " + str(flows))
+    print("bodies  : " + str(out / "bodies"))
+    print("summary : " + str(summary))
+    print("inspect : jq -c . " + str(flows) + " | less")
+PY
+
+exit "$RC"

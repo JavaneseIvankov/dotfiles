@@ -9,3 +9,6 @@ hyprwhspr-id/recording_status
 # agent/tooling state -- never versioned (see AGENTS.md artifact conventions)
 .pi/
 .superpowers/
+
+# python bytecode
+__pycache__/
