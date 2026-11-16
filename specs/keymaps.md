@@ -115,6 +115,7 @@ Daftar peran abstrak sistem dan implementasi default pada sistem saat ini (Linux
 | `$TASK_TRACKER` | Manajemen tugas & waktu | `flatpak run com.super_productivity.SuperProductivity` | SuperProductivity |
 | `$AI_PROMPT` | Asisten AI instan | Browser membuka ChatGPT temporary chat | Web/CLI AI tool |
 | `$IM_MESSENGER` | Aplikasi pesan instan | PWA Brave: `brave-browser --app=https://web.whatsapp.com/` (app_id: `brave-web.whatsapp.com__-Default`) | `whatsapp-for-linux`, native client |
+| `$MINIMAP` | Peta mini workspace/window (overlay layer) | `nirimap` (fork lokal + `nirimapctl`, dikontrol lewat socket) | Niri Overview, minimap lain |
 | `$NOTE_APP` | Catatan / knowledge base | `~/.local/bin/obsidian` (AppImage, app_id: `obsidian`) | `flatpak run md.obsidian.Obsidian`, Logseq |
 | `$DICTATION` | Speech-to-text multi-bahasa (cloud fast & akurat) | `hyprwhspr-id record toggle` | Groq Whisper Large v3 Turbo via hyprwhspr-id (auto-detect ID/EN, `language: null`) |
 | `$DICTATION_EN` | Speech-to-text English (offline ultra-fast) | `hyprwhspr record toggle` | NVIDIA Parakeet TDT via hyprwhspr |
@@ -135,8 +136,10 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + g` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard grid pointer navigation (`wl-kbptr`) |
 | `$MOD + Space` / `$MOD + Alt + i` | `voice:dictate` | `$DICTATION` | Dikte suara multi-bahasa (Groq Whisper Turbo, auto-detect Bahasa/English): Tap toggle, Hold push-to-talk |
 | `$MOD + Grave` / `$MOD + Alt + d` | `voice:dictate:en` | `$DICTATION_EN` | Dikte English instan (Parakeet TDT offline): Tap toggle, Hold push-to-talk |
+| `$MOD + m` (hold) / `$MOD + Shift + m` (toggle) | `view:minimap` | `$MINIMAP` | **Hold** = minimap tampil selama ditahan; **toggle** = tetap tampil sampai ditekan lagi |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
 
+> *Catatan Minimap:* niri tidak punya binding *key-release*, jadi hold diimplementasikan di kanata: menahan `$MOD + m` mengirim fake key `F13` saat press dan `F14` saat release, yang masing-masing memanggil `~/scripts/nirimap-hold.sh hold-start` / `hold-end`. Proses `nirimap` dijalankan resident (`spawn-at-startup`) supaya show/hide ~25 ms, bukan cold start ~250 ms.
 > *Catatan Dikte:* Saat mikrofon sedang aktif merekam, menekan **`Escape`** (atau tap `Caps Lock`) akan membatalkan sesi secara kontekstual (*discard audio & abort* tanpa menyuntikkan teks).
 > *Catatan:* Utilitas file manager, file picker, renamer, dan toggle bar telah di-collapse ke dalam **Leader Menu (`$LEADER`)** di Section 5 untuk menghemat namespace tombol.
 
