@@ -1,0 +1,52 @@
+# flash — kedip lebih singkat: 250 ms, cuma muncul saat layout berubah
+
+[display]
+height = 80
+max_width_percent = 0.5
+max_height_percent = 0.8
+anchor = "top-center"
+margin_x = 10
+margin_y = 10
+workspace_mode = "current"
+
+[appearance]
+background = "#100F0F"
+window_color = "#403E3D"
+focused_color = "#4385BE"
+border_color = "#575653"
+border_width = 1
+border_radius = 2
+gap = 2
+background_opacity = 0
+window_opacity = 0.7
+focused_opacity = 1
+workspace_gap = 4
+active_workspace_border_color = "#4385BE"
+active_workspace_border_width = 2
+
+[labels]
+enabled = false
+content = "title"
+font_family = "JetBrainsMono Nerd Font"
+font_size = 10
+font_weight = "normal"
+font_style = "normal"
+color = "#CECDC3"
+focused_color = "#100F0F"
+position = "center"
+padding = 2
+min_window_size = 30
+shadow = false
+
+[icons]
+enabled = true
+size = "auto"
+position = "center"
+opacity = 1
+min_window_size = 16
+
+[behavior]
+show_on_overview = true
+always_visible = false
+hide_timeout_ms = 250
+show_for_floating_windows = false

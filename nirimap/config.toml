@@ -1,66 +1,52 @@
-# Flexoki dark palette.
-# Color tokens mirror waybar/flexoki.css (the palette SSOT in this repo):
-#   bg #100F0F · ui-3 #403E3D · tx-3 #575653 · tx #CECDC3 · accent blue #4385BE
-# Layout, position and behavior are intentionally left as tuned.
+# plate — plat flexoki transparan biar rect kebaca di wallpaper terang
 
 [display]
-height = 80             # Per-workspace row height in pixels
-                          # In "current" mode: total widget height
-                          # In "all" mode: height of one workspace row
-max_width_percent = 0.5   # Maximum width as fraction of screen (0.0 - 1.0)
-max_height_percent = 0.8  # Maximum height as fraction of screen (used in "all" mode)
-anchor = "top-center"      # Position: top-left, top-center, top-right,
-                          #           bottom-left, bottom-center, bottom-right, center
-margin_x = 10             # Horizontal margin from edge
-margin_y = 10             # Vertical margin from edge
-workspace_mode = "current"    # Which workspaces to show:
-                          #   "all"     - stack every workspace vertically (Overview-style)
-                          #   "current" - show only the active workspace
+height = 65
+max_width_percent = 0.5
+max_height_percent = 0.8
+anchor = "top-center"
+margin_x = 10
+margin_y = 10
+workspace_mode = "current"
 
 [appearance]
-background = "#100F0F"    # flexoki black
-window_color = "#403E3D"  # flexoki ui-3 (base-800) — unfocused window fill
-focused_color = "#4385BE" # flexoki blue — focused window
-border_color = "#575653"  # flexoki tx-3 (base-700)
-border_width = 1          # Window border thickness
-border_radius = 2         # Corner radius for window rectangles
-gap = 2                   # Gap between windows (in minimap pixels)
-background_opacity = 0.0    # Background opacity (0.0 = transparent, 1.0 = opaque)
-                          # Applies in both "current" and "all" modes
-window_opacity = 0.7        # Fill opacity for unfocused windows (0 = outlines only)
-focused_opacity = 1.0       # Fill opacity for the focused window
-workspace_gap = 4                            # Vertical gap between stacked workspaces ("all" mode)
-active_workspace_border_color = "#4385BE"    # flexoki blue ("all" mode)
-active_workspace_border_width = 2            # Highlight border thickness ("all" mode)
+background = "#100F0F"
+window_color = "#403E3D"
+focused_color = "#4385BE"
+border_color = "#575653"
+border_width = 1
+border_radius = 4
+gap = 3
+background_opacity = 0.45
+window_opacity = 0.7
+focused_opacity = 1
+workspace_gap = 4
+active_workspace_border_color = "#4385BE"
+active_workspace_border_width = 2
 
 [labels]
-enabled = false           # Draw text labels on window rectangles
-content = "title"         # What to show: "title", "app-id", "app-id-title", "none"
-font_family = "Sans"      # Font family name
-font_size = 10            # Font size in pixels
-font_weight = "normal"    # "normal" or "bold"
-font_style = "normal"     # "normal" or "italic"
-color = "#CECDC3"         # flexoki tx (base-200)
-focused_color = "#100F0F" # flexoki black, for text on the blue focus fill
-position = "center"       # Anchor within the window rectangle: center, top-left,
-                          # top-center, top-right, bottom-left, bottom-center, bottom-right
-padding = 2               # Inner padding between label and window edge
-min_window_size = 30      # Skip labels on rectangles smaller than this (minimap pixels)
-shadow = false            # Dark drop shadow behind text for legibility
+enabled = false
+content = "title"
+font_family = "JetBrainsMono Nerd Font"
+font_size = 10
+font_weight = "normal"
+font_style = "normal"
+color = "#CECDC3"
+focused_color = "#100F0F"
+position = "center"
+padding = 2
+min_window_size = 30
+shadow = false
 
 [icons]
-enabled = true            # Draw application icons on window rectangles
-size = "auto"             # "auto" (scales with the rectangle) or explicit pixels, e.g. 16
-position = "center"       # Anchor within the window rectangle (same options as labels)
-opacity = 1.0             # Icon opacity (0.0 = transparent, 1.0 = opaque)
-# theme_override = "Papirus" # GTK icon theme name (defaults to system theme)
-min_window_size = 16      # Skip icons on rectangles smaller than this (minimap pixels)
+enabled = true
+size = "auto"
+position = "center"
+opacity = 1
+min_window_size = 16
 
 [behavior]
-show_on_overview = true        # Keep visible in Niri overview mode
-always_visible = false          # Always show minimap (false = only on focus change)
-hide_timeout_ms = 500         # Milliseconds before hiding after focus change
-show_for_floating_windows = false # When always_visible = false, surface the minimap for
-                                  # floating-window events (focus to/from a floating window,
-                                  # floating window spawn). Off by default since floating
-                                  # windows aren't drawn on the minimap.
+show_on_overview = true
+always_visible = false
+hide_timeout_ms = 500
+show_for_floating_windows = false
