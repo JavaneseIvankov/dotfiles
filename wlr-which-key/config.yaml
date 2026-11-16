@@ -23,6 +23,10 @@ inhibit_compositor_keyboard_shortcuts: true
 # Try to guess the correct keyboard layout to use.
 auto_kbd_layout: true
 
+# Keep matching keys while extra modifiers are still held (e.g. Super still
+# down after Super+E). Requires the forked build (feat/match-extra-modifiers).
+match_extra_modifiers: true
+
 menu:
   - key: "e"
     desc: Launch
