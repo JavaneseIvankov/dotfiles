@@ -136,10 +136,10 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + g` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard grid pointer navigation (`wl-kbptr`) |
 | `$MOD + Space` / `$MOD + Alt + i` | `voice:dictate` | `$DICTATION` | Dikte suara multi-bahasa (Groq Whisper Turbo, auto-detect Bahasa/English): Tap toggle, Hold push-to-talk |
 | `$MOD + Grave` / `$MOD + Alt + d` | `voice:dictate:en` | `$DICTATION_EN` | Dikte English instan (Parakeet TDT offline): Tap toggle, Hold push-to-talk |
-| `$MOD + m` (hold) / `$MOD + Shift + m` (toggle) | `view:minimap` | `$MINIMAP` | **Hold** = minimap tampil selama ditahan; **toggle** = tetap tampil sampai ditekan lagi |
+| `$MOD + m` | `view:minimap:toggle` | `$MINIMAP` | Tampilkan/sembunyikan minimap. **Manual-only:** tidak pernah muncul sendiri karena aktivitas (fokus, workspace, window baru) |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
 
-> *Catatan Minimap:* niri tidak punya binding *key-release*, jadi hold diimplementasikan di kanata: menahan `$MOD + m` mengirim fake key `F13` saat press dan `F14` saat release, yang masing-masing memanggil `~/scripts/nirimap-hold.sh hold-start` / `hold-end`. Proses `nirimap` dijalankan resident (`spawn-at-startup`) supaya show/hide ~25 ms, bukan cold start ~250 ms.
+> *Catatan Minimap:* overlay berjalan `manual_only = true`, jadi event niri (pindah fokus, ganti workspace, window baru) **tidak** memunculkannya; satu-satunya pemicu adalah kontrol eksplisit — `$MOD + m` atau `nirimapctl show|hide|toggle` (lihat `~/scripts/nirimap-ctl.sh`). Proses `nirimap` dijalankan resident (`spawn-at-startup`) supaya show/hide ~25 ms, bukan cold start ~250 ms. Semua jalur key memakai bind niri biasa; tidak ada fake key.
 > *Catatan Dikte:* Saat mikrofon sedang aktif merekam, menekan **`Escape`** (atau tap `Caps Lock`) akan membatalkan sesi secara kontekstual (*discard audio & abort* tanpa menyuntikkan teks).
 > *Catatan:* Utilitas file manager, file picker, renamer, dan toggle bar telah di-collapse ke dalam **Leader Menu (`$LEADER`)** di Section 5 untuk menghemat namespace tombol.
 

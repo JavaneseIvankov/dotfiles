@@ -1,12 +1,12 @@
 # plate — plat flexoki transparan biar rect kebaca di wallpaper terang
 
 [display]
-height = 80
+height = 50
 max_width_percent = 0.5
 max_height_percent = 0.8
 anchor = "top-center"
 margin_x = 10
-margin_y = 10
+margin_y = 4
 workspace_mode = "current"
 
 [appearance]

@@ -443,13 +443,9 @@ binds {
     Super+W repeat=false hotkey-overlay-title="Run Window Switcher: fuzzel" { spawn "fuzzel-utils" "switch"; }
     Super+E repeat=false hotkey-overlay-title="Leader Menu: wlr-which-key" { spawn "wlr-which-key"; }
 
-    // Minimap ($MINIMAP, nirimap fork). niri has no key-release bindings, so
-    // kanata emits fake keys: F13 on press, F14 on release, with $MOD still
-    // held. Hold = $MOD+m, toggle = $MOD+Shift+m (see specs/keymaps.md).
-    Super+F13 repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-hold.sh hold-start"; }
-    Super+Shift+F13 repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-hold.sh toggle"; }
-    Super+F14 repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-hold.sh hold-end"; }
-    F14 repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-hold.sh hold-end"; }
+    // Minimap ($MINIMAP, nirimap fork). manual_only = true: niri events never
+    // surface it, only the control socket does. $MOD+m = toggle.
+    Super+M repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-ctl.sh toggle"; }
     Super+Grave repeat=false hotkey-overlay-title="Dictation English (Parakeet: Fast)" { spawn "true"; }
     Super+Space repeat=false hotkey-overlay-title="Dictation Universal (Groq Whisper Turbo)" { spawn "true"; }
     Super+Alt+D repeat=false hotkey-overlay-title="Toggle Dictation English" { spawn "hyprwhspr" "record" "toggle"; }

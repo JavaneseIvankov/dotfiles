@@ -15,7 +15,6 @@
   h j k l
   u o p s
   w b
-  m
 )
 
 (deflayer base
@@ -23,7 +22,6 @@
   h j k l
   u o p s
   w b
-  m
 )
 
 (deflayer nav
@@ -31,7 +29,6 @@
   left down up   right
   C-z  bspc C-bspc _
   C-right C-left
-  _
 )
 
 (deflayer lalt-layer
@@ -39,7 +36,6 @@
   _    _    _    _
   _    _    _    _
   _    _
-  _
 )
 
 (deflayer ralt-layer
@@ -47,7 +43,6 @@
   _    _    _    _
   _    @o-act @p-act _
   _    _
-  @m-act
 )
 
 (deflayer dual-thumb
@@ -55,7 +50,6 @@
   _    _    _    _
   C-z  bspc C-bspc M-ret
   _    _
-  _
 )
 
 (defalias
@@ -66,19 +60,8 @@
   p-act (fork (multi (release-key lmet) C-bspc) p (lsft))
   c-esc (multi (release-key lmet) esc)
 
-  ;; NIRIMAP: $MOD + m (hold) / $MOD + Shift + m (toggle).
-  ;; niri has no key-release bindings, so press/release are emitted as fake
-  ;; keys: F13 on press, F14 on release. Modifiers stay held, so niri binds
-  ;; Super+F13 / Super+Shift+F13 / Super+F14.
-  m-act (multi (on-press-fakekey nm-holdstart tap) (on-release-fakekey nm-holdend tap))
-
   ;; Simple, repeatable Thumb Enter: unshift lalu kirim normal Enter
   th-ret (unshift ret)
-)
-
-(defvirtualkeys
-  nm-holdstart F13
-  nm-holdend F14
 )
 
 (defchordsv2
