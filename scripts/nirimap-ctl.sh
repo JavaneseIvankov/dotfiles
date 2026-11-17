@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Control the nirimap overlay (manual-only fork build).
 #
-#   nirimap-ctl.sh hold-start   # $MOD+m press: pin visible, arm the hold
-#   nirimap-ctl.sh hold-end     # $MOD+m release: hide, only if armed
-#   nirimap-ctl.sh toggle       # $MOD+Shift+m
+#   nirimap-ctl.sh hold-start   # $MOD+v press: pin visible, arm the hold
+#   nirimap-ctl.sh hold-end     # $MOD+v release: hide, only if armed
+#   nirimap-ctl.sh toggle       # $MOD+Shift+v
 #   nirimap-ctl.sh show|hide
 #   nirimap-ctl.sh stop
 #

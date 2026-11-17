@@ -15,7 +15,7 @@
   h j k l
   u o p s
   w b
-  m
+  v
 )
 
 (deflayer base
@@ -23,7 +23,7 @@
   h j k l
   u o p s
   w b
-  m
+  v
 )
 
 (deflayer nav
@@ -47,7 +47,7 @@
   _    _    _    _
   _    @o-act @p-act _
   _    _
-  @m-act
+  @v-act
 )
 
 (deflayer dual-thumb
@@ -66,13 +66,13 @@
   p-act (fork (multi (release-key lmet) C-bspc) p (lsft))
   c-esc (multi (release-key lmet) esc)
 
-  ;; NIRIMAP: $MOD + m (hold) / $MOD + Shift + m (toggle).
-  ;; niri has no key-release bindings, so the press passes through as m (niri
-  ;; binds $MOD+m / $MOD+Shift+m) and the release emits fake key Pause, which
+  ;; NIRIMAP: $MOD + v (hold) / $MOD + Shift + v (toggle).
+  ;; niri has no key-release bindings, so the press passes through as v (niri
+  ;; binds $MOD+v / $MOD+Shift+v) and the release emits fake key Pause, which
   ;; niri binds as $MOD+Pause -> hold-end. Pause carries the release instead of
   ;; a letter so no letter is ever synthesised, and niri's bare Print (screenshot)
   ;; stays untouched.
-  m-act (multi (on-release-fakekey nm-holdend tap) m)
+  v-act (multi (on-release-fakekey nm-holdend tap) v)
 
   ;; Simple, repeatable Thumb Enter: unshift lalu kirim normal Enter
   th-ret (unshift ret)

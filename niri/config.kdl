@@ -444,10 +444,10 @@ binds {
     Super+E repeat=false hotkey-overlay-title="Leader Menu: wlr-which-key" { spawn "wlr-which-key"; }
 
     // Minimap ($MINIMAP, nirimap fork). manual_only = true: niri events never
-    // surface it, only the control socket does. $MOD+m = toggle.
-    Super+M repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-ctl.sh hold-start"; }
-    Super+Shift+M repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-ctl.sh toggle"; }
-    // m released while $MOD is held: kanata emits fake key Pause, which arrives
+    // surface it, only the control socket does. $MOD+v = hold, $MOD+Shift+v = toggle.
+    Super+V repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-ctl.sh hold-start"; }
+    Super+Shift+V repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-ctl.sh toggle"; }
+    // v released while $MOD is held: kanata emits fake key Pause, which arrives
     // as $MOD+Pause. The helper's armed marker keeps the toggle's release (which
     // emits the same key) harmless.
     Super+Pause repeat=false hotkey-overlay-title=null { spawn-sh "~/scripts/nirimap-ctl.sh hold-end"; }
@@ -671,7 +671,7 @@ binds {
 
     // Move the focused window between the floating and the tiling layout.
     Super+Ctrl+V       { toggle-window-floating; }
-    Super+Shift+V { switch-focus-between-floating-and-tiling; }
+    Super+Shift+T { switch-focus-between-floating-and-tiling; }
 
     // Actions to switch layouts.
     // Note: if you uncomment these, make sure you do NOT have
