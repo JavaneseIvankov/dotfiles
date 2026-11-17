@@ -15,7 +15,6 @@
   h j k l
   u o p s
   w b
-  v
 )
 
 (deflayer base
@@ -23,7 +22,6 @@
   h j k l
   u o p s
   w b
-  v
 )
 
 (deflayer nav
@@ -31,7 +29,6 @@
   left down up   right
   C-z  bspc C-bspc _
   C-right C-left
-  _
 )
 
 (deflayer lalt-layer
@@ -39,15 +36,13 @@
   _    _    _    _
   _    _    _    _
   _    _
-  _
 )
 
 (deflayer ralt-layer
-  _    _    _    (layer-while-held dual-thumb) _ _ @c-esc _
+  _    _    _    (layer-while-held dual-thumb) _ _ @c-act _
   _    _    _    _
   _    @o-act @p-act _
   _    _
-  @v-act
 )
 
 (deflayer dual-thumb
@@ -55,7 +50,6 @@
   _    _    _    _
   C-z  bspc C-bspc M-ret
   _    _
-  _
 )
 
 (defalias
@@ -64,15 +58,15 @@
   r-lmet (multi lmet (layer-while-held ralt-layer))
   o-act (fork (multi (release-key lmet) bspc) o (lsft))
   p-act (fork (multi (release-key lmet) C-bspc) p (lsft))
-  c-esc (multi (release-key lmet) esc)
+  ;; $MOD + c no longer doubles as Escape: the position is free for NIRIMAP.
 
-  ;; NIRIMAP: $MOD + v (hold) / $MOD + Shift + v (toggle).
-  ;; niri has no key-release bindings, so the press passes through as v (niri
-  ;; binds $MOD+v / $MOD+Shift+v) and the release emits fake key Pause, which
+  ;; NIRIMAP: $MOD + c (hold) / $MOD + Shift + c (toggle).
+  ;; niri has no key-release bindings, so the press passes through as c (niri
+  ;; binds $MOD+c / $MOD+Shift+c) and the release emits fake key Pause, which
   ;; niri binds as $MOD+Pause -> hold-end. Pause carries the release instead of
   ;; a letter so no letter is ever synthesised, and niri's bare Print (screenshot)
   ;; stays untouched.
-  v-act (multi (on-release-fakekey nm-holdend tap) v)
+  c-act (multi (on-release-fakekey nm-holdend tap) c)
 
   ;; Simple, repeatable Thumb Enter: unshift lalu kirim normal Enter
   th-ret (unshift ret)

@@ -136,10 +136,10 @@ Hanya aksi peluncur berfrekuensi tinggi (reflex) yang dipertahankan di level fla
 | `$MOD + g` | `launch` | `$MOUSELESS_POINTER` | Aktifkan keyboard grid pointer navigation (`wl-kbptr`) |
 | `$MOD + Space` / `$MOD + Alt + i` | `voice:dictate` | `$DICTATION` | Dikte suara multi-bahasa (Groq Whisper Turbo, auto-detect Bahasa/English): Tap toggle, Hold push-to-talk |
 | `$MOD + Grave` / `$MOD + Alt + d` | `voice:dictate:en` | `$DICTATION_EN` | Dikte English instan (Parakeet TDT offline): Tap toggle, Hold push-to-talk |
-| `$MOD + v` | `view:minimap:toggle` | `$MINIMAP` | **Tap** = pin (tetap tampil), **tap lagi** = sembunyikan, **hold** = tampil hanya selama `v` ditahan. **Manual-only:** tidak muncul sendiri karena aktivitas (fokus, workspace, window baru) |
+| `$MOD + c` (hold) / `$MOD + Shift + c` (toggle) | `view:minimap:toggle` | `$MINIMAP` | **Hold** = tampil selama `c` ditahan; **toggle** = tetap tampil sampai ditekan lagi. **Manual-only:** tidak muncul sendiri karena aktivitas (fokus, workspace, window baru) |
 | `$MOD + Shift + /` | `help` | `show_hotkey_overlay` | Tampilkan overlay daftar shortcut |
 
-> *Catatan Minimap:* overlay berjalan `manual_only = true` (build fork), jadi event niri — pindah fokus, ganti workspace, window baru, layout berubah — **tidak** memunculkannya; pemicu hanya kontrol eksplisit: `$MOD + v` atau `nirimapctl show|hide|toggle` lewat `~/scripts/nirimap-ctl.sh`. `$MOD + Shift + v` sengaja tidak dipakai karena sudah menjadi `switch_focus_floating_tiling`; karena itu satu tombol `v` menangani dua gestur (tap = pin, hold = sementara) dengan bantuan timestamp di helper. Pelepasan `v` dikirim kanata sebagai fake key `Pause` (`$MOD + Pause` → `hold-end`) sebab niri tidak punya binding key-release; `Pause` dipilih agar tidak ada huruf yang disintesis dan `Print` (screenshot) tetap utuh.
+> *Catatan Minimap:* overlay berjalan `manual_only = true` (build fork), jadi event niri — pindah fokus, ganti workspace, window baru, layout berubah — **tidak** memunculkannya; pemicu hanya kontrol eksplisit: `$MOD + c`, `$MOD + Shift + c`, atau `nirimapctl show|hide|toggle` lewat `~/scripts/nirimap-ctl.sh`. Pelepasan `c` dikirim kanata sebagai fake key `Pause` (`$MOD + Pause` → `hold-end`) sebab niri tidak punya binding key-release; `Pause` dipilih agar tidak ada huruf yang disintesis dan `Print` (screenshot) tetap utuh. Alias kanata `c-esc` (yang dulu memetakan `$MOD + c` ke `Escape`) **dihapus** agar posisi `c` bebas; Escape tetap tersedia lewat tap `Caps Lock`, `Right Alt + c`, dan chord `j + k`. Proses `nirimap` resident (`spawn-at-startup`) sehingga show/hide ~25 ms.
 >
 > Karena niri tidak punya binding *key-release*, hold diimplementasikan di kanata: penekanan diteruskan sebagai `m` (niri: `$MOD + m` → `hold-start`), dan saat `m` dilepas kanata mengirim fake key `Pause` (niri: `$MOD + Pause` → `hold-end`). Huruf tidak dipakai sebagai carrier; `Pause` dipilih karena `Print` sudah dipakai untuk `screenshot-screen` dan function key tidak dicocokkan niri pada jalur ini. Helper memakai penanda *armed* supaya pelepasan pada combo toggle tidak membatalkan toggle. Proses `nirimap` resident (`spawn-at-startup`) sehingga show/hide ~25 ms, bukan cold start ~250 ms.
 > *Catatan Dikte:* Saat mikrofon sedang aktif merekam, menekan **`Escape`** (atau tap `Caps Lock`) akan membatalkan sesi secara kontekstual (*discard audio & abort* tanpa menyuntikkan teks).
@@ -205,7 +205,7 @@ Popup switcher berbasis riwayat fokus baru-baru ini:
 | Shortcut | Semantic Intent | Deskripsi |
 | :--- | :--- | :--- |
 | `$MOD + Tab` / `$MOD + n` | `recent_windows:next` | Pilih window berikutnya di daftar recent |
-| `$MOD + Shift + Tab` / `$MOD + p` / `$MOD + c` | `recent_windows:prev` | Pilih window sebelumnya di daftar recent |
+| `$MOD + Shift + Tab` / `$MOD + p` | `recent_windows:prev` | Pilih window sebelumnya di daftar recent (`$MOD + c` kini milik `$MINIMAP`) |
 
 ### 3.8. System, Session, & Hardware Fallbacks
 Hanya aksi level sistem fundamental yang dipertahankan di level flat:

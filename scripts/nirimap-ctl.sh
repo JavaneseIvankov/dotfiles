@@ -1,22 +1,20 @@
 #!/usr/bin/env bash
 # Control the nirimap overlay (manual-only fork build).
 #
-#   nirimap-ctl.sh hold-start   # $MOD+v press: pins it, or hides it if already pinned
-#   nirimap-ctl.sh hold-end     # $MOD+v release: hides after a hold, keeps a quick tap
-#   nirimap-ctl.sh toggle       # explicit toggle (manual use)
+#   nirimap-ctl.sh hold-start   # $MOD+c press: pin visible, arm the hold
+#   nirimap-ctl.sh hold-end     # $MOD+c release: hide, only if armed
+#   nirimap-ctl.sh toggle       # $MOD+Shift+c
 #   nirimap-ctl.sh show|hide
 #   nirimap-ctl.sh stop
 #
-# One key covers both gestures: a tap (< $NIRIMAP_TAP_MS) leaves the overlay
-# pinned, holding it brings it up only while held, and pressing again while it is
-# pinned hides it. That keeps $MOD+Shift+v free for the floating-layout switch.
+# nirimap runs with behavior.manual_only = true, so niri events never surface
+# it; only these commands do. A cold start costs ~250 ms, so show/hold-start
+# spawn a resident instance and wait for its control socket; after that every
+# command is ~25 ms.
 #
-# nirimap runs with behavior.manual_only = true, so niri events never surface it;
-# only these commands do. A cold start costs ~250 ms, so show/hold-start spawn a
-# resident instance and wait for its control socket; after that it is ~25 ms.
-#
-# The press timestamp marker is what lets release decide tap vs hold; kanata
-# emits the release as fake key Pause ($MOD+Pause), since niri has no key-release.
+# The armed marker exists because the release carrier ($MOD+Pause, emitted by
+# kanata) also fires for the toggle combo; without it a toggle would be
+# cancelled the moment the key is released.
 set -euo pipefail
 
 ctl="$(command -v nirimapctl || true)"
@@ -28,7 +26,6 @@ fi
 runtime="${XDG_RUNTIME_DIR:-/tmp}"
 socket="$runtime/nirimap.sock"
 marker="$runtime/nirimap-hold-armed"
-tap_ms="${NIRIMAP_TAP_MS:-250}"
 printf '%s %s\n' "$(date +%H:%M:%S.%3N)" "${1:-<none>}" >> /tmp/nirimap-ctl.log
 
 spawn() {
@@ -52,34 +49,14 @@ show() {
   fi
 }
 
-hidden() {
-  rm -f "$marker"
-  "$ctl" hide 2>/dev/null || true
-}
-
-visible() {
-  niri msg layers 2>/dev/null | grep -qi nirimap
-}
-
 case "${1:-}" in
   hold-start)
-    if visible; then
-      # Second press while pinned: this is a toggle-off. Mark the release inert.
-      printf 'consumed\n' > "$marker"
-      hidden
-    else
-      show
-      printf '%s\n' "$(date +%s%3N)" > "$marker"
-    fi
+    show
+    : > "$marker"
     ;;
   hold-end)
-    [ -e "$marker" ] || exit 0
-    read -r pressed < "$marker"
-    rm -f "$marker"
-    [ "$pressed" = consumed ] && exit 0
-    now="$(date +%s%3N)"
-    # A quick tap leaves it pinned; a real hold hides on release.
-    if [ "$((now - pressed))" -ge "$tap_ms" ]; then
+    if [ -e "$marker" ]; then
+      rm -f "$marker"
       "$ctl" hide 2>/dev/null || true
     fi
     ;;
@@ -87,7 +64,8 @@ case "${1:-}" in
     show
     ;;
   hide)
-    hidden
+    rm -f "$marker"
+    "$ctl" hide 2>/dev/null || true
     ;;
   toggle)
     rm -f "$marker"
