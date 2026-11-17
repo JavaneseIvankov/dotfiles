@@ -19,7 +19,7 @@ Bagian ini mendefinisikan transformasi tombol fisik laptop di level kernel/evdev
 | **`Right Alt`** | `Super` (Left Meta) | **WM Modifier (`$MOD`)** | Jempol kanan memegang kendali penuh Window Manager (0% ubah muscle memory) |
 | **`Super / Win`** | `Right Alt` (Mod1) | **In-App Alt** | Disediakan khusus saat aplikasi/terminal membutuhkan tombol `Alt` |
 | **`Caps Lock`** | `Escape` (tap) / Nav Modifier (held) | **Dual-Role Esc & Nav** | Tap untuk Escape instan (Vim); tahan untuk navigasi panah tanpa ghosting |
-| **`Right Alt + C`** | `Escape` | **Right-hand Escape** | Kombo chord escape satu tangan kanan (`defchordsv2`) |
+| ~~`Right Alt + C`~~ | — | **Dihapus** | Chord ini memakai posisi `ralt` (= tombol `Super`), jadi membajak `$MOD + c` yang kini milik `$MINIMAP`. Escape kanan tetap lewat `Right Alt + o/p` dan tap `Caps Lock`; (chord `j + k` tetap) |
 | **`j + k`** (Chord) | `Escape` | **Home-Row Fast Escape** | Tekan serentak (45ms) saat mengetik teks untuk memicu Escape tanpa menggeser jari dari home row (`defchordsv2`) |
 | **`Left Alt + Space`**| `Enter` (Repeatable) | **Thumb Enter** | Menekan Enter tanpa menjangkau kelingking kanan; native layer mapping (repeatable, tanpa batasan durasi/timeout) |
 
@@ -47,7 +47,6 @@ Aksi penghapusan teks cepat satu tangan kanan dialokasikan pada jempol kanan (`R
 | :--- | :--- | :--- | :--- | :--- |
 | **`Right Alt + o`** | `Backspace` | Kanan (Top Row) | Murni `Right Alt` (`fork`) | Hapus 1 karakter kiri (jari manis, sangat ergonomis) |
 | **`Right Alt + p`** | `Ctrl + Backspace` | Kanan (Top Row) | Murni `Right Alt` (`fork`) | Hapus 1 kata ke belakang (*word delete*, jari kelingking) |
-| **`Right Alt + c`** | `Escape` | Kanan (Bottom Row) | Murni `Right Alt` | Kombo Escape satu tangan kanan |
 
 *Keunggulan Arsitektur:*
 - **Bebas Foreshadowing:** Dilindungi oleh aturan `fork`, penekanan `Left Shift + Right Alt + O` akan langsung melepaskan aksi Backspace dan meneruskan kombinasi murni `Super + Shift + O` ke Niri untuk mengaktifkan `toggle-overview`.

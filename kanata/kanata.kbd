@@ -80,9 +80,6 @@
   ;; TAHAN KEDUA JEMPOL (lalt + ralt) -> Masuk ke layer dual-thumb mandiri
   (lalt ralt) (layer-while-held dual-thumb) 200 first-release ()
 
-  ;; ESCAPE KANAN: Tahan ralt + c -> Escape
-  (ralt c) esc 200 first-release ()
-
   ;; HOME-ROW CHORD JK -> Escape instan saat mengetik teks normal di base layer
   (j k) esc 45 first-release (nav ralt-layer dual-thumb)
 )
